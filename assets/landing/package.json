@@ -1,0 +1,26 @@
+{
+  "name": "landing-page-ttci",
+  "version": "1.0.0",
+  "description": "landing-page-ttci",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "node-sass --include-path scss scss/style.scss css/style.css",
+    "watch-css": "nodemon -e scss -x 'npm run build-css'",
+    "prod": "node-sass -include-path scss/style.scss css/style.css --output-style compressed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@code.nbs.co.id:parekraf/ttci-dashboard.git"
+  },
+  "author": "NBS",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^4.12.0",
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "@amcharts/amcharts4": "^4.9.35",
+    "@ttskch/select2-bootstrap4-theme": "^1.4.0",
+    "select2": "^4.0.13"
+  }
+}

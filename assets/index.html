@@ -1,0 +1,482 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>VISIT - Visualisasi & Integrasi TTCI</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="NBS" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="images/favicon.ico">
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+        <!-- Material Icon -->
+        <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
+
+        <!-- Plugin -->
+        <link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/owl.theme.default.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/select2.min.css">
+        <link rel="stylesheet" type="text/css" href="css/select2-bootstrap4.min.css">
+
+        <!-- Custom  sCss -->
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+        <style>
+            #chartdiv {
+                width: 100%;
+                height: 500px;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <!--Navbar Start-->
+        <nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky navbar-light sticky-dark">
+            <div class="container">
+                <!-- LOGO -->
+                <a class="logo text-uppercase" href="#">
+                    <img src="images/logo-light.png" class="logo-light" alt="" height="60">
+                    <img src="images/logo-dark.png" class="logo-dark" alt="" height="60">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav ml-auto navbar-center" id="mySidenav">
+                        <li class="nav-item active">
+                            <a href="#home" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#about" class="nav-link">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#faq" class="nav-link">FAQ</a>
+                        </li>
+                    </ul>
+                    <button class="btn btn-success btn-rounded navbar-btn" onclick="window.location='http://localhost/nusbet/ttci-dashboard/login2'">Login</button>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar End -->
+
+        
+        <!-- Hero section Start -->
+        <section class="hero-section-5" id="home"  style="background-image: url(images/bg.jpg);">
+            <div class="bg-overlay"></div>
+        </section>
+        <!-- Hero section End -->
+
+        <!-- Features start -->
+        <section class="section" id="report">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="text-center mb-5">
+                            <h5 class="text-primary text-uppercase small-title">Report</h5>
+                            <h4 class="mb-3">Travel & Tourism Competitiveness Index</h4>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 mb-5">
+                        <div id="chartdiv"></div>
+                    </div>
+
+                    <div class="col-xl-12 mb-5">
+                        <form action="" class="filter-search">
+                            <div class="form-group">
+                                <label for="formKementrian">Kementrian</label>
+                                <select name="kementrian" id="formKementrian" class="select-type">
+                                    <option value="">Pariwisata dan Ekonomi Kreatif</option>
+                                    <option value="">Agraria, Tata Ruang, dan Kehutanan</option>
+                                    <option value="">Perdagangan</option>
+                                    <option value="">Pendidikan dan Kebudayaan</option>
+                                    <option value="">Kesehatan</option>
+                                    <option value="">Komunikasi dan Informatika</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="formPillar">Pillar</label>
+                                <select name="pillar" id="formPillar" class="select-type">
+                                    <option value="">Cultural resources and business travel</option>
+                                    <option value="">Natural resources</option>
+                                    <option value="">Tourist service infrastructure</option>
+                                    <option value="">Ground and port infrastructure</option>
+                                    <option value="">Air transport infrastructure</option>
+                                    <option value="">Environmental sustainability</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="formTahun">Tahun</label>
+                                <select name="tahun" id="formTahun" class="select-type">
+                                    <option value="">2020</option>
+                                    <option value="">2019</option>
+                                    <option value="">2018</option>
+                                    <option value="">2017</option>
+                                    <option value="">2016</option>
+                                    <option value="">2015</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary">Filter</button>
+                        </form>
+                    </div>
+
+                    <div class="col-xl-12 mb-3">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label for="ministryTable" class="information-label">Kementrian</label>
+                                <div id="ministryTable" class="information-content">Pariwisata dan Ekonomi Kreatif</div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label for="valueTable" class="information-label">Value</label>
+                                <div id="valueTable" class="information-content">
+                                    <span class="table-statistic-up">8.8</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label for="progressTable" class="information-label">Progress Pengisian Data</label>
+                                <div id="progressTable" class="information-content d-flex align-items-center">
+                                    <div class="information-progress">
+                                        <div class="progress-count"
+                                            style="width: 80%">
+                                        </div>
+                                    </div>
+                                    <span>
+                                    80%
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12">
+                        <table class="table fold-table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Pillar</th>
+                                    <th>Subpillar</th>
+                                    <th>Score</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="view">
+                                    <td>1</td>
+                                    <td>Cultural resources and business travel</td>
+                                    <td>Cultural and entertainment tourism digital demand</td>
+                                    <td class="table-statistic-up">+0.04</td>
+                                    <td><span class="table-view-dropdown"></span></td>
+                                </tr>
+                                <tr class="fold">
+                                    <td class="fold-area" colspan="7">
+                                        <div class="fold-content">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Pillar</th>
+                                                    <th>Subpillar</th>
+                                                    <th>Score</th>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Cultural resources and business travel</td>
+                                                    <td>Cultural and entertainment tourism digital demand</td>
+                                                    <td class="table-statistic-up">+0.04</td>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Cultural resources and business travel</td>
+                                                    <td>Cultural and entertainment tourism digital demand</td>
+                                                    <td class="table-statistic-stack">+0.04</td>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Cultural resources and business travel</td>
+                                                    <td>Cultural and entertainment tourism digital demand</td>
+                                                    <td class="table-statistic-down">+0.04</td>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="view">
+                                    <td>2</td>
+                                    <td>ATMs per adults population</td>
+                                    <td>6535178</td>
+                                    <td>+0.04</td>
+                                    <td><span class="table-view-dropdown"></span></td>
+                                </tr>
+                                <tr class="fold">
+                                    <td class="fold-area" colspan="7">
+                                        <div class="fold-content">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Pillar</th>
+                                                    <th>Subpillar</th>
+                                                    <th>Score</th>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Cultural resources and business travel</td>
+                                                    <td>Cultural and entertainment tourism digital demand</td>
+                                                    <td>+0.04</td>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Cultural resources and business travel</td>
+                                                    <td>Cultural and entertainment tourism digital demand</td>
+                                                    <td>+0.04</td>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Cultural resources and business travel</td>
+                                                    <td>Cultural and entertainment tourism digital demand</td>
+                                                    <td>+0.04</td>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </section>
+        <!-- Features end -->
+
+        <!-- About start -->
+        <section class="section bg-primary-gradient" id="about">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="text-center mb-5">
+                            <h5 class="text-white text-uppercase small-title">About VISIT</h5>
+                            <h4 class="text-white mb-3">Apa itu VISIT?</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="row">
+                    <div class="col-ld-12">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus ea eligendi facere ipsum
+                            natus porro quod voluptates? Autem culpa deleniti dicta ea ex excepturi, in iste, possimus,
+                            quidem velit voluptates.</p>
+                        <p>Aspernatur eligendi fugit sit? Cupiditate debitis dolores enim est eum fugiat inventore,
+                            labore laborum nesciunt possimus quam quod recusandae rem, suscipit tenetur, veniam
+                            voluptatem. Asperiores distinctio nemo nesciunt nobis quidem!</p>
+                        <p>Architecto at culpa excepturi explicabo illo ipsa modi necessitatibus provident, quisquam
+                            reiciendis. A cum ea, enim error magnam necessitatibus neque quae quas quo repudiandae.
+                            Assumenda culpa cumque dignissimos illum nostrum.</p>
+                        <p>Ad aperiam autem cupiditate eius excepturi fugit repellat sapiente ut. Accusamus at aut, cum
+                            dicta dolores doloribus earum, explicabo hic nam officia optio perferendis possimus,
+                            praesentium quo veritatis! Similique, voluptatem?</p>
+                        <p>Alias aliquid amet aperiam deleniti eligendi enim eos error fuga fugit hic illo ipsa magnam
+                            modi nemo nesciunt perspiciatis placeat quaerat quam quas quo quos repellendus sed suscipit,
+                            tenetur unde?</p>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </section>
+        <!-- About end -->
+
+        <!-- FAQ start -->
+        <section class="section" id="faq">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="text-center mb-5">
+                            <h5 class="text-primary text-uppercase small-title">FAQ</h5>
+                            <h4 class="mb-3">Pertanyaan umum seputar VISIT</h4>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-8 col-lg-10">
+                        <div class="accordion" id="accordionFAQ">
+                            <div class="card">
+                                <div class="card-header" id="heading-1">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-accordion btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+                                            Collapsible Group Item #1
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordionFAQ">
+                                    <div class="card-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="heading-2">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-accordion btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+                                            Collapsible Group Item #2
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordionFAQ">
+                                    <div class="card-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="heading-3">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-accordion btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
+                                            Collapsible Group Item #3
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapse-3" class="collapse" aria-labelledby="heading-3" data-parent="#accordionFAQ">
+                                    <div class="card-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </section>
+        <!-- FAQ end -->
+
+        <!-- Footer alt start -->
+        <section class="bg-primary py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="float-sm-left">
+                            <a href="#">
+                                <img src="images/logo-light.png" alt="" height="60">
+                            </a>
+                        </div>
+                        <div class="float-sm-right mt-4 mt-sm-0">
+                            <p class="copyright-desc text-white mb-0">2020 © VISIT - Visualisasi & Integrasi TTCI</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </section>
+        <!-- Footer alt start -->
+
+        <!-- Javascript -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.easing.min.js"></script>
+        <script src="js/scrollspy.min.js"></script>
+        <script src="js/feather.min.js"></script>
+
+        <!-- Plugin -->
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/select2.min.js"></script>
+
+        <!-- AMCHART -->
+        <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+        <!-- app js -->
+        <script src="js/app.js"></script>
+
+        <!-- Chart code -->
+        <script>
+            am4core.ready(function() {
+
+                // Themes begin
+                am4core.useTheme(am4themes_animated);
+                // Themes end
+
+                /* Create chart instance */
+                var chart = am4core.create("chartdiv", am4charts.RadarChart);
+
+                var data = [];
+                var value1 = 500;
+                var value2 = 600;
+
+                for(var i = 0; i < 12; i++){
+                    let date = new Date();
+                    date.setMonth(i, 1);
+                    value1 -= Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 50);
+                    value2 -= Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 50);
+                    data.push({date:date, value1:value1, value2:value2})
+                }
+
+                chart.data = data;
+
+                /* Create axes */
+                var categoryAxis = chart.xAxes.push(new am4charts.DateAxis());
+
+                var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+                valueAxis.extraMin = 0.2;
+                valueAxis.extraMax = 0.2;
+                valueAxis.tooltip.disabled = true;
+
+                /* Create and configure series */
+                var series1 = chart.series.push(new am4charts.RadarSeries());
+                series1.dataFields.valueY = "value1";
+                series1.dataFields.dateX = "date";
+                series1.strokeWidth = 3;
+                series1.tooltipText = "{valueY}";
+                series1.name = "2019";
+                series1.bullets.create(am4charts.CircleBullet);
+                series1.dataItems.template.locations.dateX = 0.5;
+
+                var series2 = chart.series.push(new am4charts.RadarSeries());
+                series2.dataFields.valueY = "value2";
+                series2.dataFields.dateX = "date";
+                series2.strokeWidth = 3;
+                series2.tooltipText = "{valueY}";
+                series2.name = "2020";
+                series2.bullets.create(am4charts.CircleBullet);
+                series2.dataItems.template.locations.dateX = 0.5;
+
+                // chart.scrollbarX = new am4core.Scrollbar();
+                // chart.scrollbarY = new am4core.Scrollbar();
+
+                chart.cursor = new am4charts.RadarCursor();
+
+                chart.legend = new am4charts.Legend();
+
+            }); // end am4core.ready()
+        </script>
+    </body>
+
+</html>

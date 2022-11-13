@@ -1,0 +1,124 @@
+
+
+//@import url('https://fonts.googleapis.com/css?family=Rubik:400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+$primary:   #16345D;
+$primary2:  #0e213b;
+$primary-gold: #cc8b36;
+$success:   #34D1BF;
+$info:      #57B8FF;
+$warning:   #FBB13C;
+$danger:    #FE6847;
+$purple:    #6f509c;
+$purple-2:  #6E509C;
+$pink:      #d5337c;
+$orange:    #ef7e30;
+$blue:      #0085cd;
+$green:     #6cb42c;
+$white:     #ffffff;
+$dark:      #343a40;
+$light:     #f8fafe;
+$muted:     #a0a9b1;
+
+// stylelint-disable
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #efefef;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+$colors: (
+    "primary": $primary,
+    "primary2": $primary2,
+    "primary-gold": $primary-gold,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "dark": $dark,
+    "muted": $muted,
+    "purple": $purple,
+    "pink": $pink,
+    "white": $white,
+    "light": $light
+);
+
+$body-color:  #a0a9b1;
+
+$footer-bg:   $primary;
+
+$font-size-base : .9rem;
+
+$box-shadow:   0px 8px 35px 0px  rgba($gray-700, .05);
+
+$responsive-breakpoint: 991px;
+
+
+$font-family-primary: 'Poppins', sans-serif;
+
+// Secondary font
+$font-family-secondary: 'Poppins', sans-serif;
+
+$font-icon : "Material Design Icons";
+
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+@mixin gradientPurplePink {
+    background: rgba($purple,1);
+    background: -moz-linear-gradient(90deg, rgba($purple,1) 0%, rgba($pink,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba($purple,1) 0%, rgba($pink,1) 100%);
+    background: linear-gradient(90deg, rgba($purple,1) 0%, rgba($pink,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="$purple",endColorstr="$pink",GradientType=1);
+}
+
+@mixin gradientOrangePink {
+    background: rgba($orange,1);
+    background: -moz-linear-gradient(90deg, rgba($orange,1) 0%, rgba($pink,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba($orange,1) 0%, rgba($pink,1) 100%);
+    background: linear-gradient(90deg, rgba($orange,1) 0%, rgba($pink,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="$orange",endColorstr="$pink",GradientType=1);
+}
+
+@mixin gradientGreenBlue {
+    background: rgba($green,1);
+    background: -moz-linear-gradient(90deg, rgba($green,1) 0%, rgba($blue,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba($green,1) 0%, rgba($blue,1) 100%);
+    background: linear-gradient(90deg, rgba($green,1) 0%, rgba($blue,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="$green",endColorstr="$blue",GradientType=1);
+}
+
+@mixin gradientBluePurple {
+    background: rgba($blue,1);
+    background: -moz-linear-gradient(90deg, rgba($blue,1) 0%, rgba($purple,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba($blue,1) 0%, rgba($purple,1) 100%);
+    background: linear-gradient(90deg, rgba($blue,1) 0%, rgba($blue-dark,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="$blue",endColorstr="$purple",GradientType=1);
+}
+
+@mixin respond ($breakpoint) {
+
+    // $breakpoint is simply a variable that can have several values
+
+    @if $breakpoint==tablet {
+
+        // here `laptop` is the value of $breakpoint
+        // when call laptop, we mean the following piece of code
+
+        @media (max-width: 991px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint==dashboard {
+        @media only screen and (max-width: 1024px) {
+            @content;
+        }
+    }
+}

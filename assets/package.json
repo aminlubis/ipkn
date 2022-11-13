@@ -1,0 +1,26 @@
+{
+  "name": "dashboard-page-ttci",
+  "version": "1.0.0",
+  "description": "dashboard-page-ttci",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "node-sass --include-path scss scss/ttci-custom.scss css/ttci-custom.css",
+    "watch-css": "nodemon -e scss -x npm run build-css",
+    "build-landing-css": "node-sass --include-path scss scss/new-landing-custom.scss css/new-landing-custom.css",
+    "watch-landing-css": "nodemon -e scss -x npm run build-landing-css",
+    "prod": "node-sass -include-path scss/ttci-custom.scss css/ttci-custom.css --output-style compressed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@code.nbs.co.id:parekraf/ttci-dashboard.git"
+  },
+  "author": "NBS",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^4.12.0",
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0"
+  }
+}

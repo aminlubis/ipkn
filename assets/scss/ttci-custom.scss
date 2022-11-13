@@ -1,0 +1,132 @@
+@import "../landing/scss/variables";
+
+.kt-aside {
+    background: $primary;
+    &__brand {
+        background: $primary;
+    }
+}
+
+.kt-subheader {
+    &__main {
+        margin-left: 16px;
+        @include respond(dashboard) {
+            margin-left: 0;
+        }
+    }
+
+    &__title {
+        color: $white !important;
+        @include respond(dashboard) {
+            color: $primary !important;
+        }
+    }
+}
+
+.kt-footer {
+    &__copyright {
+        margin-left: 16px !important;
+    }
+}
+
+.table {
+    th, td {
+        font-size: 14px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+}
+
+.kt-wizard-v3 .kt-wizard-v3__nav .kt-wizard-v3__nav-items {
+    align-items: flex-start !important;
+    position: relative;
+
+    .kt-wizard-v3__nav-item {
+        flex: 1;
+        padding-bottom: 16px;
+
+        .kt-wizard-v3__nav-body {
+            .kt-wizard-v3__nav-label {
+                position: relative;
+                padding-left: 40px;
+
+                span {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 32px;
+                    height: 32px;
+                    -webkit-border-radius: 50%;
+                    -moz-border-radius: 50%;
+                    border-radius: 50%;
+                    background: $gray-600;
+                    color: $white;
+                    padding-top: 6px;
+                    text-align: center;
+                }
+            }
+
+            .kt-wizard-v3__nav-bar {
+                position: absolute !important;
+                bottom: 0;
+            }
+        }
+    }
+
+
+    .kt-wizard-v3__nav-item[data-ktwizard-state="current"] {
+        .kt-wizard-v3__nav-body .kt-wizard-v3__nav-label span {
+            background: $pink;
+        }
+
+        .kt-wizard-v3__nav-body {
+            color: $pink !important;
+
+            .kt-wizard-v3__nav-bar:after {
+                background: $pink !important;
+            }
+        }
+    }
+
+    .kt-wizard-v3__nav-item[data-ktwizard-state="done"] .kt-wizard-v3__nav-body .kt-wizard-v3__nav-bar {
+        background: $pink !important;
+    }
+}
+
+.kt-wizard-v2 .kt-wizard-v2__wrapper .kt-form {
+    width: 100% !important;
+}
+
+.kt-wizard-v2 .kt-wizard-v2__aside .kt-wizard-v2__nav .kt-wizard-v2__nav-items .kt-wizard-v2__nav-item[data-ktwizard-state="current"] .kt-wizard-v2__nav-icon  {
+    color: $purple-2 !important;
+}
+
+.kt-wizard-v2 .kt-wizard-v2__wrapper .kt-form .kt-form__actions [data-ktwizard-type="action-next"] {
+    background: $primary;
+    color: $white;
+
+    &:hover, &:focus {
+        background: darken($primary, 10%);
+        border: 1px solid transparent;
+    }
+}
+
+// RESPONSIVE
+
+@include respond(dashboard) {
+    .kt-header-mobile {
+        background: $primary;
+    }
+
+    .kt-header-mobile .kt-header-mobile__toolbar .kt-header-mobile__toggler span {
+        background: rgba($white, 0.8) !important;
+
+        &:before, &:after {
+            background: rgba($white, 0.8) !important;
+        }
+    }
+
+    .kt-header-mobile .kt-header-mobile__toolbar .kt-header-mobile__topbar-toggler i {
+        color: rgba($white, 0.8);
+    }
+}

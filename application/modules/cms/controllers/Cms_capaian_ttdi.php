@@ -29,9 +29,12 @@ class Cms_capaian_ttdi extends MX_Controller {
         $data = array(
             'title' => $this->title,
             'breadcrumbs' => $this->breadcrumbs->show(),
-            'index' => $this->db->get('ipkn_mst_subindex')->result(),
+            'index' => $this->db->get('mst_index')->result(),
             'provinces' => $this->db->get('mst_provinces')->result(),
+            'value' => $this->db->get_where('cms_capaian_ttdi', array('year' => date('Y'))),
         );
+
+        // echo '<pre>';print_r($data['value']->result());die;
         // save log
         $this->logs->save($this->title, $this->session->userdata('user')->user_id, 'user access '.$this->title.'', json_encode($data) , '' ,$this->session->userdata('user')->user_id,$this->session->userdata('user')->fullname);
         /*load view index*/
@@ -121,16 +124,21 @@ class Cms_capaian_ttdi extends MX_Controller {
 
     public function process()
     {
-    //    print_r($_FILES);die;
+        
         $this->load->library('form_validation');
         $val = $this->form_validation;
-        $val->set_rules('section_id', 'Section', 'trim|required');
-        $val->set_rules('content_title', 'Judul', 'trim|required');
-        $val->set_rules('content_subtitle', 'Sub Judul', 'trim|required');
-        $val->set_rules('content_owner', 'Author', 'trim|required');
-        $val->set_rules('content_description', 'Deskripsi', 'trim|required');
-        $val->set_rules('content_view_count', 'Jumlah Viewer', 'trim|required');
-        $val->set_rules('content_publish_date', 'Tgl Publish', 'trim|required');
+
+        foreach ($_POST['country'] as $key => $value) {
+            # code...
+            if(!empty($value)){
+                $val->set_rules('rank['.$key.']', 'Ranking '.$value.'', 'trim|required');
+                $val->set_rules('score_ttdi['.$key.']', 'Skor TTDI '.$value.'', 'trim|required');
+                $val->set_rules('score_index_1['.$key.']', 'Skor Sub Index 1 '.$value.'', 'trim|required');
+                $val->set_rules('score_index_2['.$key.']', 'Skor Sub Index 2 '.$value.'', 'trim|required');
+                $val->set_rules('score_index_3['.$key.']', 'Skor Sub Index 3 '.$value.'', 'trim|required');
+                $val->set_rules('score_index_4['.$key.']', 'Skor Sub Index 4 '.$value.'', 'trim|required');
+            }
+        }
 
         $val->set_message('required', "Silahkan isi field \"%s\"");
 
@@ -143,51 +151,33 @@ class Cms_capaian_ttdi extends MX_Controller {
         {                       
             $this->db->trans_begin();
             $id = ($this->input->post('id'))?$this->regex->_genRegex($this->input->post('id'),'RGXINT'):0;
-
-            $dataexc = array(
-                'section_id' => $this->regex->_genRegex($val->set_value('section_id'), 'RGXQSL'),
-                'content_subtitle' => $this->regex->_genRegex($val->set_value('content_subtitle'), 'RGXQSL'),
-                'content_title' => $this->regex->_genRegex($val->set_value('content_title'), 'RGXQSL'),
-                'content_owner' => $this->regex->_genRegex($val->set_value('content_owner'), 'RGXQSL'),
-                'content_description' => $this->regex->_genRegex($val->set_value('content_description'), 'RGXQSL'),
-                'content_view_count' => $this->regex->_genRegex($val->set_value('content_view_count'), 'RGXINT'),
-                'content_publish_date' => $this->regex->_genRegex($val->set_value('content_publish_date'), 'RGXQSL'),
-                'is_active' => $this->input->post('is_active'),
-            );
-
-            // upload attachment
-            if(isset($_FILES['content_cover']['name'])){
-                $dataexc['content_cover'] = $this->upload_file->upload_single_blob('content_cover');
+            
+            // delete first
+            $this->db->delete('cms_capaian_ttdi', array('year' => $_POST['tahun']));
+            foreach ($_POST['country'] as $key => $value) {
+                # code...
+                if(!empty($value)){
+                    $dataexc[] = array(
+                        'year' => $this->regex->_genRegex($_POST['tahun'], 'RGXQSL'),
+                        'country_name' => $this->regex->_genRegex($value, 'RGXQSL'),
+                        'rank' => $this->regex->_genRegex($_POST['rank'][$key], 'RGXQSL'),
+                        'score_ttdi' => $this->regex->_genRegex($_POST['score_ttdi'][$key], 'RGXQSL'),
+                        'index_1' => $this->regex->_genRegex($_POST['score_index_1'][$key], 'RGXQSL'),
+                        'index_2' => $this->regex->_genRegex($_POST['score_index_2'][$key], 'RGXQSL'),
+                        'index_3' => $this->regex->_genRegex($_POST['score_index_3'][$key], 'RGXQSL'),
+                        'index_4' => $this->regex->_genRegex($_POST['score_index_4'][$key], 'RGXQSL'),
+                        'is_active' => isset($_POST['is_active'][$key]) ? 'Y' : 'N',
+                        'created_date' => date('Y-m-d H:i:s'),
+                        'created_by' => json_encode(array('user_id' =>$this->regex->_genRegex($this->session->userdata('user')->user_id,'RGXINT'), 'fullname' => $this->regex->_genRegex($this->session->userdata('user')->fullname,'RGXQSL'))),
+                        'created_date' => date('Y-m-d H:i:s'),
+                        'created_by' => json_encode(array('user_id' =>$this->regex->_genRegex($this->session->userdata('user')->user_id,'RGXINT'), 'fullname' => $this->regex->_genRegex($this->session->userdata('user')->fullname,'RGXQSL'))),
+                    );
+                }
+                
             }
+            $this->db->insert_batch('cms_capaian_ttdi', $dataexc);
 
             // print_r($dataexc);die;
-            if($id==0){
-                $dataexc['created_date'] = date('Y-m-d H:i:s');
-                $dataexc['created_by'] = json_encode(array('user_id' =>$this->regex->_genRegex($this->session->userdata('user')->user_id,'RGXINT'), 'fullname' => $this->regex->_genRegex($this->session->userdata('user')->fullname,'RGXQSL')));
-                /*save post data*/
-                $newId = $this->Cms_capaian_ttdi->save($dataexc);
-                /*save logs*/
-                $this->logs->save('Cms_capaian_ttdi', $newId, 'insert new record on '.$this->title.' module', json_encode($dataexc),'content_id');
-            }else{
-                $dataexc['updated_date'] = date('Y-m-d H:i:s');
-                $dataexc['updated_by'] = json_encode(array('user_id' =>$this->regex->_genRegex($this->session->userdata('user')->user_id,'RGXINT'), 'fullname' => $this->regex->_genRegex($this->session->userdata('user')->fullname,'RGXQSL')));
-                /*update record*/
-                $this->Cms_capaian_ttdi->update(array('content_id' => $id), $dataexc);
-                $newId = $id;
-                /*save logs*/
-                $this->logs->save('Cms_capaian_ttdi', $newId, 'update record on '.$this->title.' module', json_encode($dataexc),'content_id');
-            }
-
-            // upload multiple file
-            /*insert dokumen adjusment*/
-            if(isset($_FILES['file_upload'])){
-                $this->upload_file->upload_multiple_file_blob(array(
-                    'doc_name' => 'document_name',
-                    'name' => 'file_upload',
-                    'ref_id' => $newId,
-                    'ref_table' => 'cms_content',
-                ));
-            }
 
             if ($this->db->trans_status() === FALSE)
             {

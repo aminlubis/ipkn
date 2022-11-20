@@ -41,25 +41,25 @@ final Class upload_file {
 
     }
 
-    function getUploadedFile($wp_id){
+    function getUploadedFile($id, $table){
 
         $CI =&get_instance();
         $db = $CI->load->database('default', TRUE);
 
         $html = '';
-        $db->where('wp_id', $wp_id);
-        $files = $db->get('web_attachment')->result();
+        $db->where('relation_id', $id);
+        $db->where('relation_tbl', $table);
+        $files = $db->get('cms_attachment')->result();
+        // echo '<pre>'; print_r($db->last_query());die;
 
-        $html = '<h3><b><i class="fa fa-file"></i> Attachment Files</b></h3> <br>';
+        $html = '<b><i class="fa fa-file"></i> Attachment Files</b><br>';
         $html .= '<table id="attc_table_id" class="table table-striped table-bordered">';
-        $html .= '<tr style="background-color:#ec2028; color:white">';
+        $html .= '<tr style="background-color:#c19542; color:white">';
             $html .= '<th width="30px" class="center">No</th>';
-            $html .= '<th width="100px">Title</th>';
-            $html .= '<th width="100px">Owner</th>';
-            $html .= '<th width="100px">Filename</th>';
-            $html .= '<th width="70px" class="center">Size</th>';
-            $html .= '<th width="100px" class="center">Type</th>';
-            $html .= '<th width="100px">Created Date</th>';
+            $html .= '<th width="100px">Nama Dokumen</th>';
+            $html .= '<th width="70px" class="center">Ukuran File</th>';
+            $html .= '<th width="100px" class="center">Tipe File</th>';
+            $html .= '<th width="100px">Tanggal Upload</th>';
             $html .= '<th width="60px" class="center">Download</th>';
             $html .= '<th width="60px" class="center">Delete</th>';
         $html .= '</tr>';
@@ -67,18 +67,16 @@ final Class upload_file {
         if(count($files) > 0){
             foreach ($files as $key => $row_list) {
                 # code...
-                $html .= '<tr id="tr_id_'.$row_list->wa_id.'">';
+                $html .= '<tr id="tr_id_'.$row_list->id.'">';
                     $html .= '<td align="center">'.$no.'</td>';
-                    $html .= '<td align="left">'.$row_list->wa_name.'</td>';
-                    $html .= '<td align="left">'.$row_list->wa_owner.'</td>';
-                    $html .= '<td align="left">'.$row_list->wa_filename.'</td>';
-                    $size_to_kb = $row_list->wa_size / 1024;
-                    $html .= '<td align="center">'.number_format($size_to_kb).' KB</td>';
-                    $html .= '<td align="center">'.$row_list->wa_type.'</td>';
+                    $html .= '<td align="left">'.$row_list->document_name.'</td>';
+                    $size_to_kb = $row_list->file_size / 1024;
+                    $size = ($size_to_kb > 1) ? number_format($size_to_kb, 2).' MB' : number_format($row_list->file_size, 2).' KB';
+                    $html .= '<td align="center">'.$size.'</td>';
+                    $html .= '<td align="center">'.$row_list->file_type.'</td>';
                     $html .= '<td align="center">'.$row_list->created_date.'</td>';
-                    $html .= '<td align="center"><a href="Templates/Attachment/download_attachment?fname='.$row_list->wa_fullpath.'" style="color:red">Download</a></td>';
-                    //$html .= '<td align="center"><a href="#" class="delete_attachment" data-id="'.$row_list->wa_id.'"><i class="fa fa-times-circle red"></i></a></td>';
-                    $html .= '<td align="center"><a href="#" class="delete_attachment" onclick="delete_attachment('.$row_list->wa_id.')"><i class="fa fa-times-circle red"></i></a></td>';
+                    $html .= '<td align="center"><a href="#" target="_blank" style="color:red">Download</a></td>';
+                    $html .= '<td align="center"><a href="#" class="delete_attachment" onclick="delete_attachment('.$row_list->id.')"><i class="fa fa-times-circle red"></i></a></td>';
                 $html .= '</tr>';
             $no++;
             }
@@ -96,7 +94,7 @@ final Class upload_file {
 
     }
 
-    function doUploadMultiple($params)
+    function upload_multiple_file_blob($params)
     {
         $CI =&get_instance();
         $db = $CI->load->database('default', TRUE);
@@ -117,11 +115,10 @@ final Class upload_file {
 
               $config = array(
                 'allowed_types' => '*',
-                'file_name'     => $unique_file_name,
-                'max_size'      => '999999',
+                'upload_path'   => './uploaded/files/',
+                // 'max_size'      => '999999',
                 'overwrite'     => TRUE,
                 'remove_spaces' => TRUE,
-                'upload_path'   => $params['path']
               );
 
               $CI->upload->initialize($config);
@@ -132,25 +129,33 @@ final Class upload_file {
                     $error = array('error' => $CI->upload->display_errors());
                   else :
 
-                    $data = array( 'upload_data' => $CI->upload->data() );
-                    /*cek attchment exist*/
+                    $image_data = $CI->upload->data();
+                    $imgdata = file_get_contents($image_data['full_path']);
                     
-                    $datainsertattc = array(
-                        'file_name' => $unique_file_name,
-                        'size' => $_FILES[$params['name']]['size'][$i],
-                        'type' => $type_file,
-                        'file_url' => $params['path'].$unique_file_name,
+                    $dataexc = array(
+                        'document_name' => $_POST[$params['doc_name']][$i],
+                        'relation_id' => $params['ref_id'],
+                        'relation_tbl' => $params['ref_table'],
+                        'file_type' => $CI->upload->data('file_type'),
+                        'file_size' => $CI->upload->data('file_size'),
+                        'file_name' =>  $CI->upload->data('file_name'),
+                        'file_content' => $imgdata,
                     );
                     
-                    $getData[] = $datainsertattc;
+                    $db->insert('cms_attachment', $dataexc);
+                    unlink($image_data['full_path']);
+
+                    $getData[] = $dataexc;
 
                   endif;
+
 
               }
                 
             }
 
-            return $getData;
+
+        return $getData;
     }
 
     function check_existing($params){
@@ -173,8 +178,68 @@ final Class upload_file {
 
     }
 
+    function process_upload_blob($params)
+	{
 
-	   
+        $CI =& get_instance();
+        $db = $CI->load->database('default', TRUE);
+
+        $config = array();
+		$config['upload_path']          = './uploaded/files/';
+		$config['allowed_types']        = 'gif|jpg|png|pdf|xls|xlsx|jpeg';
+		$config['max_size']             = 1000;
+		$CI->load->library('upload', $config);
+		if ( ! $CI->upload->do_upload('file'))
+		{
+				$error = array('error' => $CI->upload->display_errors());
+                print_r($error); exit;
+		}
+		else
+		{
+			$image_data = $CI->upload->data();
+			$imgdata = file_get_contents($image_data['full_path']);
+			// $file_encode=base64_encode($imgdata);
+			$data['refid'] = $params['refid'];
+			$data['reftable'] = $params['reftable'];
+			$data['jenis'] = $params['jenis'];
+			$data['tipe'] = $CI->upload->data('file_type');
+			$data['ukuran'] = $CI->upload->data('file_size');
+			$data['file_attachment'] = $imgdata;
+			$data['nama_file'] =  $CI->upload->data('file_name');
+			$data['npwpd'] =  $params['npwpd'];
+			$data['noktp'] =  $params['noktp'];
+			$data['dtmCreated'] = date('Y-m-d H:i:s');
+			$db->insert('t_fileattachment',$data);
+			unlink($image_data['full_path']);
+			return true;
+		}
+	}
+
+    function upload_single_blob($filename)
+	{
+
+        $CI =& get_instance();
+        $db = $CI->load->database('default', TRUE);
+
+        $config = array();
+		$config['upload_path']          = './uploaded/files/';
+		$config['allowed_types']        = 'gif|jpg|png|pdf|xls|xlsx|jpeg';
+		// $config['max_size']             = 1000;
+		$CI->load->library('upload', $config);
+		if ( ! $CI->upload->do_upload($filename))
+		{
+				$error = array('error' => $CI->upload->display_errors());
+                print_r($error); exit;
+		}
+		else
+		{
+			$image_data = $CI->upload->data();
+			$imgdata = file_get_contents($image_data['full_path']);
+			unlink($image_data['full_path']);
+			return $imgdata;
+		}
+	}
+   
 }
 
 ?>

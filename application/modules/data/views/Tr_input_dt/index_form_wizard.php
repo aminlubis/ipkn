@@ -19,7 +19,7 @@ $(document).ready(function(){
           $.achtung({message: jsonResponse.message, timeout:5});
           $('#page-area-content').load('<?php echo base_url()?>data/Tr_input_dt?dh_id=<?php echo isset($dt_header)?$dt_header->dh_id:0?>');
         }else{
-          $.achtung({message: jsonResponse.message, timeout:5});
+          $.achtung({message: jsonResponse.message, timeout:5, className:'achtungFail'});
         }
         achtungHideLoader();
       }

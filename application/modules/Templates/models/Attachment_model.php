@@ -3,10 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Attachment_model extends CI_Model {
 
-	var $table = 't_gallery';
-	var $column = array('t_gallery.id');
-	var $select = 't_gallery.*';
-	var $order = array('t_gallery.id' => 'DESC');
+	var $table = 'cms_attachment';
+	var $column = array('cms_attachment.id');
+	var $select = 'cms_attachment.*';
+	var $order = array('cms_attachment.id' => 'DESC');
 
 	public function __construct()
 	{
@@ -83,9 +83,9 @@ class Attachment_model extends CI_Model {
 
 	public function get_attachment_by_params($params)
 	{
-		$this->db->from('t_gallery');
-		$this->db->where('t_gallery.ref_table', $params['ref_table']);
-		$this->db->where_in('t_gallery.ref_id', $params['ref_id']);
+		$this->db->from('cms_attachment');
+		$this->db->where('cms_attachment.ref_table', $params['ref_table']);
+		$this->db->where_in('cms_attachment.ref_id', $params['ref_id']);
 		return $this->db->get()->result();		
 	}
 
@@ -116,17 +116,8 @@ class Attachment_model extends CI_Model {
 
 	public function delete_attachment_by_id($id)
 	{
-		$get_data = $this->db->get_where('t_gallery', array('id'=>$id))->row();
-		//print_r($get_data->fullpath);die;
-		if (file_exists($get_data->url_link)) {
-			unlink($get_data->url_link);
-		}
-		if (file_exists($get_data->thumnail_link)) {
-			unlink($get_data->thumnail_link);
-		}
-		$this->db->where('t_gallery.id', $id);
-		return $this->db->delete('t_gallery');
-
+		$this->db->where('cms_attachment.id', $id);
+		return $this->db->delete('cms_attachment');
 		
 	}
 

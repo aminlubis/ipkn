@@ -11,12 +11,12 @@ function achtungClose(achtungBox) {
 }
 
 function achtungShowLoader() {
-    var loader = '<img src="../assets/js/achtung/ajax-loader.gif" /><p style="color:#FFF!important">Data sedang di Proses, Silahkan tunggu.</p>';
+    var loader = '<img src="assets/js/achtung/ajax-loader.gif" /><p style="color:#FFF!important">Data sedang di Proses, Silahkan tunggu.</p>';
     achtungLoader = achtungCreate(loader, true);
 }
 
 function achtungShowLoaderLoad() {
-    var loader = '<img src="../assets/js/achtung/ajax-loader.gif" /><p style="color:#FFF!important">Loading Halaman</p>';
+    var loader = '<img src="assets/js/achtung/ajax-loader.gif" /><p style="color:#FFF!important">Loading Halaman</p>';
     achtungLoader = achtungCreate(loader, true);
 }
 

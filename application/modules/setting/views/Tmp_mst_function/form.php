@@ -15,7 +15,7 @@ $(document).ready(function(){
           $.achtung({message: jsonResponse.message, timeout:5});
           $('#page-area-content').load('<?php echo base_url()?>setting/Tmp_mst_function?_=' + (new Date()).getTime());
         }else{
-          $.achtung({message: jsonResponse.message, timeout:5});
+          $.achtung({message: jsonResponse.message, timeout:5, className:'achtungFail'});
         }
         achtungHideLoader();
       }

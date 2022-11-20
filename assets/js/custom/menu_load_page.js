@@ -1,3 +1,4 @@
+var doc_root = 'kemenparekraf/ipkn';
 var loading = "<center><img src='../assets/plugins/global/images/loading.gif' style='width:150px;padding-top:200px;cursor:auto;z-index:15;'/></center>";
 
 $('#message_notification').click(function() {
@@ -19,7 +20,7 @@ function getMenu(link)
 {
     
     preventDefault();
-    $('#page-area-content').load(window.origin+"/kemenparekraf/apps/"+link);
+    $('#page-area-content').load(window.origin+"/"+doc_root+"/"+link);
 }
 
 function getMenuTabs(link, tabs_id)
@@ -48,9 +49,9 @@ function getMenuTabs(link, tabs_id)
 function delete_attachment(myid){
     if(confirm('Are you sure?')){
       $('#tr_id_'+myid+'').hide();
-      
+      preventDefault();
       $.ajax({
-          url: 'Templates/Attachment/delete_attachment',
+          url: doc_root+'/Templates/Attachment/delete_attachment',
           type: "post",
           data: {ID:myid},
           dataType: "json",
@@ -65,7 +66,6 @@ function delete_attachment(myid){
             if(jsonResponse.status === 200){
               $.achtung({message: jsonResponse.message, timeout:5});
               $('#attc_table_id tbody tr #'+myid+'').hide();
-              reload_table();
             }else{
               $.achtung({message: jsonResponse.message, timeout:5});
             }

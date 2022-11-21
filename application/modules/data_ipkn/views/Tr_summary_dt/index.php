@@ -195,9 +195,11 @@ tr>*:last-child {
                   foreach($row_subindex as $key_pillar => $row_pillar){
                     foreach ($row_pillar as $key_indicator => $row_indicator) {
                       # code...
-                      $getrow = $summary[$value_prov->id][$row_indicator->indicator_id];
-                      echo '<td>'.number_format($getrow->value, 2).'</td>';
-                      echo '<td>'.number_format($getrow->score, 2).'</td>';
+                      $getrow = isset($summary[$value_prov->id][$row_indicator->indicator_id])?$summary[$value_prov->id][$row_indicator->indicator_id]:'';
+                      $value_dt = isset($getrow->value)?$getrow->value:0;
+                      $score_dt = isset($getrow->score)?$getrow->score:0;
+                      echo '<td>'.number_format($value_dt, 2).'</td>';
+                      echo '<td>'.number_format($score_dt, 2).'</td>';
                     }
                   }
               }?>

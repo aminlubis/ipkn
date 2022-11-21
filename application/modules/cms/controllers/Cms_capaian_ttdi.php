@@ -29,98 +29,29 @@ class Cms_capaian_ttdi extends MX_Controller {
         $data = array(
             'title' => $this->title,
             'breadcrumbs' => $this->breadcrumbs->show(),
-            'index' => $this->db->get('mst_index')->result(),
-            'provinces' => $this->db->get('mst_provinces')->result(),
-            'value' => $this->db->get_where('cms_capaian_ttdi', array('year' => date('Y'))),
         );
 
-        // echo '<pre>';print_r($data['value']->result());die;
+        
         // save log
         $this->logs->save($this->title, $this->session->userdata('user')->user_id, 'user access '.$this->title.'', json_encode($data) , '' ,$this->session->userdata('user')->user_id,$this->session->userdata('user')->fullname);
         /*load view index*/
         $this->load->view('Cms_capaian_ttdi/index', $data);
     }
 
-    public function form($id='')
-    {
-        /*if id is not null then will show form edit*/
-        if( $id != '' ){
-            /*breadcrumbs for edit*/
-            $this->breadcrumbs->push('Edit '.strtolower($this->title).'', 'Cms_capaian_ttdi/'.strtolower(get_class($this)).'/'.__FUNCTION__.'/'.$id);
-            /*get value by id*/
-            $data['value'] = $this->Cms_capaian_ttdi->get_by_id($id);
-            /*initialize flag for form*/
-            $data['flag'] = "update";
-        }else{
-            /*breadcrumbs for create or add row*/
-            $this->breadcrumbs->push('Add '.strtolower($this->title).'', 'Cms_capaian_ttdi/'.strtolower(get_class($this)).'/form');
-            /*initialize flag for form add*/
-            $data['flag'] = "create";
-        }
-        // attachment
-        $data['attachment'] = $this->upload_file->getUploadedFile($id, 'cms_content');
+    public function load_datatable() { 
+        /*define variable data*/
+        $year = isset($_GET['year'])?$_GET['year']:date('Y');
+        $data = array(
+            'index' => $this->db->get('mst_index')->result(),
+            'provinces' => $this->db->get('mst_provinces')->result(),
+            'value' => $this->db->get_where('cms_capaian_ttdi', array('year' => $year)),
+        );
+        // echo '<pre>';print_r($data['value']->result());die;
         
-        /*title header*/
-        $data['title'] = $this->title;
-        /*show breadcrumbs*/
-        $data['breadcrumbs'] = $this->breadcrumbs->show();
-        /*load form view*/
-        $this->load->view('Cms_capaian_ttdi/form', $data);
-    }
-    /*function for view data only*/
-    public function show($id)
-    {
-        /*breadcrumbs for view*/
-        $this->breadcrumbs->push('View '.strtolower($this->title).'', 'Cms_capaian_ttdi/'.strtolower(get_class($this)).'/'.__FUNCTION__.'/'.$id);
-        /*define data variabel*/
-        $data['value'] = $this->Cms_capaian_ttdi->get_by_id($id);
-        $data['title'] = $this->title;
-        $data['flag'] = "read";
-        $data['breadcrumbs'] = $this->breadcrumbs->show();
-        /*load form view*/
-        $this->load->view('Cms_capaian_ttdi/form_read', $data);
+        /*load view index*/
+        $this->load->view('Cms_capaian_ttdi/datatable_view', $data);
     }
 
-    public function get_data()
-    {
-        /*get data from model*/
-        $list = $this->Cms_capaian_ttdi->get_datatables();
-        $data = array();
-        $no = $_POST['start'];
-        foreach ($list as $row_list) {
-            $no++;
-            $row = array();
-            $row[] = '<div style="text-align: center">
-                            <label class="kt-checkbox kt-checkbox--single kt-checkbox--solid">
-                            <input type="checkbox" name="selected_id[]" value="'.$row_list->content_id.'" class="kt-checkable">
-                            <span></span>
-                            </label>
-                      </div>';
-            $row[] = '<div style="text-align: center">
-                        '.$this->authuser->show_button('cms/Cms_capaian_ttdi','R',$row_list->content_id,2).'
-                        '.$this->authuser->show_button('cms/Cms_capaian_ttdi','U',$row_list->content_id,2).'
-                        '.$this->authuser->show_button('cms/Cms_capaian_ttdi','D',$row_list->content_id,2).'
-                      </div>'; 
-            $row[] = strtoupper($row_list->section_title);
-            $row[] = strtoupper($row_list->content_title);
-            $row[] = $row_list->content_owner;
-            $row[] = $this->tanggal->formatDateFormDmy($row_list->content_publish_date);
-            $row[] = $row_list->content_view_count;
-            $row[] = ($row_list->is_active == 'Y') ? '<div style="text-align: center"><span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">Active</span></div>' : '<div style="text-align: center"><span class="kt-badge kt-badge--danger kt-badge--inline kt-badge--pill kt-badge--rounded">Not active</span></div>';
-            $row[] = $this->logs->show_logs_record_datatable($row_list);
-
-            $data[] = $row;
-        }
-
-        $output = array(
-                        "draw" => $_POST['draw'],
-                        "recordsTotal" => $this->Cms_capaian_ttdi->count_all(),
-                        "recordsFiltered" => $this->Cms_capaian_ttdi->count_filtered(),
-                        "data" => $data,
-                );
-        //output to json format
-        echo json_encode($output);
-    }
 
     public function process()
     {

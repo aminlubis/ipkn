@@ -27,7 +27,7 @@
       <!--begin: Datatable -->
       <table id="dynamic-table" base-url="<?php echo base_url()?>ipkn_master_data/Mst_province" class="table table-responsive-sm table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline">
       <thead>
-        <tr class="table-bg-green">  
+        <tr class="table-bg-blue">  
           <th width="30px" style="text-align: center; valign: top"></th>
           <th style="color: white; width: 120px">Action</th>
           <th style="color: white; width: 80px">Kode Provinsi</th>

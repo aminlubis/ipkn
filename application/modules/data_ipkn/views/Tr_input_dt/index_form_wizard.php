@@ -633,7 +633,6 @@ function getScore(key){
       find_data_reload(data,base_url);
     }
   });
-  
 
 }
 

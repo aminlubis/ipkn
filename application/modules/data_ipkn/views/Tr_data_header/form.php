@@ -59,19 +59,19 @@ $(document).ready(function(){
           
         </div>
         <div class="form-group row">
-          <label class="col-form-label col-md-3">Proyeksi Tahun</label>
+          <label class="col-form-label col-md-3">Entri Tahun</label>
           <div class="col-md-2">
             <?php echo $this->master->get_tahun(isset($value)?$value->dh_year:date('Y') , 'dh_year', 'dh_year', 'form-control', '', '') ?>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-form-label col-md-3">Kementerian/Lembaga (KL)</label>
+          <label class="col-form-label col-md-3">Provinsi</label>
           <div class="col-md-6">
-            <?php echo $this->master->custom_selection($params = array('table' => 'mst_kl', 'id' => 'kl_id', 'name' => 'kl_name', 'where' => ($this->session->userdata('user')->role != 1) ? array('kl_id' => $this->session->userdata('user')->kl_id ,'is_active' => 'Y') : array('is_active' => 'Y') ), isset($value) ? $value->kl_id : $this->session->userdata('user')->kl_id , 'kl_id', 'kl_id', 'form-control', '', '') ?>
+            <?php echo $this->master->custom_selection($params = array('table' => 'mst_provinces', 'id' => 'id', 'name' => 'name', 'where' => ($this->session->userdata('user')->role != 1) ? array('is_active' => 'Y') : array('is_active' => 'Y') ), isset($value) ? $value->province_id : '' , 'province_id', 'province_id', 'form-control', '', '') ?>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-form-label col-md-3">Judul Proyek</label>
+          <label class="col-form-label col-md-3">Judul</label>
           <div class="col-md-6">
             <input name="dh_title" id="dh_title" value="<?php echo isset($value)?$value->dh_title:''?>"  class="form-control" type="text">
           </div>

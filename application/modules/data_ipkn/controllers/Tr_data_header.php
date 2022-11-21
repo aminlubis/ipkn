@@ -21,7 +21,7 @@ class Tr_data_header extends MX_Controller {
         /*enable profiler*/
         $this->output->enable_profiler(false);
         /*profile class*/
-        $this->title = ($this->lib_menus->get_menu_by_class(get_class($this)))?$this->lib_menus->get_menu_by_class(get_class($this))->name : 'Title';
+        $this->title = 'Input Data IPKN';
 
     }
 
@@ -89,6 +89,18 @@ class Tr_data_header extends MX_Controller {
         echo json_encode( array('html' => $view) );
     }
 
+    public function entry_data( $id='' )
+    {
+        
+        $data = array();
+        $data['title'] = $this->title;
+        $data['flag'] = "update";
+        $data['value'] = $this->Tr_data_header->get_by_id($id);
+        $data['result'] = $this->Tr_input_dt->get_by_dh_id($id);
+        // echo '<pre>';print_r($data['value']);die;
+        $view = $this->load->view('Tr_data_header/form_entry_data', $data);
+    }
+
     public function get_data()
     {
         /*get data from model*/
@@ -106,7 +118,7 @@ class Tr_data_header extends MX_Controller {
                       </div>';
             $row[] = '';
             $row[] = $row_list->dh_id;
-            $row[] = $row_list->dh_year;
+            $row[] = '<a href="#" onclick="getMenu('."'data_ipkn/Tr_data_header/entry_data/".$row_list->dh_id."'".')">'.$row_list->dh_year.'</a>';
             $row[] = $row_list->province_name;
             $row[] = $row_list->dh_title;
             $row[] = '<div style="text-align: center">
@@ -134,7 +146,7 @@ class Tr_data_header extends MX_Controller {
         $this->load->library('form_validation');
         $val = $this->form_validation;
         $val->set_rules('dh_title', 'Judul Header', 'trim|required');
-        $val->set_rules('kl_id', 'Nama KL', 'trim|required');
+        $val->set_rules('province_id', 'Provinsi', 'trim|required');
         $val->set_rules('dh_year', 'Tahun', 'trim|required');
         $val->set_rules('dh_description', 'Deskripsi', 'trim');
 
@@ -152,7 +164,7 @@ class Tr_data_header extends MX_Controller {
 
             $dataexc = array(
                 'dh_title' => $this->regex->_genRegex($val->set_value('dh_title'), 'RGXQSL'),
-                'kl_id' => $this->regex->_genRegex($val->set_value('kl_id'), 'RGXQSL'),
+                'province_id' => $this->regex->_genRegex($val->set_value('province_id'), 'RGXQSL'),
                 'dh_year' => $this->regex->_genRegex($val->set_value('dh_year'), 'RGXQSL'),
                 'dh_date' => $this->regex->_genRegex(date('Y-m-d'), 'RGXQSL'),
                 'dh_description' => $this->regex->_genRegex($val->set_value('dh_description'), 'RGXQSL'),
@@ -163,25 +175,25 @@ class Tr_data_header extends MX_Controller {
                 $dataexc['created_date'] = date('Y-m-d H:i:s');
                 $dataexc['created_by'] = json_encode(array('user_id' =>$this->regex->_genRegex($this->session->userdata('user')->user_id,'RGXINT'), 'fullname' => $this->regex->_genRegex($this->session->userdata('user')->fullname,'RGXQSL')));
                 // cek data by year and kl
-                $dt_exist = $this->db->get_where('tr_data_header', array('kl_id' => $val->set_value('kl_id'), 'dh_year' => $val->set_value('dh_year')) );
+                $dt_exist = $this->db->get_where('ipkn_tr_data_header', array('province_id' => $val->set_value('province_id'), 'dh_year' => $val->set_value('dh_year')) );
                 if ($dt_exist->num_rows() == 0) {
                     /*save post data*/
                     $newId = $this->Tr_data_header->save($dataexc);
                     /*save logs*/
-                    $this->logs->save('tr_data_header', $newId, 'insert new record on '.$this->title.' module', json_encode($dataexc),'dh_id');
+                    $this->logs->save('ipkn_tr_data_header', $newId, 'insert new record on '.$this->title.' module', json_encode($dataexc),'dh_id');
                 }else{
-                    echo json_encode(array('status' => 301, 'message' => 'Tahun dan Kementerian sudah pernah diinput, silahkan periksa data anda!'));
+                    echo json_encode(array('status' => 301, 'message' => 'Tahun dan Provinsi sudah pernah diinput, silahkan periksa data anda!'));
                     exit;
                 }
                 
-                
             }else{
+
                 $dataexc['updated_date'] = date('Y-m-d H:i:s');
                 $dataexc['updated_by'] = json_encode(array('user_id' =>$this->regex->_genRegex($this->session->userdata('user')->user_id,'RGXINT'), 'fullname' => $this->regex->_genRegex($this->session->userdata('user')->fullname,'RGXQSL')));
                 /*update record*/
                 $this->Tr_data_header->update(array('dh_id' => $id), $dataexc);
                 // update year of data
-                $this->db->update('tr_data', array('year' => $dataexc['dh_year'], 'kl_id' => $dataexc['kl_id']), array('dh_id' => $id) );
+                $this->db->update('ipkn_tr_data', array('data_year' => $dataexc['dh_year'], 'province_id' => $dataexc['province_id']), array('dh_id' => $id) );
                 $newId = $id;
                 /*save logs*/
                 $this->logs->save('tr_data_header', $newId, 'update record on '.$this->title.' module', json_encode($dataexc),'dh_id');

@@ -66,7 +66,7 @@
       <!--begin: Datatable -->
       <table id="dynamic-table" base-url="<?php echo base_url()?>ipkn_master_data/Mst_indicator"  url-detail="<?php echo base_url()?>ipkn_master_data/Mst_indicator/show_detail"class="table table-responsive-sm table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline">
       <thead>
-        <tr class="table-bg-green">  
+        <tr class="table-bg-blue">  
           <th width="20px" class="center"></th>
           <th width="20px" class="center"></th>
           <th width="20px" class="center"></th>

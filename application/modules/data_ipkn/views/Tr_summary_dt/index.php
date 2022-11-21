@@ -95,7 +95,7 @@ tr>*:last-child {
     <div class="kt-portlet__head">
       <div class="kt-portlet__head-label">
         <h3 class="kt-portlet__head-title">
-          Pencarian Data
+          Hasil Perhitungan Data Indikator
         </h3>
       </div>
     </div>
@@ -109,14 +109,76 @@ tr>*:last-child {
           <div class="col-lg-3">
             <?php echo $this->master->get_tahun(date('Y') , 'tahun', 'tahun', 'form-control', '', '') ?>
           </div>
-          <div class="col-lg-4">
+          <!-- <div class="col-lg-4">
             <a href="#" id="btn_search_data" class="btn btn-xs btn-primary">
               Search
             </a>
             <a href="#" id="btn_reset_data" class="btn btn-xs btn-warning">
               Reset
             </a>
-          </div>
+          </div> -->
+        </div>
+
+        <div class="wrapper">
+          <table>
+            <thead>
+              <tr style="color: black !important">
+                <th rowspan="3" style="width: 20px !important">No</th>
+                <th rowspan="3">Provinsi</th>
+                <?php 
+                  foreach ($header as $key_subindex => $row_subindex) {
+                    foreach($row_subindex as $key_pillar => $row_pillar){
+                      $colspan = count($row_pillar) * 2;
+                      echo '<th colspan="'.$colspan.'" align="center">'.$key_pillar.'</th>';
+                    }
+                }?>
+              </tr>
+              <tr style="color: black !important">
+                <?php 
+                  foreach ($header as $key_subindex => $row_subindex) {
+                    foreach($row_subindex as $key_pillar => $row_pillar){
+                      foreach ($row_pillar as $key_indicator => $row_indicator) {
+                        # code...
+                        echo '<th colspan="2" style="white-space: pre-wrap">'.$row_indicator->indicator_code.'<br>'.$row_indicator->indicator_name.'</th>';
+                      }
+                    }
+                }?>
+              </tr>
+              <tr style="color: black !important">
+              <?php 
+                  foreach ($header as $key_subindex => $row_subindex) {
+                    foreach($row_subindex as $key_pillar => $row_pillar){
+                      foreach ($row_pillar as $key_indicator => $row_indicator) {
+                        # code...
+                        echo '<th>Nilai</th>';
+                        echo '<th>Skor</th>';
+                      }
+                    }
+                }?>
+              <tr>
+            </thead>
+            <tbody>
+              <?php $no=0; foreach ($provinces as $key => $value_prov) : $no++?>
+                <tr>
+                  <th scope="row"><?php echo $no?></th>
+                  <th scope="row"><?php echo $value_prov->name?></th>
+                  <?php 
+                  foreach ($header as $key_subindex => $row_subindex) {
+                    foreach($row_subindex as $key_pillar => $row_pillar){
+                      foreach ($row_pillar as $key_indicator => $row_indicator) {
+                        # code...
+                        $getrow = isset($summary[$value_prov->id][$row_indicator->indicator_id])?$summary[$value_prov->id][$row_indicator->indicator_id]:'';
+                        $value_dt = isset($getrow->value)?$getrow->value:0;
+                        $score_dt = isset($getrow->score)?$getrow->score:0;
+                        echo '<td>'.number_format($value_dt, 2).'</td>';
+                        echo '<td>'.number_format($score_dt, 2).'</td>';
+                      }
+                    }
+                }?>
+                </tr>
+              <?php endforeach;?>
+            </tbody>
+          </table>
         </div>
         
         </div>
@@ -125,94 +187,6 @@ tr>*:last-child {
     <!--end::Form-->
   </div>
 
-  <!-- <div class="kt-portlet">
-    <div class="kt-portlet__head">
-      <div class="kt-portlet__head-label">
-        <span class="kt-portlet__head-icon kt-hidden">
-          <i class="la la-gear"></i>
-        </span>
-        <h3 class="kt-portlet__head-title">
-          Percentage of data status
-        </h3>
-      </div>
-    </div>
-    <div class="kt-portlet__body">
-      <div id="kt_pie_chart" style="height: 400px;"></div>
-
-    </div>
-  </div> -->
-  
-  
-  <div class="kt-portlet kt-portlet--mobile">
-    
-    <div class="kt-portlet__body">
-
-      <div class="wrapper">
-        <table>
-          <thead>
-            <tr style="color: black !important">
-              <th rowspan="3" style="width: 20px !important">No</th>
-              <th rowspan="3">Provinsi</th>
-              <?php 
-                foreach ($header as $key_subindex => $row_subindex) {
-                  foreach($row_subindex as $key_pillar => $row_pillar){
-                    $colspan = count($row_pillar) * 2;
-                    echo '<th colspan="'.$colspan.'" align="center">'.$key_pillar.'</th>';
-                  }
-              }?>
-            </tr>
-            <tr style="color: black !important">
-              <?php 
-                foreach ($header as $key_subindex => $row_subindex) {
-                  foreach($row_subindex as $key_pillar => $row_pillar){
-                    foreach ($row_pillar as $key_indicator => $row_indicator) {
-                      # code...
-                      echo '<th colspan="2" style="white-space: pre-wrap">'.$row_indicator->indicator_code.'<br>'.$row_indicator->indicator_name.'</th>';
-                    }
-                  }
-              }?>
-            </tr>
-            <tr style="color: black !important">
-            <?php 
-                foreach ($header as $key_subindex => $row_subindex) {
-                  foreach($row_subindex as $key_pillar => $row_pillar){
-                    foreach ($row_pillar as $key_indicator => $row_indicator) {
-                      # code...
-                      echo '<th>Nilai</th>';
-                      echo '<th>Skor</th>';
-                    }
-                  }
-              }?>
-            <tr>
-          </thead>
-          <tbody>
-            <?php $no=0; foreach ($provinces as $key => $value_prov) : $no++?>
-              <tr>
-                <th scope="row"><?php echo $no?></th>
-                <th scope="row"><?php echo $value_prov->name?></th>
-                <?php 
-                foreach ($header as $key_subindex => $row_subindex) {
-                  foreach($row_subindex as $key_pillar => $row_pillar){
-                    foreach ($row_pillar as $key_indicator => $row_indicator) {
-                      # code...
-                      $getrow = isset($summary[$value_prov->id][$row_indicator->indicator_id])?$summary[$value_prov->id][$row_indicator->indicator_id]:'';
-                      $value_dt = isset($getrow->value)?$getrow->value:0;
-                      $score_dt = isset($getrow->score)?$getrow->score:0;
-                      echo '<td>'.number_format($value_dt, 2).'</td>';
-                      echo '<td>'.number_format($score_dt, 2).'</td>';
-                    }
-                  }
-              }?>
-              </tr>
-            <?php endforeach;?>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-
-    </div>
-  </div>
   
 </form>
 

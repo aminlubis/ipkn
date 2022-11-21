@@ -18,6 +18,7 @@ define('PATH_FILES', 'uploaded/files/');
 define('PATH_PHOTO_PROFILE_DEFAULT', 'uploaded/images/photo/');
 define('PATH_IMG_THUMB', 'uploaded/images/thumb/');
 define('PATH_IMG_RESIZED', 'uploaded/images/resized/');
+define('COPYRIGHT_YEAR', '2022');
 
 
 defined('SHOW_DEBUG_BACKTRACE') OR define('SHOW_DEBUG_BACKTRACE', TRUE);

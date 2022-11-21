@@ -237,7 +237,7 @@ final Class Graph_master {
 				$year_active = ($indicator['year'])?$indicator['year']:date('Y');
 				
 				$fields = array($year_active => 'score');
-				$title = '<span style="font-size:20.5px">Travel & Tourism Competitiveness Index<br></span>';
+				$title = '<span style="font-size:20.5px">INDEX KEPARIWISATAAN INDONESIA<br></span>';
 				$subtitle = '';
 				/*excecute query*/
 				$data = $resultData;
@@ -275,7 +275,7 @@ final Class Graph_master {
 				$year_active = ($subpillar['year'])?$subpillar['year']:date('Y');
 				
 				$fields = array('2019' => 'score', $year_active => 'score');
-				$title = '<span style="font-size:20.5px">Travel & Tourism Competitiveness Index<br></span>';
+				$title = '<span style="font-size:20.5px">INDEX KEPARIWISATAAN INDONESIA<br></span>';
 				$subtitle = '';
 				/*excecute query*/
 				$data = $resultData;
@@ -313,7 +313,7 @@ final Class Graph_master {
 				$year_active = ($subpillar['year'])?$subpillar['year']:date('Y');
 				
 				$fields = array('2019' => 'score', $year_active => 'score');
-				$title = '<span style="font-size:20.5px">Travel & Tourism Competitiveness Index<br></span>';
+				$title = '<span style="font-size:20.5px">INDEX KEPARIWISATAAN INDONESIA<br></span>';
 				$subtitle = '';
 				/*excecute query*/
 				$data = $resultData;
@@ -378,14 +378,13 @@ final Class Graph_master {
 				$year_active = ($subpillar['year'])?$subpillar['year']:date('Y');
 				
 				$fields = array('2019' => 'score', $year_active => 'score');
-				$title = '<span style="font-size:20.5px">Travel & Tourism Competitiveness Index<br></span>';
+				$title = '<span style="font-size:20.5px">INDEX KEPARIWISATAAN INDONESIA<br></span>';
 				$subtitle = '';
 				/*excecute query*/
 				$data = $resultData;
 			}
 
 		}
-		
 		
 		/*find and set type chart*/
 		$chart = $this->chartTypeData($params['TypeChart'], $fields, $params, $data);

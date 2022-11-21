@@ -29,7 +29,7 @@
       <!--begin: Datatable -->
       <table id="dynamic-table" base-url="<?php echo base_url()?>data_ipkn/Tr_data_header" url-detail="<?php echo base_url()?>data_ipkn/Tr_data_header/show_detail" class="table table-responsive-sm table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline">
         <thead>
-          <tr class="table-bg-green">  
+          <tr class="table-bg-blue">  
             <th width="30px" class="center"></th>
             <th width="30px" class="center"></th>
             <th width="30px" class="center"></th>

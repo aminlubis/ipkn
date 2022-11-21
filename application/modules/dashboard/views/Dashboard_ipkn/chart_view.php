@@ -37,10 +37,10 @@
                     <?php echo isset($this->session->userdata('user')->kl_name)?strtoupper($this->session->userdata('user')->kl_name):'Administrator'?>
                     <i class="flaticon2-correct kt-font-success"></i>
                   </a>
-                  <a href="<?php echo base_url().'dashboard/Dashboard_ipkn/print_preview'?>" target="_blank" class="btn btn-sm btn-success">
+                  <!-- <a href="<?php echo base_url().'dashboard/Dashboard_ipkn/print_preview'?>" target="_blank" class="btn btn-sm btn-success">
                     <i class="ace-icon fa fa-print-preview icon-on-right bigger-110"></i>
                     Print Preview
-                  </a>
+                  </a> -->
                 </div>
                 <!-- <div class="kt-widget__subhead">
                   <a href="#"><i class="flaticon2-new-email"></i><?php echo isset($this->session->userdata('user')->kl_email)?strtoupper($this->session->userdata('user')->kl_email):'-'?></a>
@@ -53,13 +53,13 @@
                     <br>
                     <br>
                     <div class="kt-widget__progress" style="width: 100%">
-                      <div class="kt-widget__text">
-                        Progress input data <?php echo ($this->session->userdata('user')->role != 1) ? $this->session->userdata('user')->kl_name : 'All Kementerian'?>
-                      </div>
-                      <div class="progress" style="height: 5px;width: 100%;">
+                      <!-- <div class="kt-widget__text">
+                        Progress input data <?php echo ($this->session->userdata('user')->role != 1) ? $this->session->userdata('user')->kl_name : 'All Provinsi'?>
+                      </div> -->
+                      <!-- <div class="progress" style="height: 5px;width: 100%;">
                         <div class="progress-bar kt-bg-<?php echo $class_progress['class']?>" role="progressbar" style="width: <?php echo $progress['persentase_progress']?>%;" aria-valuenow="<?php echo $progress['persentase_progress']?>" aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
-                      <div class="kt-widget__stats"><?php echo number_format($progress['persentase_progress'],2)?>%</div>
+                      <div class="kt-widget__stats"><?php echo number_format($progress['persentase_progress'],2)?>%</div> -->
                     </div>
                     
                   </div>   
@@ -73,7 +73,7 @@
           <div class="form-group row">
             <div class="col-lg-3">
               <label>Year:</label>
-              <?php echo $this->master->get_tahun(date('Y') , 'year', 'year', 'form-control', 'onchange="reload_data()"', '') ?>
+              <?php echo $this->master->get_tahun(date('Y'), 'year', 'year', 'form-control', 'onchange="reload_data()"', '') ?>
               <span class="form-text text-muted">Silahkan pilih tahun</span>
             </div>
             <div class="col-lg-4">

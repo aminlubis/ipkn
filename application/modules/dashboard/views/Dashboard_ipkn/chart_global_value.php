@@ -4,7 +4,7 @@
 <div id="zoomable_radar_chart" style="min-width: 400px; width: 100%; max-height: 500px; margin: 0 auto"></div>
 
 <div style="text-align: center; width: 70%">
-    <span style="font-size: 11px">Note : Skenario dibuat berdasarkan data yang dikirim oleh masing-maing K/L dengan asumsi data primer (EOS) tetap, serta data sekunder yang belum tersedia diasumsikan tetap</span>
+    <!-- <span style="font-size: 11px">Note : Skenario dibuat berdasarkan data yang dientry oleh tiap Provinsi dengan asumsi data primer (EOS) tetap, serta data sekunder yang belum tersedia diasumsikan tetap</span> -->
 </div>
 </center>
 

@@ -98,8 +98,8 @@ final Class Authuser {
             $exp_code = explode('/', $style);
             $ori_code = (string)$exp_code[0];
             $flag = isset($exp_code[1])?$exp_code[1]:'';
-            //print_r($flag);die;
             $repl_link = str_replace("?flag=$flag",'',$link);
+            // print_r($repl_link);die;
 
             /*switch code to get button*/
             return $this->switch_to_get_btn($str_to_array, $repl_link, $code, $id, $style);
@@ -138,7 +138,7 @@ final Class Authuser {
         $exp_code = explode('/', $code_style);
         $code = (string)$exp_code[0];
         $flag = isset($exp_code[1])?$exp_code[1]:'';
-        //print_r($code_style);die;
+        // print_r($link);die;
         switch ($code) {
 
             /*style for create*/
@@ -177,6 +177,14 @@ final Class Authuser {
             case 'C6':
                 # code...
                 $btn = '<a href="#" onclick="getMenu('."'".$link.'/form'."'".')"title="Add">Add</a>';
+                break;
+            
+            case 'C7':
+                # code...
+                $Query_String  = isset($_SERVER['REQUEST_URI']) ? explode("&", explode("?", $_SERVER['REQUEST_URI'])[1] ) : '' ;
+                $param_string = isset($Query_String[0])?$Query_String[0]:'';
+                // echo $link; exit;
+                $btn = '<a href="#" class="btn btn-sm btn-primary" onclick="getMenu('."'".$link.'/form?'.$param_string.''."'".')"><i class="ace-icon glyphicon glyphicon-plus bigger-50"></i>Create New</a>';
                 break;
 
             case 'CC1':
@@ -235,6 +243,14 @@ final Class Authuser {
                 # code...
                 $btn = '<a href="#" onclick="getMenu('."'".$link.'/show/'.$id.''."'".')">Read</a>';
                 break;
+            
+            case 'R67':
+                # code...
+                $Query_String  = explode("&", explode("?", $_SERVER['REQUEST_URI'])[1] );
+                $param_string = isset($Query_String[0])?$Query_String[0]:'';
+                $btn = '<a href="#" onclick="getMenu('."'".$link.'/show/'.$id.'?'.$param_string.''."'".')"></a>';
+                break;
+                
             
             case 'R7':
                     # code...
@@ -297,6 +313,12 @@ final Class Authuser {
             case 'U6':
                 # code...
                 $btn = '<a href="#" onclick="getMenu('."'".$link.'/form/'.$id.''."'".')" title="Update">Update</a>';
+                break;
+            case 'U67':
+                # code...
+                $Query_String  = explode("&", explode("?", $_SERVER['REQUEST_URI'])[1] );
+                $param_string = isset($Query_String[0])?$Query_String[0]:'';
+                $btn = '<a href="#" onclick="getMenu('."'".$link.'/form/'.$id.'?'.$param_string.''."'".')" title="Update" class="btn btn-sm btn-success"><i class="ace-icon fa fa-edit"></i></a>';
                 break;
             
             case 'U7':
@@ -361,12 +383,19 @@ final Class Authuser {
                 # code...
                 $btn = '<a href="#" class="btn btn-sm btn-danger" id="button_delete"><i class="ace-icon fa fa-trash-o bigger-50"></i>Delete selected items</a>';
                 break;
+            
 
 
             case 'D6':
                 # code...
                 $btn = '<a href="#" onclick="delete_data('.$id.')">Delete</a>';
                 break;
+            
+            case 'D67':
+                # code...
+                $btn = '<a href="#" onclick="delete_data('.$id.')" class="btn btn-icon btn-sm btn-danger"><i class="ace-icon fa fa-times bigger-50"></i></a>';
+                break;
+                
 
             case 'DC1':
                 # code...

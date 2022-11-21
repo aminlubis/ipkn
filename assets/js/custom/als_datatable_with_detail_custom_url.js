@@ -151,8 +151,9 @@ function reload_table(){
 
 function delete_data(myid){
   if(confirm('Are you sure?')){
+    preventDefault();
     $.ajax({
-        url: base_url+'/delete/'+myid,
+        url: base_url+'/delete?'+params,
         type: "post",
         data: {ID:myid},
         dataType: "json",

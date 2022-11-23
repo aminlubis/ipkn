@@ -131,8 +131,9 @@ class Tr_input_dt_model extends CI_Model {
 
 	public function get_formulasi($year, $indicator_id, $entry){
 
-		$query = $this->db->select('MIN(value) as min_val, MAX(value) as max_val, AVG(value) as med_val')
-					->where('dh_id IN (select dh_id from ipkn_tr_data_header where dh_year = '.$year.') AND value > 0 AND indicator_id = '.$indicator_id.'')
+		$query = $this->db->select('MIN(value) as min_val, MAX(value) as max_val, AVG(value) as med_val, indicator_type_value ')
+					->join('ipkn_mst_indicator','ipkn_mst_indicator.indicator_id=ipkn_tr_data.indicator_id','left')
+					->where('dh_id IN (select dh_id from ipkn_tr_data_header where dh_year = '.$year.') AND value > 0 AND ipkn_tr_data.indicator_id = '.$indicator_id.'')
 					->get('ipkn_tr_data')->row();
 
 		// get formulasi
@@ -140,18 +141,20 @@ class Tr_input_dt_model extends CI_Model {
         $max = $query->max_val;
         $med = $query->max_val - $query->min_val;
         $value = $entry;
-		$exc_score = (6*(($value-$min)/$med)+1);
+		$exc_score = ($query->indicator_type_value == 'negatif') ? (7-6*(($value-$min)/$med)) : (6*(($value-$min)/$med)+1);
 		$score = ($exc_score > 0)?$exc_score: 0;
 
 		// update score and meta data
 		$meta_dt = $this->db
-						->where('dh_id IN (select dh_id from ipkn_tr_data_header where dh_year = '.$year.') AND indicator_id = '.$indicator_id.'')
+						->join('ipkn_mst_indicator','ipkn_mst_indicator.indicator_id=ipkn_tr_data.indicator_id','left')
+						->where('dh_id IN (select dh_id from ipkn_tr_data_header where dh_year = '.$year.') AND ipkn_tr_data.indicator_id = '.$indicator_id.'')
 						->get('ipkn_tr_data')->result();
 
 		foreach ($meta_dt as $key => $row) {
 			# code...
 			$curr_value = $row->value;
-			$exc_score = (6*(($curr_value-$min)/$med)+1);
+			$exc_score = ($row->indicator_type_value == 'negatif') ? (7-6*(($curr_value-$min)/$med)) : (6*(($curr_value-$min)/$med)+1);
+
 			$score_dt = ($exc_score > 0)?$exc_score: 0;
 			$data_update[] = array(
 				'data_id' => $row->data_id,

@@ -183,7 +183,7 @@ class Tr_input_dt extends MX_Controller {
 
     public function process()
     {
-        print_r($_POST);die;
+        // print_r($_POST);die;
         $this->load->library('form_validation');
         $val = $this->form_validation;
         $val->set_rules('value', 'Value', 'trim');

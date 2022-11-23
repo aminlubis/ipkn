@@ -37,34 +37,15 @@
                     <?php echo isset($this->session->userdata('user')->kl_name)?strtoupper($this->session->userdata('user')->kl_name):'Administrator'?>
                     <i class="flaticon2-correct kt-font-success"></i>
                   </a>
+                  <?php echo isset($this->session->userdata('user')->kl_address)?strtoupper($this->session->userdata('user')->kl_address):'- No address found -'?>
+                  <br>
+
                   <a href="<?php echo base_url().'dashboard/Dashboard/print_preview'?>" target="_blank" class="btn btn-sm btn-success">
                     <i class="ace-icon fa fa-print-preview icon-on-right bigger-110"></i>
                     Print Preview
                   </a>
                 </div>
-                <!-- <div class="kt-widget__subhead">
-                  <a href="#"><i class="flaticon2-new-email"></i><?php echo isset($this->session->userdata('user')->kl_email)?strtoupper($this->session->userdata('user')->kl_email):'-'?></a>
-                  <a href="#"><i class="fa fa-globe"></i><?php echo isset($this->session->userdata('user')->kl_link_website)?strtoupper($this->session->userdata('user')->kl_link_website):'-'?> </a>
-                </div> -->
-                <div class="kt-widget__info">
-                  <div class="kt-widget__desc">
-                    <!-- <?php echo isset($this->session->userdata('user')->kl_name)?'<span style="font-size:18px !important">'.strtoupper($this->session->userdata('user')->kl_name).'</span>':'<i>You are logged in as administrator</i>'?><br> -->
-                    <?php echo isset($this->session->userdata('user')->kl_address)?strtoupper($this->session->userdata('user')->kl_address):'- No address found -'?>
-                    <br>
-                    <br>
-                    <div class="kt-widget__progress" style="width: 100%">
-                      <div class="kt-widget__text">
-                        Progress input data <?php echo ($this->session->userdata('user')->role != 1) ? $this->session->userdata('user')->kl_name : 'All Kementerian'?>
-                      </div>
-                      <div class="progress" style="height: 5px;width: 100%;">
-                        <div class="progress-bar kt-bg-<?php echo $class_progress['class']?>" role="progressbar" style="width: <?php echo $progress['persentase_progress']?>%;" aria-valuenow="<?php echo $progress['persentase_progress']?>" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <div class="kt-widget__stats"><?php echo number_format($progress['persentase_progress'],2)?>%</div>
-                    </div>
-                    
-                  </div>
-                  
-                </div>
+                
                 
               </div>
             </div>
@@ -87,6 +68,22 @@
 
           </div>
           <hr>
+          <div class="kt-widget__info">
+            <div class="kt-widget__desc">
+              
+              <br>
+              <div class="kt-widget__progress" style="width: 100%">
+                <div class="kt-widget__text">
+                  Progress input data <?php echo ($this->session->userdata('user')->role != 1) ? $this->session->userdata('user')->kl_name : 'Semua Kementerian'?>
+                </div>
+                <div class="progress" style="height: 5px;width: 100%;" id="bar_progress">
+                  <div id="barprogress" class="progress-bar kt-bg-<?php echo isset($class_progress['class'])?$class_progress['class']:'danger'?>" role="progressbar" style="width: <?php echo isset($progress['persentase_progress']) ? $progress['persentase_progress'] : 0?>%;" aria-valuenow="<?php echo isset($progress['persentase_progress']) ? $progress['persentase_progress'] : 0?>" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="kt-widget__stats" id="persentase_progres"><?php echo number_format(isset($progress['persentase_progress']) ? $progress['persentase_progress'] : 0,2)?>%</div>
+              </div>
+              
+            </div>
+          </div><hr>
           <div class="kt-widget14__chart">
             <center><div id="kt_chart_global_value" style="padding-bottom: 20px"></div></center>
           </div>
@@ -125,12 +122,22 @@
     $('#kt_table_data').load('<?php echo base_url()?>dashboard/Dashboard/table_data_index?year='+$('#year').val()+'&kl='+$('#kl_id').val()+'&subpillar='+$('#subpillar_id').val()+'&' + (new Date()).getTime());
   }
 
-  
-
+  function get_progres(){
+    $.getJSON('<?php echo base_url()?>dashboard/Dashboard/getProgresEntry', {year: $('#year').val(), kl: $('#kl_id').val() }, function(response) {
+      var obj = response.progress;
+      var class_obj = response.class_progress;
+      var percent = ( obj.persentase_progress > 0 ) ? obj.persentase_progress : 0 ;
+      $('#persentase_progres').text(percent+' %');
+      $('#barprogress').attr('class', "progress-bar kt-bg-"+class_obj.class+"");
+      $('#barprogress').attr('aria-valuenow', percent);
+      $('#barprogress').css({"width": ""+percent+"%"});
+    })
+  }
 
   function reload_data(){
     load_polar_chart();
     load_data_table();
+    get_progres();
   }
 
 </script>

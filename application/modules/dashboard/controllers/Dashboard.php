@@ -55,8 +55,8 @@ class Dashboard extends MX_Controller {
 
         // get progress current
         $progress = $this->master->getProgressCurrent($kl, $subpillar['year']);
-        $data['progress'] = $progress;
-        $data['class_progress'] = $this->master->getColorFromValue($progress['persentase_progress']);
+        $data['progress'] = ($progress != false)?$progress:0;
+        $data['class_progress'] = ($progress != false) ? $this->master->getColorFromValue($progress['persentase_progress']) : [];
 
         // get overall score last year
         $overall_score_last_year = $this->master->getOverallScoreLastYear($kl, $subpillar['year']);
@@ -89,14 +89,16 @@ class Dashboard extends MX_Controller {
 
         // get progress current
         $progress = $this->master->getProgressCurrent($kl, $subpillar['year']);
-        $data['progress'] = $progress;
-        $data['class_progress'] = $this->master->getColorFromValue($progress['persentase_progress']);
+        // print_r($progress);die;
+
+        $data['progress'] = ($progress != false)?$progress:0;
+        $data['class_progress'] = ($progress != false) ? $this->master->getColorFromValue($progress['persentase_progress']) : [] ;
 
         // get overall score last year
         $overall_score_last_year = $this->master->getOverallScoreLastYear($kl, $subpillar['year']);
         $data['overall_score_last_year'] = ($overall_score_last_year)?number_format($overall_score_last_year, 2):0;
         $data['sign'] = $this->master->getSignScore($overall_score, $overall_score_last_year);
-        // print_r($overall_score_last_year);die;
+        
         
         $this->load->view('Dashboard/chart_view', $data);
     }
@@ -172,9 +174,6 @@ class Dashboard extends MX_Controller {
         $score_rank = $this->master->getScoreRank($getScorePillar['index']);
         $score_rank_current = $this->master->getScoreRank($getScorePillarCurrent['index']);
 
-        
-
-
         // echo '<pre>';print_r($score_rank);die;
         $data['score_rank'] = array_sum($score_rank) / count($score_rank);
         $data['score_rank_current'] = array_sum($score_rank_current) / count($score_rank_current);
@@ -191,8 +190,8 @@ class Dashboard extends MX_Controller {
 
         // get progress current
         $progress = $this->master->getProgressCurrent($kl, $subpillar['year']);
-        $data['progress'] = $progress;
-        $data['class_progress'] = $this->master->getColorFromValue($progress['persentase_progress']);
+        $data['progress'] = ($progress != false)?$progress:0;
+        $data['class_progress'] = ($progress != false) ? $this->master->getColorFromValue($progress['persentase_progress']) : [];
 
 
 
@@ -265,8 +264,8 @@ class Dashboard extends MX_Controller {
         // get progress current
         $progress = $this->master->getProgressCurrent($kl, $subpillar['year']);
         // print_r($progress);die;
-        $data['progress'] = $progress;
-        $data['class_progress'] = $this->master->getColorFromValue($progress['persentase_progress']);
+        $data['progress'] = ($progress != false)?$progress:0;
+        $data['class_progress'] = ($progress != false) ? $this->master->getColorFromValue($progress['persentase_progress']) : [];
 
         // get overall score last year
         $overall_score_last_year = $this->master->getOverallScoreLastYear($kl, $subpillar['year']);
@@ -301,6 +300,16 @@ class Dashboard extends MX_Controller {
         $this->output->enable_profiler(false);
         $data = array();
         $this->load->view('Dashboard/list_datatable_view', $data);
+    }
+
+    public function getProgresEntry(){
+        // get progress current
+        $progress = $this->master->getProgressCurrent($_GET['kl'], $_GET['year']);
+        // print_r($progress);die;
+        $data['progress'] = ($progress != false)?$progress:0;
+        $data['class_progress'] = ($progress != false) ? $this->master->getColorFromValue($progress['persentase_progress']) : [];
+
+        echo json_encode($data);
     }
 
 }

@@ -751,17 +751,21 @@ final Class Master {
 		// $last_data = $db->join('mst_subpillar','mst_subpillar.subpillar_id=tr_data.subpillar_id','left')->join('tr_data_header','tr_data_header.dh_id=tr_data.dh_id','left')->where('CAST(current_value as DOUBLE) != 0')->where('type_data', 'S')->get_where('tr_data', $filter)->result();
 
 		$last_data = $db->join('mst_subpillar','mst_subpillar.subpillar_id=tr_data.subpillar_id','left')->join('tr_data_header','tr_data_header.dh_id=tr_data.dh_id','left')->where('CAST(current_value as DECIMAL(9,2)) != 0')->where('type_data', 'S')->get_where('tr_data', $filter)->result();
-
+		// print_r($db->last_query());die;
+		
 		
 		// get subpillar active
 		$filter_subpillar = ($kl_id != 0) ? array('kl_id' => $kl_id, 'is_active' => 'Y') : array('is_active' => 'Y');
 		$subpillar = $db->where('type_data', 'S')->get_where('mst_subpillar', $filter_subpillar)->result();
 		
+		// print_r(count($last_data).'-');
+		// print_r(count($subpillar));
+		// exit;
 		if(count($last_data) == 0){
 			return false;
 		}else{
 			$progress = (count($last_data) / count($subpillar)) * 100;
-			return array('total_dt' => count($last_data), 'persentase_progress' => $progress, 'total_subpillar' => count($subpillar));
+			return array('total_dt' => count($last_data), 'persentase_progress' => round($progress, 2), 'total_subpillar' => count($subpillar));
 		}
 	}
 

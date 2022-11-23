@@ -621,7 +621,7 @@ function getScore(key){
   // save data row
   
   $.ajax({
-    url: 'data/Tr_input_dt/save_row_dt',
+    url: '<?php echo base_url()?>data/Tr_input_dt/save_row_dt',
     type: "post",
     data: $('#form_search').serialize(),
     dataType: "json",

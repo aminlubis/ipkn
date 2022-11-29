@@ -121,10 +121,17 @@ function tambah_file()
           </div>
         </div>
 
-        <div class="form-group row">
+        <!-- <div class="form-group row">
           <label class="col-form-label col-md-3">Class</label>
           <div class="col-md-3">
             <input name="section_class" id="section_class" value="<?php echo isset($value)?$value->section_class:''?>" placeholder="" class="form-control" type="text" <?php echo ($flag=='read')?'readonly':''?> >
+          </div>
+        </div> -->
+
+        <div class="form-group row">
+          <label class="col-form-label col-md-3">Layout Class</label>
+          <div class="col-md-2">
+            <?php echo $this->master->custom_selection(array('table'=>'global_parameter', 'where'=>array('is_active'=>'Y', 'flag' => 'class_layout'), 'id'=>'value', 'name' => 'label'),isset($value)?$value->section_class:'','section_class','section_class','chosen-slect form-control',($flag=='read')?'readonly':'','');?>
           </div>
         </div>
 

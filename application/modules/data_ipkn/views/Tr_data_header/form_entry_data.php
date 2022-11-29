@@ -140,7 +140,7 @@ function getScore(key){
                   <tr>
                     <td style="text-align: center"><?php echo $no; ?></td>
                     <td><?php echo $row->indicator_code; ?></td>
-                    <td><a href="#" onclick="show_modal('ipkn_master_data/Mst_indicator/show_detail/<?php echo $row->indicator_id?>', '<?php echo $row->indicator_name?>')"><?php echo $row->indicator_name; ?></a></td>
+                    <td><a href="#" onclick="show_modal('<?php echo base_url()?>ipkn_master_data/Mst_indicator/show_detail/<?php echo $row->indicator_id?>', '<?php echo $row->indicator_name?>')"><?php echo $row->indicator_name; ?></a></td>
                     <td style="text-align: center">
                       <input type="hidden" class="form-control" name="indicator_id_<?php echo $row->indicator_id?>" id="indicator_id_<?php echo $row->indicator_id?>" style="text-align: right; width: 100px" value="<?php echo $row->indicator_id; ?>">
 

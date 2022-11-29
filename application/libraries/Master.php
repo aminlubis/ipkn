@@ -506,7 +506,7 @@ final Class Master {
 		 foreach ($fields as $key => $value) {
 			 if(!in_array($value, $exp_field )){
 				 $html .= '<tr>';    
-				 $html .= '<td width="150px">'.ucfirst($value).'</td><td style="text-align: justify"> '.$data->$value.'</td>';    
+				 $html .= '<td width="150px" class="wrap">'.ucfirst($value).'</td><td style="text-align: justify"> '.$data->$value.'</td>';    
 				 $html .= '</tr>';    
 			 }
 		 }
@@ -514,7 +514,7 @@ final Class Master {
 		 foreach ($fields as $key => $value) {
 			 if(!in_array($value, $merge_exp_field )){
 				 $html .= '<tr>';    
-				 $html .= '<td width="150px">'.ucfirst($value).'</td><td> '.$data->$value.'</td>';    
+				 $html .= '<td width="150px" class="wrap">'.ucfirst($value).'</td><td class="wrap"> '.$data->$value.'</td>';    
 				 $html .= '</tr>';  
 			 }
 		 }

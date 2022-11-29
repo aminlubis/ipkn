@@ -47,6 +47,10 @@
 		.table>thead tr.table-bg-blue {
 			background: #17345d;
 		}
+
+		.modal-body table td{
+			overflow-wrap: anywhere;
+		}
 	</style>
 	<!-- end::Head -->
 
@@ -323,6 +327,41 @@
 			</div>
 		</div>
 
+		<div id="globalModalViewMedium" class="modal fade" tabindex="-1">
+
+			<div class="modal-dialog" style="margin-top: 50px; margin-bottom:50px;width:90%; background-color: white">
+
+				<div class="modal-content">
+
+				<div class="modal-header">
+
+					<!-- <div class="table-header"> -->
+					<span id="text_title_medium" style="font-weight: bold">TITLE</span>
+
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+
+						<span class="white">&times;</span>
+
+					</button>
+
+					
+
+					<!-- </div> -->
+
+				</div>
+
+				<div class="modal-body" style="min-height: 400px !important">
+
+					<div id="global_modal_content_detail_medium" style="background-color: white"></div>
+
+				</div>
+
+				</div><!-- /.modal-content -->
+
+			</div><!-- /.modal-dialog -->
+
+			</div>
+
 		<!-- end::Quick Panel -->
 
 		<!-- begin::Scrolltop -->
@@ -411,6 +450,20 @@
 				// 	reload_notification();
                 // }, 12000); 
 			})
+
+			function show_modal(url, title){  
+
+			preventDefault();
+
+			$.getJSON(url, '' , function (data) {
+			$('#global_modal_content_detail_medium').html(data.html);
+			})
+
+			$('#text_title_medium').text(title);
+
+			$("#globalModalViewMedium").modal();
+
+			}
 
 			// function reload_notification(){
 			// 	$('#content-notification').load('<?php echo base_url()?>master_data/Mst_info/get_notification?_=' + (new Date()).getTime());

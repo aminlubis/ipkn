@@ -104,7 +104,6 @@ class Login extends MX_Controller {
                             'logged'=>false
                             );
         $this->login_model->clear_token($this->session->userdata('user')->user_id);
-        $this->logs->save('tmp_user', $user_data, 'user logout out', json_encode(array()), 'user_id');
         $this->session->unset_userdata($sess_data);
         $this->session->sess_destroy();
         redirect(base_url().'login');

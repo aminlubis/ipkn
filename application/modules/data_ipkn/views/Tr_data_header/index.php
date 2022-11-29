@@ -37,6 +37,7 @@
             <th style="color: white !important">Tahun</th>
             <th style="color: white !important">Provinsi</th>
             <th style="color: white !important">Deskripsi</th>
+            <th style="color: white !important">Update Terakhir</th>
             <th style="color: white !important" width="120px">Action</th>
           </tr>
         </thead>
@@ -56,7 +57,7 @@
   function return_confirm(id){
 
     swal.fire({
-      title: "Are you sure want to continue input Data TTCI For This Project?",
+      title: "Are you sure want to continue update data IPKN?",
       text: "Please fill your data correctly",
       type: "warning",
       showCancelButton: true,
@@ -72,7 +73,7 @@
     }).then(function (response) {
         console.log(response);
         if(response.value == true){
-          getMenu('data/Tr_input_dt/index?dh_id='+id+'');       
+          getMenu('data_ipkn/Tr_data_header/entry_data/'+id+'');       
         }
 
     })

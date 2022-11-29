@@ -1,7 +1,7 @@
 <?php if(count($result) > 0) :?>
   <div style="margin-left: 35px">
     <div style="padding: 10px">
-      <a href="#" onclick="getMenu('data_ipkn/Tr_data_header/entry_data/<?php echo $value->dh_id?>')" class="btn btn-sm btn-success">Update Data</a>
+    <span onclick="return_confirm(<?php echo $value->dh_id?>)" class="btn btn-sm btn-success">Update Data</span>
     </div>
     <?php echo ($value->dh_description != NULL)?'Keterangan : '.$value->dh_description.'':''; ?></div>
     <table class="table table-bordered" style="width: 90%; margin-left: 35px;font-size: 10px !important">

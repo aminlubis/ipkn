@@ -111,7 +111,7 @@ function tambah_file()
         <div class="form-group row">
           <label class="col-form-label col-md-3">Section Layout</label>
           <div class="col-md-6">
-            <?php echo $this->master->custom_selection(array('table'=>'cms_section', 'where'=>array('is_active'=>'Y'), 'id'=>'section_id', 'name' => 'section_title'),isset($value)?$value->section_id:'','section_id','section_id','chosen-slect form-control',($flag=='read')?'readonly':'','');?>
+            <?php echo $this->master->custom_selection_with_two_label(array('table'=>'cms_section', 'where'=>array('is_active'=>'Y'), 'id'=>'section_id', 'name' => 'section_title', 'label' => 'section_class'),isset($value)?$value->section_id:'','section_id','section_id','chosen-slect form-control',($flag=='read')?'readonly':'','');?>
           </div>
         </div>
 

@@ -53,7 +53,7 @@ class Cms_news extends MX_Controller {
             $data['flag'] = "create";
         }
         // attachment
-        $data['attachment'] = $this->upload_file->getUploadedFile($id, 'cms_content');
+        // $data['attachment'] = $this->upload_file->getUploadedFile($id, 'cms_content');
         
         /*title header*/
         $data['title'] = $this->title;
@@ -122,9 +122,10 @@ class Cms_news extends MX_Controller {
     //    print_r($_FILES);die;
         $this->load->library('form_validation');
         $val = $this->form_validation;
-        $val->set_rules('section_id', 'Section', 'trim|required');
+        $val->set_rules('section_id', 'Section', 'trim');
         $val->set_rules('content_title', 'Judul', 'trim|required');
-        $val->set_rules('content_subtitle', 'Sub Judul', 'trim|required');
+        $val->set_rules('content_subtitle', 'Sub Judul', 'trim');
+        $val->set_rules('content_category', 'Kategori Berita', 'trim');
         $val->set_rules('content_owner', 'Author', 'trim|required');
         $val->set_rules('content_description', 'Deskripsi', 'trim|required');
         $val->set_rules('content_view_count', 'Jumlah Viewer', 'trim|required');
@@ -179,14 +180,14 @@ class Cms_news extends MX_Controller {
 
             // upload multiple file
             /*insert dokumen adjusment*/
-            if(isset($_FILES['file_upload'])){
-                $this->upload_file->upload_multiple_file_blob(array(
-                    'doc_name' => 'document_name',
-                    'name' => 'file_upload',
-                    'ref_id' => $newId,
-                    'ref_table' => 'cms_content',
-                ));
-            }
+            // if(isset($_FILES['file_upload'])){
+            //     $this->upload_file->upload_multiple_file_blob(array(
+            //         'doc_name' => 'document_name',
+            //         'name' => 'file_upload',
+            //         'ref_id' => $newId,
+            //         'ref_table' => 'cms_content',
+            //     ));
+            // }
 
             if ($this->db->trans_status() === FALSE)
             {

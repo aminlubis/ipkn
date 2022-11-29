@@ -98,17 +98,20 @@ $(document).ready(function(){
           </div>
         </div>
         
-        <?php if( $this->session->userdata('user')->flag_user != 'ipkn') :?>
         <div class="form-group row">
           <label class="col-form-label col-md-3">Kementerian/Lembaga (KL)</label>
           <div class="col-md-6">
             <?php echo $this->master->custom_selection($params = array('table' => 'mst_kl', 'id' => 'kl_id', 'name' => 'kl_name', 'where' => array() ), isset($value)?$value->kl_id:'' , 'kl_id', 'kl_id', 'form-control', '', '') ?>
           </div>
         </div>
-        <?php endif; ?>
         
-       
-
+        <div class="form-group row">
+          <label class="col-form-label col-md-3">Provinsi</label>
+          <div class="col-md-6">
+            <?php echo $this->master->custom_selection($params = array('table' => 'mst_provinces', 'id' => 'id', 'name' => 'name', 'where' => array() ), isset($value)?$value->province_id:'' , 'province_id', 'province_id', 'form-control', '', '') ?>
+          </div>
+        </div>
+        
         <div class="kt-portlet__foot">
           <div class="kt-form__actions">
             <div class="row">

@@ -125,6 +125,7 @@ class Cms_report_data extends MX_Controller {
         $val->set_rules('title', 'Judul', 'trim|required');
         $val->set_rules('owner', 'Author', 'trim|required');
         $val->set_rules('description', 'Deskripsi', 'trim|required');
+        $val->set_rules('report_type', 'Kategori Data', 'trim|required');
         $val->set_rules('count_view', 'Jumlah Viewer', 'trim|required');
         $val->set_rules('publish_date', 'Tgl Publish', 'trim|required');
 
@@ -144,6 +145,7 @@ class Cms_report_data extends MX_Controller {
                 'title' => $this->regex->_genRegex($val->set_value('title'), 'RGXQSL'),
                 'owner' => $this->regex->_genRegex($val->set_value('owner'), 'RGXQSL'),
                 'description' => $this->regex->_genRegex($val->set_value('description'), 'RGXQSL'),
+                'report_type' => $this->regex->_genRegex($val->set_value('report_type'), 'RGXQSL'),
                 'count_view' => $this->regex->_genRegex($val->set_value('count_view'), 'RGXINT'),
                 'publish_date' => $this->regex->_genRegex($val->set_value('publish_date'), 'RGXQSL'),
                 'is_active' => $this->input->post('is_active'),

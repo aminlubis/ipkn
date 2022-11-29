@@ -67,7 +67,7 @@ $(document).ready(function(){
         <div class="form-group row">
           <label class="col-form-label col-md-3">Provinsi</label>
           <div class="col-md-6">
-            <?php echo $this->master->custom_selection($params = array('table' => 'mst_provinces', 'id' => 'id', 'name' => 'name', 'where' => ($this->session->userdata('user')->role != 1) ? array('is_active' => 'Y') : array('is_active' => 'Y') ), isset($value) ? $value->province_id : '' , 'province_id', 'province_id', 'form-control', '', '') ?>
+            <?php echo $this->master->custom_selection($params = array('table' => 'mst_provinces', 'id' => 'id', 'name' => 'name', 'where' => (!empty($this->session->userdata('user')->province_id)) ? array('is_active' => 'Y', 'id' => $this->session->userdata('user')->province_id) : array('is_active' => 'Y') ), isset($value) ? $value->province_id : '' , 'province_id', 'province_id', 'form-control', '', '') ?>
           </div>
         </div>
         <div class="form-group row">

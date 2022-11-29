@@ -13,7 +13,7 @@ $(document).ready(function(){
 
         if(jsonResponse.status === 200){
           $.achtung({message: jsonResponse.message, timeout:5});
-          $('#page-area-content').load('<?php echo base_url()?>cms/Cms_posting?_=' + (new Date()).getTime());
+          $('#page-area-content').load('<?php echo base_url()?>cms/Cms_news?_=' + (new Date()).getTime());
           reload_notification();
         }else{
           $.achtung({message: jsonResponse.message, timeout:5, className:'achtungFail'});
@@ -98,7 +98,7 @@ function tambah_file()
       </div>
 
       <!--begin::Form-->
-      <form class="kt-form kt-form--label-right" method="post" id="form_cms_report" action="<?php echo site_url('cms/Cms_posting/process')?>" enctype="multipart/form-data">
+      <form class="kt-form kt-form--label-right" method="post" id="form_cms_report" action="<?php echo site_url('cms/Cms_news/process')?>" enctype="multipart/form-data">
         <br>
 
         <div class="form-group row">
@@ -129,6 +129,13 @@ function tambah_file()
         </div>
 
         <div class="form-group row">
+          <label class="col-form-label col-md-3">Kategori Berita</label>
+          <div class="col-md-6">
+            <?php echo $this->master->custom_selection(array('table'=>'global_parameter', 'where'=>array('is_active'=>'Y', 'flag' => 'kategori_berita'), 'id'=>'value', 'name' => 'label'),isset($value)?$value->content_category:'','content_category','content_category','chosen-slect form-control',($flag=='read')?'readonly':'','');?>
+          </div>
+        </div>
+
+        <div class="form-group row">
           <label class="col-form-label col-md-3">Author</label>
           <div class="col-md-3">
             <input name="content_owner" id="content_owner" value="<?php echo isset($value)?$value->content_owner:''?>" placeholder="" class="form-control" type="text" <?php echo ($flag=='read')?'readonly':''?> >
@@ -138,7 +145,7 @@ function tambah_file()
         <div class="form-group row">
           <label class="col-form-label col-md-3">Jumlah Viewer</label>
           <div class="col-md-2">
-            <input name="content_view_count" id="content_view_count" value="<?php echo isset($value)?$value->content_view_count:''?>" placeholder="" class="form-control" type="text" <?php echo ($flag=='read')?'readonly':''?> >
+            <input name="content_view_count" id="content_view_count" value="<?php echo isset($value)?$value->content_view_count:0?>" placeholder="" class="form-control" type="text" <?php echo ($flag=='read')?'readonly':''?> >
           </div>
         </div>
 
@@ -188,7 +195,7 @@ function tambah_file()
           </div>
         </div>
 
-        <div class="kt-portlet__head">
+        <!-- <div class="kt-portlet__head">
           <div class="kt-portlet__head-label">
             <h3 class="kt-portlet__head-title">
               File Attachment
@@ -213,7 +220,7 @@ function tambah_file()
 
         <div class="col-md-12">
           <?php echo $attachment?>
-        </div>
+        </div> -->
 
         <div class="kt-portlet__foot">
           <div class="kt-form__actions">
@@ -221,7 +228,7 @@ function tambah_file()
               <div class="col-2">
               </div>
               <div class="col-10">
-              <a onclick="getMenu('cms/Cms_posting')" href="#" class="btn btn-sm btn-success">
+              <a onclick="getMenu('cms/Cms_news')" href="#" class="btn btn-sm btn-success">
                 <i class="ace-icon fa fa-arrow-left icon-on-right bigger-110"></i>
                 Back previous
               </a>

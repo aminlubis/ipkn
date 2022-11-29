@@ -139,6 +139,13 @@ function tambah_file()
             </div>
           </div>
         </div>
+
+        <div class="form-group row">
+          <label class="col-form-label col-md-3">Kategori Data</label>
+          <div class="col-md-6">
+            <?php echo $this->master->custom_selection(array('table'=>'global_parameter', 'where'=>array('is_active'=>'Y', 'flag' => 'kategori_data'), 'id'=>'value', 'name' => 'label'),isset($value)?$value->report_type:'','report_type','report_type','chosen-slect form-control',($flag=='read')?'readonly':'','');?>
+          </div>
+        </div>
         
         <div class="form-group row">
           <label class="col-form-label col-md-3">Deskripsi</label>
@@ -150,8 +157,8 @@ function tambah_file()
           <label class="col-form-label col-md-3">Image Cover</label>
           <div class="col-md-3">
             <input name="report_cover" id="report_cover" value="" placeholder="" class="form-control" type="file" <?php echo ($flag=='read')?'readonly':''?>>
-            <span class="form-text text-muted">Maximum file size 4 MB</span>
           </div>
+          <span class="form-text text-muted"><i>Maximum file size 4 MB & Resolusi terbaik ukuran 180px x 240px</i></span>
         </div>
         <div class="form-group row">
           <label class="col-form-label col-md-3">&nbsp;</label>

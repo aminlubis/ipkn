@@ -19,12 +19,12 @@ class Tr_data_header_model extends CI_Model {
 		$this->db->select($this->select);
 		$this->db->select('mst_provinces.name as province_name');
 		$this->db->from($this->table);
-		$this->db->join('mst_provinces','mst_provinces.id=ipkn_tr_data_header.province_id','left');
+		$this->db->join('mst_provinces','mst_provinces.id=ipkn_tr_data_header.province_id','left');;
 		$this->db->where($this->table.".is_deleted != 'Y'");
-		// session KSP
-		// if(!in_array($this->session->userdata('user')->role, array(1,12))){
-		// 	$this->db->where($this->table.".province_id", $this->session->userdata('user')->province_id);
-		// }
+		
+		if( !empty($this->session->userdata('user')->province_id) ){
+			$this->db->where($this->table.".province_id", $this->session->userdata('user')->province_id);
+		}
 		/*check level user*/
 		$this->authuser->filtering_data_by_level_user($this->table, $this->session->userdata('user')->user_id);
 

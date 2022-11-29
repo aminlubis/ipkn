@@ -144,7 +144,7 @@ class Tmp_user_has_role extends MX_Controller {
             }
 
             // update tmp_user if user kl
-            $this->db->update('tmp_user', array('kl_id' => $this->input->post('kl_id')), array('user_id' => $id));
+            $this->db->update('tmp_user', array('kl_id' => $this->input->post('kl_id'), 'province_id' => $this->input->post('province_id')), array('user_id' => $id));
 
             if ($this->db->trans_status() === FALSE)
             {

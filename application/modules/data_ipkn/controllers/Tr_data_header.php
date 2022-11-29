@@ -118,9 +118,11 @@ class Tr_data_header extends MX_Controller {
                       </div>';
             $row[] = '';
             $row[] = $row_list->dh_id;
-            $row[] = '<a href="#" onclick="getMenu('."'data_ipkn/Tr_data_header/entry_data/".$row_list->dh_id."'".')">'.$row_list->dh_year.'</a>';
+            // $row[] = '<a href="#" onclick="return_confirm('.$row_list->dh_id.')">'.$row_list->dh_year.'</a>';
+            $row[] = '<span onclick="return_confirm('.$row_list->dh_id.')" style="cursor: pointer; color: blue">'.ucwords($row_list->dh_year).'</span>';
             $row[] = $row_list->province_name;
             $row[] = $row_list->dh_title;
+            $row[] = $this->tanggal->formatDateTime($row_list->updated_date).'<br>'.$row_list->updated_by;
             $row[] = '<div style="text-align: center">
                         '.$this->authuser->show_button('data_ipkn/Tr_data_header','R',$row_list->dh_id,2).'
                         '.$this->authuser->show_button('data_ipkn/Tr_data_header','U',$row_list->dh_id,2).'
@@ -173,7 +175,7 @@ class Tr_data_header extends MX_Controller {
             //print_r($dataexc);die;
             if($id==0){
                 $dataexc['created_date'] = date('Y-m-d H:i:s');
-                $dataexc['created_by'] = json_encode(array('user_id' =>$this->regex->_genRegex($this->session->userdata('user')->user_id,'RGXINT'), 'fullname' => $this->regex->_genRegex($this->session->userdata('user')->fullname,'RGXQSL')));
+                $dataexc['created_by'] = $this->regex->_genRegex($this->session->userdata('user')->fullname,'RGXQSL');
                 // cek data by year and kl
                 $dt_exist = $this->db->get_where('ipkn_tr_data_header', array('province_id' => $val->set_value('province_id'), 'dh_year' => $val->set_value('dh_year')) );
                 if ($dt_exist->num_rows() == 0) {
@@ -189,7 +191,7 @@ class Tr_data_header extends MX_Controller {
             }else{
 
                 $dataexc['updated_date'] = date('Y-m-d H:i:s');
-                $dataexc['updated_by'] = json_encode(array('user_id' =>$this->regex->_genRegex($this->session->userdata('user')->user_id,'RGXINT'), 'fullname' => $this->regex->_genRegex($this->session->userdata('user')->fullname,'RGXQSL')));
+                $dataexc['updated_by'] = $this->regex->_genRegex($this->session->userdata('user')->fullname,'RGXQSL');
                 /*update record*/
                 $this->Tr_data_header->update(array('dh_id' => $id), $dataexc);
                 // update year of data

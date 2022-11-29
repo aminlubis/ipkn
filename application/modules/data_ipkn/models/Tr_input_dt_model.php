@@ -169,6 +169,8 @@ class Tr_input_dt_model extends CI_Model {
 
 		// echo '<pre>'; print_r($data_update);die;
 		
+		// uupdate master indikator
+		$this->db->where('indicator_id', $indicator_id)->update('ipkn_mst_indicator', array('indicator_min_value' => $min, 'indicator_max_value' => $max, 'indicator_med_value' => $med) );
 		$return = array(
 			'min' => $min,
 			'med' => $med,

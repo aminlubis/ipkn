@@ -78,15 +78,9 @@
             </div>
             <div class="col-lg-4">
               <label class="">Provinsi:</label>
-              <?php echo $this->master->custom_selection($params = array('table' => 'mst_provinces', 'id' => 'id', 'name' => 'name', 'where' => array() ), '' , 'province_id', 'province_id', 'form-control', 'onchange="reload_data()"', '') ?>
+              <?php echo $this->master->custom_selection($params = array('table' => 'mst_provinces', 'id' => 'id', 'name' => 'name', 'where' => (!empty($this->session->userdata('user')->province_id)) ? array('is_active' => 'Y', 'id' => $this->session->userdata('user')->province_id) : array('is_active' => 'Y') ),  '' , 'province_id', 'province_id', 'form-control', '', '') ?>
               <span class="form-text text-muted">Silahkan pilih provinsi</span>
             </div>
-
-            <!-- <div class="col-lg-4">
-              <label class="">Pillar:</label>
-              <?php echo $this->master->custom_selection($params = array('table' => 'ipkn_mst_pillar', 'id' => 'pillar_id', 'name' => 'pillar_desc', 'where' => array() ), '' , 'pillar_id', 'pillar_id', 'form-control', 'onchange="reload_data()"', '') ?>
-              <span class="form-text text-muted">Silahkan pilih pillar</span>
-            </div> -->
 
           </div>
           <hr>
@@ -117,7 +111,9 @@
 <script>
   $(document).ready(function() {
     load_polar_chart();
-    // load_data_table();
+    $('#province_id, #year').change(function(){
+      load_polar_chart();
+    })
   });
 
   function load_polar_chart(){

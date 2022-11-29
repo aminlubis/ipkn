@@ -129,7 +129,7 @@ function tambah_file()
         </div> -->
 
         <div class="form-group row">
-          <label class="col-form-label col-md-3">Layout Class</label>
+          <label class="col-form-label col-md-3">Section Class</label>
           <div class="col-md-2">
             <?php echo $this->master->custom_selection(array('table'=>'global_parameter', 'where'=>array('is_active'=>'Y', 'flag' => 'class_layout'), 'id'=>'value', 'name' => 'label'),isset($value)?$value->section_class:'','section_class','section_class','chosen-slect form-control',($flag=='read')?'readonly':'','');?>
           </div>

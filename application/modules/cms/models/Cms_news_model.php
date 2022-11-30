@@ -5,7 +5,7 @@ class Cms_news_model extends CI_Model {
 
 	var $table = 'cms_content';
 	var $column = array('cms_content.content_title');
-	var $select = 'cms_content.*, cms_section.section_title';
+	var $select = 'cms_content.*, cms_section.section_title, tbl_category.label as category_berita';
 
 	var $order = array('cms_content.content_id' => 'DESC');
 
@@ -19,6 +19,7 @@ class Cms_news_model extends CI_Model {
 		$this->db->select($this->select);
 		$this->db->from($this->table);
 		$this->db->join('cms_section', 'cms_content.section_id=cms_section.section_id','left');
+		$this->db->join('(SELECT * FROM global_parameter WHERE flag='."'kategori_berita'".') as tbl_category', 'tbl_category.value=cms_content.content_category','left');
 		$this->db->where($this->table.".is_deleted != 'Y'");
 		$this->db->where($this->table.".content_type", 1);
 		// filter by role

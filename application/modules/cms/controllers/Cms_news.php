@@ -97,7 +97,7 @@ class Cms_news extends MX_Controller {
                         '.$this->authuser->show_button('cms/Cms_news','D',$row_list->content_id,2).'
                       </div>'; 
             $row[] = strtoupper($row_list->section_title);
-            $row[] = strtoupper($row_list->content_title);
+            $row[] = strtoupper($row_list->content_title).' ['.$row_list->category_berita.']';
             $row[] = $row_list->content_owner;
             $row[] = $this->tanggal->formatDateFormDmy($row_list->content_publish_date);
             $row[] = $row_list->content_view_count;
@@ -146,6 +146,7 @@ class Cms_news extends MX_Controller {
             $dataexc = array(
                 'section_id' => $this->regex->_genRegex($val->set_value('section_id'), 'RGXQSL'),
                 'content_subtitle' => $this->regex->_genRegex($val->set_value('content_subtitle'), 'RGXQSL'),
+                'content_category' => $this->regex->_genRegex($val->set_value('content_category'), 'RGXINT'),
                 'content_title' => $this->regex->_genRegex($val->set_value('content_title'), 'RGXQSL'),
                 'content_owner' => $this->regex->_genRegex($val->set_value('content_owner'), 'RGXQSL'),
                 'content_description' => $this->regex->_genRegex($val->set_value('content_description'), 'RGXQSL'),

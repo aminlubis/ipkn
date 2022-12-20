@@ -124,10 +124,10 @@ class Cms_posting extends MX_Controller {
         $val = $this->form_validation;
         $val->set_rules('section_id', 'Section', 'trim|required');
         $val->set_rules('content_title', 'Judul', 'trim|required');
-        $val->set_rules('content_subtitle', 'Sub Judul', 'trim|required');
-        $val->set_rules('content_owner', 'Author', 'trim|required');
-        $val->set_rules('content_description', 'Deskripsi', 'trim|required');
-        $val->set_rules('content_view_count', 'Jumlah Viewer', 'trim|required');
+        $val->set_rules('content_subtitle', 'Sub Judul', 'trim');
+        $val->set_rules('content_owner', 'Author', 'trim');
+        $val->set_rules('content_description', 'Deskripsi', 'trim');
+        $val->set_rules('content_view_count', 'Jumlah Viewer', 'trim');
         $val->set_rules('content_publish_date', 'Tgl Publish', 'trim|required');
 
         $val->set_message('required', "Silahkan isi field \"%s\"");

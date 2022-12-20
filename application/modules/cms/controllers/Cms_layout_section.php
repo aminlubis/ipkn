@@ -96,6 +96,7 @@ class Cms_layout_section extends MX_Controller {
                         '.$this->authuser->show_button('cms/Cms_layout_section','U',$row_list->section_id,2).'
                         '.$this->authuser->show_button('cms/Cms_layout_section','D',$row_list->section_id,2).'
                       </div>'; 
+            $row[] = strtoupper($row_list->section_id);
             $row[] = strtoupper($row_list->section_title);
             $row[] = $row_list->section_class;
             $row[] = $row_list->section_view_name;

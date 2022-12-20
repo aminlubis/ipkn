@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Cms_layout_section_model extends CI_Model {
 
 	var $table = 'cms_section';
-	var $column = array('cms_section.section_title');
+	var $column = array('cms_section.section_title', 'cms_section.section_class', 'cms_section.section_view_name');
 	var $select = 'cms_section.*';
 
 	var $order = array('cms_section.section_id' => 'DESC');

@@ -108,6 +108,34 @@ final Class Authuser {
         }
     }
 
+    function show_button_2($link, $code, $id='', $style='', $urlform=''){
+
+        $CI =&get_instance();
+        $db = $CI->load->database('default', TRUE);
+        $CI->load->library('session');
+
+        /*check existing*/
+        $query = "SELECT action_code
+                    FROM tmp_role_has_menu
+                    WHERE menu_id = (SELECT menu_id FROM tmp_mst_menu WHERE link='$link' limit 1) AND role_id IN (SELECT role_id FROM tmp_user_has_role WHERE user_id=".$CI->session->userdata('user')->user_id.")"; 
+        $result = $db->query($query);
+        if($result->num_rows() > 0){
+            $action_code = $result->row()->action_code;
+            $str_to_array = explode(',', $action_code); 
+            /*ubah link menjad*/
+            $exp_code = explode('/', $style);
+            $ori_code = (string)$exp_code[0];
+            $flag = isset($exp_code[1])?$exp_code[1]:'';
+            $repl_link = $urlform;
+            // print_r($repl_link);die;
+
+            /*switch code to get button*/
+            return $this->switch_to_get_btn($str_to_array, $repl_link, $code, $id, $style);
+        }else{
+            return false;
+        }
+    }
+
     function switch_to_get_btn($array, $link, $code, $id, $style=''){
 
         if(in_array($code, $array)){
@@ -138,7 +166,7 @@ final Class Authuser {
         $exp_code = explode('/', $code_style);
         $code = (string)$exp_code[0];
         $flag = isset($exp_code[1])?$exp_code[1]:'';
-        // print_r($link);die;
+        // print_r($code);die;
         switch ($code) {
 
             /*style for create*/
@@ -154,6 +182,11 @@ final Class Authuser {
             case 'C11':
                 # code...
                 $btn = '<button class="btn btn-sm btn-primary" onclick="getMenuTabs('."'".$link.'/form?pgd_id='.$id.''."'".')"><i class="ace-icon glyphicon glyphicon-plus bigger-50"></i>Create New</button>';
+                break;
+            
+            case 'C8':
+                # code...
+                $btn = '<a href="#" class="btn btn-sm btn-primary" onclick="getMenu('."'".$link."'".')"><i class="ace-icon glyphicon glyphicon-plus bigger-50"></i>Create New</a>';
                 break;
 
             case 'C2':
@@ -292,6 +325,12 @@ final Class Authuser {
                 # code...
                 $btn = '<button class="btn btn-icon btn-sm btn-success" onclick="getMenu('."'".$link.'/form/'.$id.''."'".')"><i class="ace-icon fa fa-edit bigger-50"></i></button>';
                 break;
+            
+            case 'U22':
+                # code...
+                $btn = '<button class="btn btn-icon btn-sm btn-success" onclick="getMenu('."'".$link."'".')"><i class="ace-icon fa fa-edit bigger-50"></i></button>';
+                break;
+                
             case 'U21':
                 # code...
                 $btn = '<button class="btn btn-icon btn-sm btn-success" onclick="getMenuTabs('."'".$link.'/form/'.$id.''."'".')"><i class="ace-icon fa fa-pencil bigger-50"></i></button>';

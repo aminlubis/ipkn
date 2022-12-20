@@ -30,6 +30,7 @@
           <tr class="table-bg-green">  
             <th width="30px" style="text-align: center; valign: top"></th>
             <th style="color: white; width: 130px">Action</th>
+            <th style="color: white">ID</th>
             <th style="color: white">Title</th>
             <th style="color: white">Class</th>
             <th style="color: white">Page</th>

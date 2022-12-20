@@ -128,7 +128,7 @@ function tambah_file()
           </div>
         </div>
 
-        <div class="form-group row">
+        <!-- <div class="form-group row">
           <label class="col-form-label col-md-3">Author</label>
           <div class="col-md-3">
             <input name="content_owner" id="content_owner" value="<?php echo isset($value)?$value->content_owner:''?>" placeholder="" class="form-control" type="text" <?php echo ($flag=='read')?'readonly':''?> >
@@ -138,9 +138,9 @@ function tambah_file()
         <div class="form-group row">
           <label class="col-form-label col-md-3">Jumlah Viewer</label>
           <div class="col-md-2">
-            <input name="content_view_count" id="content_view_count" value="<?php echo isset($value)?$value->content_view_count:''?>" placeholder="" class="form-control" type="text" <?php echo ($flag=='read')?'readonly':''?> >
+            <input name="content_view_count" id="content_view_count" value="<?php echo isset($value)?$value->content_view_count:0?>" placeholder="" class="form-control" type="text" <?php echo ($flag=='read')?'readonly':''?> >
           </div>
-        </div>
+        </div> -->
 
         <div class="form-group row">
           <label class="col-form-label col-lg-3 col-sm-12">Tanggal Publish</label>

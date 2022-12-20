@@ -60,7 +60,7 @@ final Class upload_file {
             $html .= '<th width="70px" class="center">Ukuran File</th>';
             $html .= '<th width="100px" class="center">Tipe File</th>';
             $html .= '<th width="100px">Tanggal Upload</th>';
-            $html .= '<th width="60px" class="center">Download</th>';
+            // $html .= '<th width="60px" class="center">Download</th>';
             $html .= '<th width="60px" class="center">Delete</th>';
         $html .= '</tr>';
         $no=1;
@@ -75,7 +75,7 @@ final Class upload_file {
                     $html .= '<td align="center">'.$size.'</td>';
                     $html .= '<td align="center">'.$row_list->file_type.'</td>';
                     $html .= '<td align="center">'.$row_list->created_date.'</td>';
-                    $html .= '<td align="center"><a href="#" target="_blank" style="color:red">Download</a></td>';
+                    // $html .= '<td align="center"><a href="'.base_url().'/Templates/Attachment/download_file_blob/'.$row_list->id.'" target="_blank" style="color:red">Download</a></td>';
                     $html .= '<td align="center"><a href="#" class="delete_attachment" onclick="delete_attachment('.$row_list->id.')"><i class="fa fa-times-circle red"></i></a></td>';
                 $html .= '</tr>';
             $no++;
@@ -140,6 +140,10 @@ final Class upload_file {
                         'file_size' => $CI->upload->data('file_size'),
                         'file_name' =>  $CI->upload->data('file_name'),
                         'file_content' => $imgdata,
+                        'created_date' => date('Y-m-d H:i:s'),
+                        'updated_date' => date('Y-m-d H:i:s'),
+                        'created_by' => $CI->session->userdata('user')->fullname,
+                        'updated_by' => $CI->session->userdata('user')->fullname,
                     );
                     
                     $db->insert('cms_attachment', $dataexc);

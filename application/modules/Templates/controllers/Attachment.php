@@ -155,6 +155,46 @@ class Attachment extends MX_Controller {
         
     }
 
+    function download_file_blob($attcid) {
+
+        $value = $this->db->get_where('cms_attachment', array('id' => $attcid) )->row_array();
+
+        // Prevents out-of-memory issue
+        if (ob_get_level()) {
+            ob_end_clean();
+        }
+    
+        // Here you should prepare $value['file_content'];
+    
+        // Notice I passed $value['file_content'] in base64_encode
+        $encoded_data = base64_encode($value['file_content']);
+    
+        // Decodes the encoded data
+        $decoded_data = base64_decode($encoded_data);
+    
+        // Set a path where file_put_contents() will create a file
+        $file = APPPATH . '../uploaded/temporary_file.pdf';
+    
+        // Writes data to the specified file
+        file_put_contents($file, $decoded_data);
+    
+        // Modify the name as you want
+        $filename = 'download_name.pdf';
+    
+        header('Expires: 0');
+        header('Pragma: public');
+        header('Cache-Control: must-revalidate');
+        header('Content-Length: ' . filesize($file));
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        readfile($file);
+    
+        if (file_exists($file)) {
+            unlink($file);  
+        }
+    }
+
+
 }
 
 

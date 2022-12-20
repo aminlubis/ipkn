@@ -29,7 +29,7 @@ $(document).ready(function(){
     i=0;
 
     formData.append('content_description', $('#editorcontent_description').html() );
-    formData.append('document_name', pf_file);
+    // formData.append('document_name', pf_file);
 
     url = $('#form_cms_content_section').attr('action');
 
@@ -160,13 +160,16 @@ function tambah_file()
             <input name="content_title" id="content_title" value="<?php echo isset($value)?$value->content_title:''?>" placeholder="" class="form-control" type="text" <?php echo ($flag=='read')?'readonly':''?> >
           </div>
         </div>
+        <?php if(in_array($_GET['section'], array(1) )) : ?>
         <div class="form-group row">
           <label class="col-form-label col-md-3">Sub Judul</label>
           <div class="col-md-6">
             <input name="content_subtitle" id="content_subtitle" value="<?php echo isset($value)?$value->content_subtitle:''?>" placeholder="" class="form-control" type="text" <?php echo ($flag=='read')?'readonly':''?> >
           </div>
         </div>
+        <?php endif; ?>
         
+        <?php if(in_array($_GET['section'], array(2) )) : ?>
         <div class="form-group row">
           <label class="col-form-label col-md-3">Deskripsi</label>
           <div class="col-md-8">
@@ -174,6 +177,8 @@ function tambah_file()
           <div id="editorcontent_description" style="display: none"><?php echo isset($value->letter_content)?$value->letter_content:''?></div>
           </div>
         </div>
+        <?php endif;?>
+
         <div class="form-group row">
           <label class="col-form-label col-md-3">Gambar Utama</label>
           <div class="col-md-3">
@@ -201,7 +206,8 @@ function tambah_file()
             </div>
           </div>
         </div>
-
+        
+        <?php if(in_array($_GET['section'], array(2) )) : ?>
         <div class="kt-portlet__head">
           <div class="kt-portlet__head-label">
             <h3 class="kt-portlet__head-title">
@@ -228,6 +234,7 @@ function tambah_file()
         <div class="col-md-12">
           <?php echo $attachment?>
         </div>
+        <?php endif; ?>
 
         <div class="kt-portlet__foot">
           <div class="kt-form__actions">

@@ -104,7 +104,7 @@ class Cms_content_section extends MX_Controller {
                       </div>'; 
             // $row[] = strtoupper($row_list->section_title);
             $row[] = strtoupper($row_list->content_title);
-            $row[] = $row_list->content_owner;
+            // $row[] = $row_list->content_owner;
             $row[] = $this->tanggal->formatDateFormDmy($row_list->content_publish_date);
             // $row[] = $row_list->content_view_count;
             $row[] = ($row_list->is_active == 'Y') ? '<div style="text-align: center"><span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">Active</span></div>' : '<div style="text-align: center"><span class="kt-badge kt-badge--danger kt-badge--inline kt-badge--pill kt-badge--rounded">Not active</span></div>';

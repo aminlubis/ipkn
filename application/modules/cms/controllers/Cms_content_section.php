@@ -102,11 +102,11 @@ class Cms_content_section extends MX_Controller {
                         '.$this->authuser->show_button_2('cms/Cms_content_section?section='.$this->section.'&class='.$this->class.'','U',$row_list->content_id,22, 'cms/Cms_content_section/form/'.$row_list->content_id.'?section='.$this->section.'&class='.$this->class.'').'
                         '.$this->authuser->show_button_2('cms/Cms_content_section?section='.$this->section.'&class='.$this->class.'','D',$row_list->content_id,2, 'cms/Cms_content_section').'
                       </div>'; 
-            $row[] = strtoupper($row_list->section_title);
+            // $row[] = strtoupper($row_list->section_title);
             $row[] = strtoupper($row_list->content_title);
             $row[] = $row_list->content_owner;
             $row[] = $this->tanggal->formatDateFormDmy($row_list->content_publish_date);
-            $row[] = $row_list->content_view_count;
+            // $row[] = $row_list->content_view_count;
             $row[] = ($row_list->is_active == 'Y') ? '<div style="text-align: center"><span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">Active</span></div>' : '<div style="text-align: center"><span class="kt-badge kt-badge--danger kt-badge--inline kt-badge--pill kt-badge--rounded">Not active</span></div>';
             $row[] = $this->logs->show_logs_record_datatable($row_list);
 

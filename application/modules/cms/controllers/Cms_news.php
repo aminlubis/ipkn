@@ -96,11 +96,11 @@ class Cms_news extends MX_Controller {
                         '.$this->authuser->show_button('cms/Cms_news','U',$row_list->content_id,2).'
                         '.$this->authuser->show_button('cms/Cms_news','D',$row_list->content_id,2).'
                       </div>'; 
-            $row[] = strtoupper($row_list->section_title);
+            // $row[] = strtoupper($row_list->section_title);
             $row[] = strtoupper($row_list->content_title).' ['.$row_list->category_berita.']';
             $row[] = $row_list->content_owner;
             $row[] = $this->tanggal->formatDateFormDmy($row_list->content_publish_date);
-            $row[] = $row_list->content_view_count;
+            // $row[] = $row_list->content_view_count;
             $row[] = ($row_list->is_active == 'Y') ? '<div style="text-align: center"><span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">Active</span></div>' : '<div style="text-align: center"><span class="kt-badge kt-badge--danger kt-badge--inline kt-badge--pill kt-badge--rounded">Not active</span></div>';
             $row[] = $this->logs->show_logs_record_datatable($row_list);
 
@@ -122,13 +122,13 @@ class Cms_news extends MX_Controller {
     //    print_r($_FILES);die;
         $this->load->library('form_validation');
         $val = $this->form_validation;
-        $val->set_rules('section_id', 'Section', 'trim');
+        // $val->set_rules('section_id', 'Section', 'trim');
         $val->set_rules('content_title', 'Judul', 'trim|required');
-        $val->set_rules('content_subtitle', 'Sub Judul', 'trim');
+        // $val->set_rules('content_subtitle', 'Sub Judul', 'trim');
         $val->set_rules('content_category', 'Kategori Berita', 'trim');
         $val->set_rules('content_owner', 'Author', 'trim|required');
         $val->set_rules('content_description', 'Deskripsi', 'trim|required');
-        $val->set_rules('content_view_count', 'Jumlah Viewer', 'trim|required');
+        // $val->set_rules('content_view_count', 'Jumlah Viewer', 'trim|required');
         $val->set_rules('content_publish_date', 'Tgl Publish', 'trim|required');
 
         $val->set_message('required', "Silahkan isi field \"%s\"");
@@ -144,8 +144,8 @@ class Cms_news extends MX_Controller {
             $id = ($this->input->post('id'))?$this->regex->_genRegex($this->input->post('id'),'RGXINT'):0;
 
             $dataexc = array(
-                'section_id' => $this->regex->_genRegex($val->set_value('section_id'), 'RGXQSL'),
-                'content_subtitle' => $this->regex->_genRegex($val->set_value('content_subtitle'), 'RGXQSL'),
+                // 'section_id' => $this->regex->_genRegex($val->set_value('section_id'), 'RGXQSL'),
+                // 'content_subtitle' => $this->regex->_genRegex($val->set_value('content_subtitle'), 'RGXQSL'),
                 'content_category' => $this->regex->_genRegex($val->set_value('content_category'), 'RGXINT'),
                 'content_title' => $this->regex->_genRegex($val->set_value('content_title'), 'RGXQSL'),
                 'content_owner' => $this->regex->_genRegex($val->set_value('content_owner'), 'RGXQSL'),
@@ -157,7 +157,7 @@ class Cms_news extends MX_Controller {
             );
 
             // upload attachment
-            if(isset($_FILES['content_cover']['name'])){
+            if(!empty($_FILES['content_cover']['name'])){
                 $dataexc['content_cover'] = $this->upload_file->upload_single_blob('content_cover');
             }
 

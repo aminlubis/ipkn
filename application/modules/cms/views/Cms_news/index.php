@@ -30,11 +30,11 @@
           <tr class="table-bg-green">  
             <th width="30px" style="text-align: center; valign: top"></th>
             <th style="color: white; width: 130px">Action</th>
-            <th style="color: white">Section</th>
+            <!-- <th style="color: white">Section</th> -->
             <th style="color: white">Judul</th>
             <th style="color: white">Author</th>
             <th style="color: white">Tgl Publish</th>
-            <th style="color: white">Viewer</th>
+            <!-- <th style="color: white">Viewer</th> -->
             <th style="color: white">Status</th>
             <th style="color: white" width="100px">Posted By</th>
           </tr>

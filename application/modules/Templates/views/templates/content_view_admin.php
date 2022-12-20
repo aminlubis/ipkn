@@ -402,9 +402,9 @@
 			$(document).ready(function(){
 				$('#page-area-content').load('<?php echo base_url()?>dashboard/chart?_=' + (new Date()).getTime());
 				reload_notification();	
-				setInterval(function() {
-					reload_notification();
-                }, 12000); 
+				// setInterval(function() {
+				// 	reload_notification();
+                // }, 12000); 
 			})
 
 			function reload_notification(){

@@ -34,7 +34,7 @@
             <th style="color: white">Deskripsi</th>
             <th style="color: white">Author</th>
             <th style="color: white">Tgl Publish</th>
-            <th style="color: white">Viewer</th>
+            <!-- <th style="color: white">Viewer</th> -->
             <th style="color: white">Status</th>
             <th style="color: white" width="100px">Posted By</th>
           </tr>

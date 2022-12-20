@@ -126,7 +126,7 @@ class Cms_report_data extends MX_Controller {
         $val->set_rules('owner', 'Author', 'trim|required');
         $val->set_rules('description', 'Deskripsi', 'trim|required');
         $val->set_rules('report_type', 'Kategori Data', 'trim|required');
-        $val->set_rules('count_view', 'Jumlah Viewer', 'trim|required');
+        // $val->set_rules('count_view', 'Jumlah Viewer', 'trim|required');
         $val->set_rules('publish_date', 'Tgl Publish', 'trim|required');
 
         $val->set_message('required', "Silahkan isi field \"%s\"");
@@ -184,8 +184,6 @@ class Cms_report_data extends MX_Controller {
                     'ref_table' => 'cms_report_data',
                 ));
             }
-
-
 
 
             if ($this->db->trans_status() === FALSE)

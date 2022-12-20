@@ -1,26 +1,71 @@
+<script src="<?php echo base_url()?>assets/ckeditor/ckeditor.js"></script>
+<script src="<?php echo base_url()?>assets/ckeditor/samples/js/sample.js"></script>
+
 <script>
+initSample();
+  var editor = CKEDITOR.replace('description', {
+    height: 400,
+    removeButtons: 'PasteFromWord'
+  });
+
+  // config.stylesSet = 'custom_style';
+  editor.on( 'change', function( evt ) {
+  // getData() returns CKEditor's HTML content.
+      document.getElementById('editordescription').innerHTML = editor.getData();
+  });
+
+</script>
+
+<script>
+
 $(document).ready(function(){
 
-    $('#form_cms_report').ajaxForm({
-      beforeSend: function() {
-        achtungShowLoader();  
-      },
-      uploadProgress: function(event, position, total, percentComplete) {
-      },
-      complete: function(xhr) {     
-        var data=xhr.responseText;
-        var jsonResponse = JSON.parse(data);
+  $('#form_cms_report').on('submit', function(){
+        
+    //put the editor's html content inside the hidden input to be sent to server
+    
+    pf_file = new Array();
+    var formData = new FormData($('#form_cms_report')[0]);
+    
+    i=0;
 
-        if(jsonResponse.status === 200){
-          $.achtung({message: jsonResponse.message, timeout:5});
-          $('#page-area-content').load('<?php echo base_url()?>cms/Cms_report_data?_=' + (new Date()).getTime());
-          reload_notification();
-        }else{
-          $.achtung({message: jsonResponse.message, timeout:5, className:'achtungFail'});
+    formData.append('description', $('#editordescription').html() );
+    formData.append('document_name', pf_file);
+
+    url = $('#form_cms_report').attr('action');
+
+    // ajax adding data to database
+      $.ajax({
+        url : url,
+        type: "POST",
+        data: formData,
+        dataType: "JSON",
+        contentType: false,
+        processData: false,
+        
+        beforeSend: function() {
+          achtungShowLoader();  
+        },
+        uploadProgress: function(event, position, total, percentComplete) {
+        },
+        complete: function(xhr) {     
+          var data=xhr.responseText;
+          var jsonResponse = JSON.parse(data);
+
+          if(jsonResponse.status === 200){
+            $.achtung({message: jsonResponse.message, timeout:5});
+            $('#page-area-content').load('<?php echo base_url()?>cms/Cms_report_data?_=' + (new Date()).getTime());
+          }else{
+            $.achtung({message: jsonResponse.message, timeout:5, className:'achtungFail'});
+          }
+          achtungHideLoader();
         }
-        achtungHideLoader();
-      }
-    }); 
+      });
+
+    return false;
+    
+  });
+
 })
 
 function hapus_file(a, b)
@@ -121,12 +166,12 @@ function tambah_file()
           </div>
         </div>
 
-        <div class="form-group row">
+        <!-- <div class="form-group row">
           <label class="col-form-label col-md-3">Jumlah Viewer</label>
           <div class="col-md-3">
             <input name="count_view" id="count_view" value="<?php echo isset($value)?$value->count_view:''?>" placeholder="" class="form-control" type="text" <?php echo ($flag=='read')?'readonly':''?> >
           </div>
-        </div>
+        </div> -->
 
         <div class="form-group row">
           <label class="col-form-label col-lg-3 col-sm-12">Tanggal Publish</label>
@@ -147,12 +192,21 @@ function tambah_file()
           </div>
         </div>
         
-        <div class="form-group row">
+        <!-- <div class="form-group row">
           <label class="col-form-label col-md-3">Deskripsi</label>
           <div class="col-md-8">
           <textarea name="description" class="form-control"  <?php echo ($flag=='read')?'readonly':''?> style="height:120px !important"><?php echo isset($value)?$value->description:''?></textarea>
           </div>
+        </div> -->
+
+        <div class="form-group row">
+          <label class="col-form-label col-md-3">Deskripsi</label>
+          <div class="col-md-8">
+          <textarea name="description" id="description" class="form-control"  <?php echo ($flag=='read')?'readonly':''?> style="height:120px !important"><?php echo isset($value)?$value->description:''?></textarea>
+          <div id="editordescription" style="display: none"><?php echo isset($value->description)?$value->description:''?></div>
+          </div>
         </div>
+
         <div class="form-group row">
           <label class="col-form-label col-md-3">Image Cover</label>
           <div class="col-md-3">
@@ -197,9 +251,9 @@ function tambah_file()
           <div class="col-md-3">
             <input name="file_upload[]" id="file_upload" value="" placeholder="" class="form-control" type="file" <?php echo ($flag=='read')?'readonly':''?>>
           </div>
-          <div class ="col-md-1" style="margin-left:-2.5%">
+          <!-- <div class ="col-md-1" style="margin-left:-2.5%">
             <input onClick="tambah_file()" value="+ Add" type="button" class="btn btn-sm btn-info" />
-          </div>
+          </div> -->
         </div>
 
         <div id="input_file<?php echo $j;?>"></div>

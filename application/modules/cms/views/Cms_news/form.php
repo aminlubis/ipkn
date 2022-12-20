@@ -1,26 +1,70 @@
+<script src="<?php echo base_url()?>assets/ckeditor/ckeditor.js"></script>
+<script src="<?php echo base_url()?>assets/ckeditor/samples/js/sample.js"></script>
+
+<script>
+initSample();
+  var editor = CKEDITOR.replace('content_description', {
+    height: 400,
+    removeButtons: 'PasteFromWord'
+  });
+
+  // config.stylesSet = 'custom_style';
+  editor.on( 'change', function( evt ) {
+  // getData() returns CKEditor's HTML content.
+      document.getElementById('editorcontent_description').innerHTML = editor.getData();
+  });
+
+</script>
+
 <script>
 $(document).ready(function(){
 
-    $('#form_cms_report').ajaxForm({
-      beforeSend: function() {
-        achtungShowLoader();  
-      },
-      uploadProgress: function(event, position, total, percentComplete) {
-      },
-      complete: function(xhr) {     
-        var data=xhr.responseText;
-        var jsonResponse = JSON.parse(data);
+    $('#form_cms_news').on('submit', function(){
+          
+      //put the editor's html content inside the hidden input to be sent to server
+      
+      pf_file = new Array();
+      var formData = new FormData($('#form_cms_news')[0]);
+      
+      i=0;
 
-        if(jsonResponse.status === 200){
-          $.achtung({message: jsonResponse.message, timeout:5});
-          $('#page-area-content').load('<?php echo base_url()?>cms/Cms_news?_=' + (new Date()).getTime());
-          reload_notification();
-        }else{
-          $.achtung({message: jsonResponse.message, timeout:5, className:'achtungFail'});
-        }
-        achtungHideLoader();
-      }
-    }); 
+      formData.append('content_description', $('#editorcontent_description').html() );
+      formData.append('document_name', pf_file);
+
+      url = $('#form_cms_news').attr('action');
+
+      // ajax adding data to database
+        $.ajax({
+          url : url,
+          type: "POST",
+          data: formData,
+          dataType: "JSON",
+          contentType: false,
+          processData: false,
+          
+          beforeSend: function() {
+            achtungShowLoader();  
+          },
+          uploadProgress: function(event, position, total, percentComplete) {
+          },
+          complete: function(xhr) {     
+            var data=xhr.responseText;
+            var jsonResponse = JSON.parse(data);
+
+            if(jsonResponse.status === 200){
+              $.achtung({message: jsonResponse.message, timeout:5});
+              $('#page-area-content').load('<?php echo base_url()?>cms/Cms_news?_=' + (new Date()).getTime());
+            }else{
+              $.achtung({message: jsonResponse.message, timeout:5, className:'achtungFail'});
+            }
+            achtungHideLoader();
+          }
+        });
+
+      return false;
+      
+    });
+
 })
 
 function hapus_file(a, b)
@@ -98,7 +142,7 @@ function tambah_file()
       </div>
 
       <!--begin::Form-->
-      <form class="kt-form kt-form--label-right" method="post" id="form_cms_report" action="<?php echo site_url('cms/Cms_news/process')?>" enctype="multipart/form-data">
+      <form class="kt-form kt-form--label-right" method="post" id="form_cms_news" action="<?php echo site_url('cms/Cms_news/process')?>" enctype="multipart/form-data">
         <br>
 
         <div class="form-group row">
@@ -108,12 +152,12 @@ function tambah_file()
           </div>
         </div>
 
-        <div class="form-group row">
+        <!-- <div class="form-group row">
           <label class="col-form-label col-md-3">Section Layout</label>
           <div class="col-md-6">
             <?php echo $this->master->custom_selection(array('table'=>'cms_section', 'where'=>array('is_active'=>'Y'), 'id'=>'section_id', 'name' => 'section_title'),isset($value)?$value->section_id:'','section_id','section_id','chosen-slect form-control',($flag=='read')?'readonly':'','');?>
           </div>
-        </div>
+        </div> -->
 
         <div class="form-group row">
           <label class="col-form-label col-md-3">Judul</label>
@@ -121,12 +165,12 @@ function tambah_file()
             <input name="content_title" id="content_title" value="<?php echo isset($value)?$value->content_title:''?>" placeholder="" class="form-control" type="text" <?php echo ($flag=='read')?'readonly':''?> >
           </div>
         </div>
-        <div class="form-group row">
+        <!-- <div class="form-group row">
           <label class="col-form-label col-md-3">Sub Judul</label>
           <div class="col-md-6">
             <input name="content_subtitle" id="content_subtitle" value="<?php echo isset($value)?$value->content_subtitle:''?>" placeholder="" class="form-control" type="text" <?php echo ($flag=='read')?'readonly':''?> >
           </div>
-        </div>
+        </div> -->
 
         <div class="form-group row">
           <label class="col-form-label col-md-3">Kategori Berita</label>
@@ -142,12 +186,12 @@ function tambah_file()
           </div>
         </div>
 
-        <div class="form-group row">
+        <!-- <div class="form-group row">
           <label class="col-form-label col-md-3">Jumlah Viewer</label>
           <div class="col-md-2">
             <input name="content_view_count" id="content_view_count" value="<?php echo isset($value)?$value->content_view_count:0?>" placeholder="" class="form-control" type="text" <?php echo ($flag=='read')?'readonly':''?> >
           </div>
-        </div>
+        </div> -->
 
         <div class="form-group row">
           <label class="col-form-label col-lg-3 col-sm-12">Tanggal Publish</label>
@@ -164,7 +208,8 @@ function tambah_file()
         <div class="form-group row">
           <label class="col-form-label col-md-3">Deskripsi</label>
           <div class="col-md-8">
-          <textarea name="content_description" class="form-control"  <?php echo ($flag=='read')?'readonly':''?> style="height:120px !important"><?php echo isset($value)?$value->content_description:''?></textarea>
+          <textarea name="content_description" id="content_description" class="form-control"  <?php echo ($flag=='read')?'readonly':''?> style="height:120px !important"><?php echo isset($value)?$value->content_description:''?></textarea>
+          <div id="editorcontent_description" style="display: none"><?php echo isset($value->content_description)?$value->content_description:''?></div>
           </div>
         </div>
         <div class="form-group row">

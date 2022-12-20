@@ -30,7 +30,7 @@ $(document).ready(function(){
     i=0;
 
     formData.append('description', $('#editordescription').html() );
-    formData.append('document_name', pf_file);
+    // formData.append('document_name', pf_file);
 
     url = $('#form_cms_report').attr('action');
 

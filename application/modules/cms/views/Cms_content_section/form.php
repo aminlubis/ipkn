@@ -160,7 +160,7 @@ function tambah_file()
             <input name="content_title" id="content_title" value="<?php echo isset($value)?$value->content_title:''?>" placeholder="" class="form-control" type="text" <?php echo ($flag=='read')?'readonly':''?> >
           </div>
         </div>
-        <?php if(in_array($_GET['section'], array(1) )) : ?>
+        <?php if(in_array($_GET['section'], array(1,3,5,10,16) )) : ?>
         <div class="form-group row">
           <label class="col-form-label col-md-3">Sub Judul</label>
           <div class="col-md-6">
@@ -169,7 +169,7 @@ function tambah_file()
         </div>
         <?php endif; ?>
         
-        <?php if(in_array($_GET['section'], array(2) )) : ?>
+        <?php if(in_array($_GET['section'], array(2,3,5,9,15) )) : ?>
         <div class="form-group row">
           <label class="col-form-label col-md-3">Deskripsi</label>
           <div class="col-md-8">
@@ -207,7 +207,7 @@ function tambah_file()
           </div>
         </div>
         
-        <?php if(in_array($_GET['section'], array(2) )) : ?>
+        <?php if(in_array($_GET['section'], array(2,3,9,10,15,16) )) : ?>
         <div class="kt-portlet__head">
           <div class="kt-portlet__head-label">
             <h3 class="kt-portlet__head-title">

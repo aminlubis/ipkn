@@ -100,7 +100,7 @@ class Cms_report_data extends MX_Controller {
             $row[] = $row_list->description;
             $row[] = $row_list->owner;
             $row[] = $this->tanggal->formatDateFormDmy($row_list->publish_date);
-            $row[] = $row_list->count_view;
+            // $row[] = $row_list->count_view;
             $row[] = ($row_list->is_active == 'Y') ? '<div style="text-align: center"><span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">Active</span></div>' : '<div style="text-align: center"><span class="kt-badge kt-badge--danger kt-badge--inline kt-badge--pill kt-badge--rounded">Not active</span></div>';
             $row[] = $this->logs->show_logs_record_datatable($row_list);
 
@@ -119,6 +119,7 @@ class Cms_report_data extends MX_Controller {
 
     public function process()
     {
+    //    print_r($_POST);
     //    print_r($_FILES);die;
         $this->load->library('form_validation');
         $val = $this->form_validation;
@@ -152,7 +153,7 @@ class Cms_report_data extends MX_Controller {
             );
 
             // upload attachment
-            if(isset($_FILES['report_cover']['name'])){
+            if(!empty($_FILES['report_cover']['name'])){
                 $dataexc['report_cover'] = $this->upload_file->upload_single_blob('report_cover');
             }
 
@@ -176,7 +177,16 @@ class Cms_report_data extends MX_Controller {
 
             // upload multiple file
             /*insert dokumen adjusment*/
-            if(isset($_FILES['file_upload'])){
+            // if(isset($_FILES['file_upload'])){
+            //     $this->upload_file->upload_multiple_file_blob(array(
+            //         'doc_name' => 'document_name',
+            //         'name' => 'file_upload',
+            //         'ref_id' => $newId,
+            //         'ref_table' => 'cms_report_data',
+            //     ));
+            // }
+
+            if(isset($_FILES['file_upload']) AND !empty($_FILES['file_upload']['name'][0])){
                 $this->upload_file->upload_multiple_file_blob(array(
                     'doc_name' => 'document_name',
                     'name' => 'file_upload',

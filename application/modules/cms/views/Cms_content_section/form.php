@@ -190,6 +190,8 @@ function tambah_file()
                 echo '<span class="form-text text-muted"><i> * Dimensi ukuran gambar <b>220px x 300px</b></i></span>';
               }else if(in_array($_GET['section'], array(14,8))){
                 echo '<span class="form-text text-muted"><i> * Dimensi ukuran gambar <b>1440px x 200px</b></i></span>';
+              }else if(in_array($_GET['section'], array(10,16))){
+                echo '<span class="form-text text-muted"><i> * Dimensi ukuran gambar <b>160px x 160px </b></i></span>';
               }
             ?>
             

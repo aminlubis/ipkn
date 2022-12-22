@@ -14,8 +14,10 @@ final Class Master {
 		$db = $CI->load->database('default', TRUE);
 		$year = array();
 		$now = date('Y');
-		for ($i=$now-2; $i < $now+2 ; $i++) { 
-			$year[] = $i;
+		for ($i=$now-3; $i <= $now ; $i++) {
+			if($i != 2020){
+				$year[] = $i;
+			}
 		}
 		$data = $year;
 

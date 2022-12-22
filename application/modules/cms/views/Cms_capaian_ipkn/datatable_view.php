@@ -43,7 +43,10 @@ $(document).ready(function(){
       <div class="kt-portlet__head-toolbar">
         <div class="kt-portlet__head-wrapper">
           <div class="kt-portlet__head-actions">
-            <?php echo $this->master->get_tahun(isset($_GET['year'])?$_GET['year']:date('Y'),'tahun','tahun','form-control','','');?>
+            <!-- <?php echo $this->master->get_tahun(isset($_GET['year'])?$_GET['year']:date('Y'),'tahun','tahun','form-control','','');?> -->
+            <select name="tahun" class="form-control">
+              <option value="2022" selected>2022</option>
+            </select>
           </div>
         </div>
       </div>

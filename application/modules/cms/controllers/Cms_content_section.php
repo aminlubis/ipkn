@@ -23,7 +23,7 @@ class Cms_content_section extends MX_Controller {
         $this->section = $_GET['section'];
         $this->class = $_GET['class'];
         /*profile class*/
-        $this->title = ($this->lib_menus->get_menu_by_class(get_class($this)))?$this->lib_menus->get_menu_by_class(get_class($this))->name : 'Title';
+        $this->title = $this->getTitleBySection($_GET['section']);
 
     }
 
@@ -221,6 +221,11 @@ class Cms_content_section extends MX_Controller {
             echo json_encode(array('status' => 301, 'message' => 'Tidak ada item yang dipilih'));
         }
         
+    }
+
+    public function getTitleBySection($section){
+        $result = $this->db->get_where('cms_section', array('section_id' => $section))->row();
+        return $result->section_title;
     }
 
 

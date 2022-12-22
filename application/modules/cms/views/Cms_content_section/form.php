@@ -169,12 +169,12 @@ function tambah_file()
         </div>
         <?php endif; ?>
         
-        <?php if(in_array($_GET['section'], array(2,3,5,9,15) )) : ?>
+        <?php if(in_array($_GET['section'], array(2,3,5,9) )) : ?>
         <div class="form-group row">
           <label class="col-form-label col-md-3">Deskripsi</label>
           <div class="col-md-8">
           <textarea name="content_description" id="content_description" class="form-control"  <?php echo ($flag=='read')?'readonly':''?> style="height:120px !important"><?php echo isset($value)?$value->content_description:''?></textarea>
-          <div id="editorcontent_description" style="display: none"><?php echo isset($value->letter_content)?$value->letter_content:''?></div>
+          <div id="editorcontent_description" style="display: none"><?php echo isset($value->content_description)?$value->content_description:''?></div>
           </div>
         </div>
         <?php endif;?>
@@ -183,7 +183,16 @@ function tambah_file()
           <label class="col-form-label col-md-3">Gambar Utama</label>
           <div class="col-md-3">
             <input name="content_cover" id="content_cover" value="" placeholder="" class="form-control" type="file" <?php echo ($flag=='read')?'readonly':''?>>
-            <span class="form-text text-muted">Maximum file size 4 MB</span>
+            <?php 
+              if($_GET['section'] == 1){
+                echo '<span class="form-text text-muted"><i> * Dimensi ukuran gambar <b>895px x 640px</b></i></span>';
+              }else if($_GET['section'] == 2){
+                echo '<span class="form-text text-muted"><i> * Dimensi ukuran gambar <b>220px x 300px</b></i></span>';
+              }else if(in_array($_GET['section'], array(14,8))){
+                echo '<span class="form-text text-muted"><i> * Dimensi ukuran gambar <b>1440px x 200px</b></i></span>';
+              }
+            ?>
+            
           </div>
         </div>
         <div class="form-group row">
@@ -207,7 +216,7 @@ function tambah_file()
           </div>
         </div>
         
-        <?php if(in_array($_GET['section'], array(2,3,9,10,15,16) )) : ?>
+        <?php if(in_array($_GET['section'], array(2,3) )) : ?>
         <div class="kt-portlet__head">
           <div class="kt-portlet__head-label">
             <h3 class="kt-portlet__head-title">

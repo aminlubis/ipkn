@@ -160,7 +160,7 @@
 							<div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout-default ">
 								<ul class="kt-menu__nav ">
 									<li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel kt-menu__item--active" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
-										<marquee style="font-size: 14px">Selamat datang di Aplikasi Visualisasi & Integrasi TTCI (VISIT)</marquee>
+										<marquee style="font-size: 14px">Selamat datang di Aplikasi Visualisasi & Integrasi TTCI (Prakarsa Kemenparekraf)</marquee>
 									</span>
 									</li>
 								</ul>

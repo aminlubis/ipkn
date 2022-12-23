@@ -178,7 +178,8 @@ function tambah_file()
           </div>
         </div>
         <?php endif;?>
-
+        
+        <?php if(!in_array($_GET['section'], array(2) )) : ?>
         <div class="form-group row">
           <label class="col-form-label col-md-3">Gambar Utama</label>
           <div class="col-md-3">
@@ -192,17 +193,23 @@ function tambah_file()
                 echo '<span class="form-text text-muted"><i> * Dimensi ukuran gambar <b>1440px x 200px</b></i></span>';
               }else if(in_array($_GET['section'], array(10,16))){
                 echo '<span class="form-text text-muted"><i> * Dimensi ukuran gambar <b>160px x 160px </b></i></span>';
+              }else if(in_array($_GET['section'], array(15,9,5))){
+                echo '<span class="form-text text-muted"><i> * Dimensi ukuran gambar <b>445px x 300px </b></i></span>';
+              }else if(in_array($_GET['section'], array(3))){
+                echo '<span class="form-text text-muted"><i> * Dimensi ukuran gambar <b>261px x 356px </b></i></span>';
               }
             ?>
             
           </div>
         </div>
+
         <div class="form-group row">
           <label class="col-form-label col-md-3">&nbsp;</label>
           <div class="col-md-3">
             <img src="data:image/jpeg;base64,<?php echo isset($value)?base64_encode($value->content_cover):''?>" style="max-width: 200px !important"/>
           </div>
         </div>
+        <?php endif; ?>
 
         <div class="form-group row">
           <label class="col-form-label col-md-3">Is active?</label>
@@ -234,6 +241,11 @@ function tambah_file()
           </div>
           <div class="col-md-3">
             <input name="file_upload[]" id="file_upload" value="" placeholder="" class="form-control" type="file" <?php echo ($flag=='read')?'readonly':''?>>
+            <?php 
+              if($_GET['section'] == 2){
+                echo '<span class="form-text text-muted"><i> * Dimensi ukuran gambar <b>220px x 300px</b></i></span>';
+              }
+            ?>
           </div>
           <div class ="col-md-1" style="margin-left:-2.5%">
             <input onClick="tambah_file()" value="+ Add" type="button" class="btn btn-sm btn-info" />

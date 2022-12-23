@@ -74,10 +74,11 @@ $(document).ready(function(){
               <td style="color: white; width: 100px"><input type="text" name="score_index_2[]" value="<?php echo $v->index_2; ?>" class="form-control" style="text-align: center" value=""></td>
               <td style="color: white; width: 100px"><input type="text" name="score_index_3[]" value="<?php echo $v->index_3; ?>" class="form-control" style="text-align: center" value=""></td>
               <td style="color: white; width: 100px"><input type="text" name="score_index_4[]" value="<?php echo $v->index_4; ?>" class="form-control" style="text-align: center" value=""></td>
+              <td style="color: white; width: 100px"><input type="text" name="score_index_5[]" value="<?php echo $v->index_5; ?>" class="form-control" style="text-align: center" value=""></td>
             </tr>
           <?php endforeach;?>
           <?php endif;?>
-          <?php for($i=$no+1; $i<11; $i++) :?>
+          <?php for($i=$no+1; $i<12; $i++) :?>
             <tr>
               <td align="center"><?php echo $i; ?></td>
               <td align="center"><input type="checkbox" name="is_active[]"></td>

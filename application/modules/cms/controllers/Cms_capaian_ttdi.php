@@ -68,6 +68,7 @@ class Cms_capaian_ttdi extends MX_Controller {
                 $val->set_rules('score_index_2['.$key.']', 'Skor Sub Index 2 '.$value.'', 'trim|required');
                 $val->set_rules('score_index_3['.$key.']', 'Skor Sub Index 3 '.$value.'', 'trim|required');
                 $val->set_rules('score_index_4['.$key.']', 'Skor Sub Index 4 '.$value.'', 'trim|required');
+                $val->set_rules('score_index_5['.$key.']', 'Skor Sub Index 5 '.$value.'', 'trim|required');
             }
         }
 
@@ -97,6 +98,7 @@ class Cms_capaian_ttdi extends MX_Controller {
                         'index_2' => $this->regex->_genRegex($_POST['score_index_2'][$key], 'RGXQSL'),
                         'index_3' => $this->regex->_genRegex($_POST['score_index_3'][$key], 'RGXQSL'),
                         'index_4' => $this->regex->_genRegex($_POST['score_index_4'][$key], 'RGXQSL'),
+                        'index_5' => $this->regex->_genRegex($_POST['score_index_5'][$key], 'RGXQSL'),
                         'is_active' => isset($_POST['is_active'][$key]) ? 'Y' : 'N',
                         'created_date' => date('Y-m-d H:i:s'),
                         'created_by' => json_encode(array('user_id' =>$this->regex->_genRegex($this->session->userdata('user')->user_id,'RGXINT'), 'fullname' => $this->regex->_genRegex($this->session->userdata('user')->fullname,'RGXQSL'))),

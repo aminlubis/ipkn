@@ -169,7 +169,7 @@ function tambah_file()
         </div>
         <?php endif; ?>
         
-        <?php if(in_array($_GET['section'], array(2,3,5,9) )) : ?>
+        <?php if(in_array($_GET['section'], array(2,3,5,9,15) )) : ?>
         <div class="form-group row">
           <label class="col-form-label col-md-3">Deskripsi</label>
           <div class="col-md-8">

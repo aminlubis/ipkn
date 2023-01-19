@@ -69,6 +69,64 @@ class Template
 
         return $status;
     }
+
+    function color_parameter( $value ){
+
+        $color = '';
+        if( $value >= 0 && $value < 1 ){
+            $color = '#e13306'; // merah
+        }
+
+        if( $value >= 1 && $value < 2 ){
+            $color = '#e13306bd';
+        }
+
+        if( $value >= 2 && $value < 3 ){
+            $color = '#e133065e';
+        }
+
+        if( $value >= 3 && $value < 4 ){
+            $color = '#0692e16b';
+        }
+
+        if( $value >= 4 && $value < 5 ){
+            $color = '#0692e1b3';
+        }
+
+        if( $value >= 5 && $value < 6 ){
+            $color = '#0692e1e3';
+        }
+
+        if( $value >= 6 && $value < 7 ){
+            $color = '#036ba6';
+        }
+
+        if( $value >= 7 && $value < 8 ){
+            $color = '#035583';
+        }
+
+        if( $value >= 8 && $value < 9 ){
+            $color = '#0c9d056b';
+        }
+
+        if( $value >= 9 && $value < 10 ){
+            $color = '#0c9d0596';
+        }
+
+        if( $value >= 10 && $value < 11 ){
+            $color = '#0c9d05bd';
+        }
+
+        if( $value == 11 ){
+            $color = '#0c9d05e0';
+        }
+        if( $value > 11 ){
+            $color = '#107c0b';
+        }
+
+        return $color;
+
+    }
 }
 
 /* End of file Template.php */

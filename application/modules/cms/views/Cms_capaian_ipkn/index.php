@@ -2,7 +2,7 @@
 <script>
 $(document).ready(function(){
 
-  $('#content_datatable').load('<?php echo base_url()?>cms/Cms_capaian_ipkn/load_datatable');
+  $('#content_datatable').load('<?php echo base_url()?>cms/Cms_capaian_ipkn/load_datatable?year='+$('#tahun').val()+'');
 
 })
 

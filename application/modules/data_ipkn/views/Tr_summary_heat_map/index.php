@@ -21,6 +21,7 @@
 </div>
 
 <style>
+      
 .wrapper {
   border: 1px solid #ccc;
   background: #eee;
@@ -35,12 +36,6 @@ table {
   table-layout: fixed;
 }
 
-thead,
-tr>th {
-  position: sticky;
-  background: #eee;
-}
-
 thead {
   top: 0;
   z-index: 2;
@@ -52,7 +47,6 @@ tr>th {
 thead tr>th:first-child {
   z-index: 3;
 }
-
 th,
 td {
   height: 50px;
@@ -65,31 +59,37 @@ td {
 td {
   background: #fff;
 }
-th:first-child {
-  border-right-width: 1px;
-  border-left: 0;
+
+.rotated {
+    writing-mode: tb-rl;
+    white-space: pre-wrap;
+    transform: rotate(-180deg);
+    font-size: 12px;
 }
-th+td,
-th:first-child+th {
-  border-left: 0;
-}
-tbody tr:last-child>* {
-  border-bottom: 0;
-}
-tr>*:last-child {
-  border-right: 0;
-}
-      </style>
+</style>
 
       
-
-
-
-
-
-
-
 <form class="form-horizontal" method="post" id="form_search" action="#">
+
+<?php 
+  $no=0; 
+  foreach ($provinces as $key => $value_prov) { 
+    $no++;
+      foreach ($header as $key_subindex => $row_subindex) {
+        foreach($row_subindex as $key_pillar => $row_pillar){
+          foreach ($row_pillar as $key_indicator => $row_indicator) {
+            # code...
+            $getrow = isset($summary[$value_prov->id][$row_indicator->indicator_id])?$summary[$value_prov->id][$row_indicator->indicator_id]:'';
+            $value_dt = isset($getrow->value)?$getrow->value:0;
+            $score_dt = isset($getrow->score)?$getrow->score:0;
+            $getDataPillar[$key][$key_pillar][] = $score_dt;
+          }
+        }
+    }
+  }
+  // echo '<pre>';print_r($getDataPillar);die;
+
+?>
 
   <div class="kt-portlet">
     <div class="kt-portlet__head">
@@ -123,56 +123,43 @@ tr>*:last-child {
           <table>
             <thead>
               <tr style="color: black !important">
-                <th rowspan="3" style="width: 20px !important">No</th>
-                <th rowspan="3">Provinsi</th>
+                <th rowspan="2" style="text-align: center; background: white; color: black; width: 20px">No</th>
+                <th rowspan="2" style="text-align: center; background: white; color: black">Provinsi</th>
                 <?php 
                   foreach ($header as $key_subindex => $row_subindex) {
                     foreach($row_subindex as $key_pillar => $row_pillar){
-                      $colspan = count($row_pillar) * 2;
-                      echo '<th colspan="'.$colspan.'" align="center">'.$key_pillar.'</th>';
+                      $colspan = count($row_pillar);
+                      echo '<th class="rotated" style=" background: #17345d; color: white; height: 200px; width: 100%">'.$key_pillar.'</th>';
                     }
                 }?>
               </tr>
-              <tr style="color: black !important">
+              <!-- <tr style="color: black !important">
                 <?php 
-                  foreach ($header as $key_subindex => $row_subindex) {
-                    foreach($row_subindex as $key_pillar => $row_pillar){
-                      foreach ($row_pillar as $key_indicator => $row_indicator) {
-                        # code...
-                        echo '<th colspan="2" style="white-space: pre-wrap">'.$row_indicator->indicator_code.'<br>'.$row_indicator->indicator_name.'</th>';
-                      }
-                    }
-                }?>
-              </tr>
-              <tr style="color: black !important">
-              <?php 
-                  foreach ($header as $key_subindex => $row_subindex) {
-                    foreach($row_subindex as $key_pillar => $row_pillar){
-                      foreach ($row_pillar as $key_indicator => $row_indicator) {
-                        # code...
-                        echo '<th>Nilai</th>';
-                        echo '<th>Skor</th>';
-                      }
-                    }
-                }?>
-              <tr>
+                //   foreach ($header as $key_subindex => $row_subindex) {
+                //     foreach($row_subindex as $key_pillar => $row_pillar){
+                //       foreach ($row_pillar as $key_indicator => $row_indicator) {
+                //         # code...
+                //         echo '<th class="rotated" style="max-width: 80px; height: 250px">'.$row_indicator->indicator_code.'<br>'.$row_indicator->indicator_name.'</th>';
+                //       }
+                //     }
+                // }?>
+              </tr> -->
             </thead>
             <tbody>
-              <?php $no=0; foreach ($provinces as $key => $value_prov) : $no++?>
+              <?php 
+                $no=0; 
+                foreach ($provinces as $key => $value_prov) : 
+                  $no++
+              ?>
                 <tr>
-                  <th scope="row"><?php echo $no?></th>
-                  <th scope="row"><?php echo $value_prov->name?></th>
+                  <th scope="row" style="text-align: center; background: white; color: black"><?php echo $no?></th>
+                  <th scope="row" style="text-align: left; background: white; color: black"><?php echo $value_prov->name?></th>
                   <?php 
                   foreach ($header as $key_subindex => $row_subindex) {
                     foreach($row_subindex as $key_pillar => $row_pillar){
-                      foreach ($row_pillar as $key_indicator => $row_indicator) {
-                        # code...
-                        $getrow = isset($summary[$value_prov->id][$row_indicator->indicator_id])?$summary[$value_prov->id][$row_indicator->indicator_id]:'';
-                        $value_dt = isset($getrow->value)?$getrow->value:0;
-                        $score_dt = isset($getrow->score)?$getrow->score:0;
-                        echo '<td>'.number_format($value_dt, 2).'</td>';
-                        echo '<td>'.number_format($score_dt, 2).'</td>';
-                      }
+                      $avg_score = array_sum($getDataPillar[$key][$key_pillar]) / count($getDataPillar[$key][$key_pillar]);
+                      $color_code = $this->template->color_parameter($avg_score);
+                      echo '<td style="text-align: center; width: 80px; font-weight: bold; background: '.$color_code.'; color: white">'.number_format($avg_score, 2).'</td>';
                     }
                 }?>
                 </tr>

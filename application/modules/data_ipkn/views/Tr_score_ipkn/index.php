@@ -32,7 +32,7 @@
   }
   table {
     border-spacing: 0;
-    white-space: nowrap;
+    /* white-space: nowrap; */
     /* table-layout: fixed; */
   }
 
@@ -144,11 +144,11 @@
                 <a class="nav-link" id="formulasi_4" data-toggle="pill" href="#tab_formulasi_4" role="tab" aria-controls="tab_formulasi_4" aria-selected="false">Formulasi 4</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="skor_akhir" data-toggle="pill" href="#tab_skor_akhir" role="tab" aria-controls="tab_skor_akhir" aria-selected="false">Skor Akhir</a>
+                <a class="nav-link" id="skor_akhir" data-toggle="pill" href="#tab_skor_akhir" role="tab" aria-controls="tab_skor_akhir" aria-selected="false">Skor Pilar</a>
               </li>
-              <!-- <li class="nav-item">
-                <a class="nav-link" id="ranking" data-toggle="pill" href="#tab_ranking" role="tab" aria-controls="tab_ranking" aria-selected="false">Ranking</a>
-              </li> -->
+              <li class="nav-item">
+                <a class="nav-link" id="ranking" data-toggle="pill" href="#tab_ranking" role="tab" aria-controls="tab_ranking" aria-selected="false">Skor Index</a>
+              </li>
             </ul>
           </div>
           <div class="card-body">
@@ -158,14 +158,14 @@
                 <div class="wrapper">
                   <table>
                     <thead>
-                      <tr style="color: black !important">
-                        <th rowspan="2" style="width: 20px !important">No</th>
-                        <th rowspan="2">Provinsi</th>
+                      <tr style="color: black !important; ">
+                        <th rowspan="2" style="width: 20px !important; background-color: goldenrod">No</th>
+                        <th rowspan="2" style="background-color: goldenrod;width: 150px">Provinsi</th>
                         <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               $colspan = count($row_pillar) * 2;
-                              echo '<th colspan="'.$colspan.'" align="center">'.$key_pillar.'</th>';
+                              echo '<th colspan="'.$colspan.'" style="background-color: #17345d; text-align: center; color: white" align="center">'.$key_pillar.'</th>';
                             }
                         }?>
                       </tr>
@@ -175,20 +175,20 @@
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               foreach ($row_pillar as $key_indicator => $row_indicator) {
                                 # code...
-                                echo '<th colspan="2" class="rotated" style="white-space: pre-wrap">'.$row_indicator->indicator_code.'<br>'.$row_indicator->indicator_name.'</th>';
+                                echo '<th colspan="2" class="rotated" style="background-color: #17345d; text-align: right; color: white">'.$row_indicator->indicator_code.'<br>'.$row_indicator->indicator_name.'</th>';
                               }
                             }
                         }?>
                       </tr>
-                      <tr style="color: black !important">
+                      <tr style="color: black !important; background-color: goldenrod">
                         <th colspan="2"></th>
                         <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               foreach ($row_pillar as $key_indicator => $row_indicator) {
                                 # code...
-                                echo '<th style="width: 50px !important">Nilai</th>';
-                                echo '<th style="width: 50px !important">Skor</th>';
+                                echo '<th style="width: 50px !important; text-align: center">Nilai</th>';
+                                echo '<th style="width: 50px !important; text-align: center">Skor</th>';
                               }
                             }
                         }?>
@@ -197,8 +197,8 @@
                     <tbody>
                       <?php $no=0; foreach ($provinces as $key => $value_prov) : $no++?>
                         <tr>
-                          <th scope="row"><?php echo $no?></th>
-                          <th scope="row"><?php echo $value_prov->name?></th>
+                          <th scope="row"  style="background-color: goldenrod;text-align: center"><?php echo $no?></th>
+                          <th scope="row"  style="background-color: goldenrod;"><?php echo $value_prov->name?></th>
                           <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
@@ -248,13 +248,13 @@
                   <table>
                     <thead>
                       <tr style="color: black !important">
-                        <th rowspan="2" style="width: 20px !important">No</th>
-                        <th rowspan="2">Provinsi</th>
+                        <th rowspan="2" style="width: 20px !important; background-color: goldenrod">No</th>
+                        <th rowspan="2" style="background-color: goldenrod;width: 150px">Provinsi</th>
                         <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               $colspan = count($row_pillar) * 2;
-                              echo '<th colspan="'.$colspan.'" align="center">'.$key_pillar.'</th>';
+                              echo '<th colspan="'.$colspan.'" style="background-color: #17345d; text-align: center; color: white" align="center">'.$key_pillar.'</th>';
                             }
                         }?>
                       </tr>
@@ -264,20 +264,20 @@
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               foreach ($row_pillar as $key_indicator => $row_indicator) {
                                 # code...
-                                echo '<th colspan="2" class="rotated" style="white-space: pre-wrap">'.$row_indicator->indicator_code.'<br>'.$row_indicator->indicator_name.'</th>';
+                                echo '<th colspan="2" class="rotated" style="background-color: #17345d; text-align: right; color: white">'.$row_indicator->indicator_code.'<br>'.$row_indicator->indicator_name.'</th>';
                               }
                             }
                         }?>
                       </tr>
-                      <tr style="color: black !important">
+                      <tr style="color: black !important; background-color: goldenrod">
                         <th colspan="2"></th>
                         <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               foreach ($row_pillar as $key_indicator => $row_indicator) {
                                 # code...
-                                echo '<th>Nilai</th>';
-                                echo '<th>Skor</th>';
+                                echo '<th style="width: 50px !important; text-align: center">Nilai</th>';
+                                echo '<th style="width: 50px !important; text-align: center">Skor</th>';
                               }
                             }
                         }?>
@@ -286,8 +286,8 @@
                     <tbody>
                       <?php $no=0; foreach ($provinces as $key => $value_prov) : $no++?>
                         <tr>
-                          <th scope="row"><?php echo $no?></th>
-                          <th scope="row"><?php echo $value_prov->name?></th>
+                          <th scope="row"  style="background-color: goldenrod;text-align: center"><?php echo $no?></th>
+                          <th scope="row"  style="background-color: goldenrod;"><?php echo $value_prov->name?></th>
                           <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
@@ -342,14 +342,14 @@
                 <div class="wrapper">
                   <table>
                     <thead>
-                      <tr style="color: black !important">
-                        <th rowspan="2" style="width: 20px !important">No</th>
-                        <th rowspan="2">Provinsi</th>
+                      <tr style="color: black !important; ">
+                        <th rowspan="2" style="width: 20px !important; background-color: goldenrod">No</th>
+                        <th rowspan="2" style="background-color: goldenrod;width: 150px">Provinsi</th>
                         <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               $colspan = count($row_pillar) * 2;
-                              echo '<th colspan="'.$colspan.'" align="center">'.$key_pillar.'</th>';
+                              echo '<th colspan="'.$colspan.'" style="background-color: #17345d; text-align: center; color: white" align="center">'.$key_pillar.'</th>';
                             }
                         }?>
                       </tr>
@@ -359,20 +359,20 @@
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               foreach ($row_pillar as $key_indicator => $row_indicator) {
                                 # code...
-                                echo '<th colspan="2" class="rotated" style="white-space: pre-wrap">'.$row_indicator->indicator_code.'<br>'.$row_indicator->indicator_name.'</th>';
+                                echo '<th colspan="2" class="rotated" style="background-color: #17345d; text-align: right; color: white">'.$row_indicator->indicator_code.'<br>'.$row_indicator->indicator_name.'</th>';
                               }
                             }
                         }?>
                       </tr>
-                      <tr style="color: black !important">
+                      <tr style="color: black !important; background-color: goldenrod">
                         <th colspan="2"></th>
                         <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               foreach ($row_pillar as $key_indicator => $row_indicator) {
                                 # code...
-                                echo '<th>Nilai</th>';
-                                echo '<th>Skor</th>';
+                                echo '<th style="width: 50px !important; text-align: center">Nilai</th>';
+                                echo '<th style="width: 50px !important; text-align: center">Skor</th>';
                               }
                             }
                         }?>
@@ -381,8 +381,8 @@
                     <tbody>
                       <?php $no=0; foreach ($provinces as $key => $value_prov) : $no++?>
                         <tr>
-                          <th scope="row"><?php echo $no?></th>
-                          <th scope="row"><?php echo $value_prov->name?></th>
+                          <th scope="row"  style="background-color: goldenrod;text-align: center"><?php echo $no?></th>
+                          <th scope="row"  style="background-color: goldenrod;"><?php echo $value_prov->name?></th>
                           <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
@@ -437,14 +437,14 @@
                 <div class="wrapper">
                   <table>
                     <thead>
-                      <tr style="color: black !important">
-                        <th rowspan="2" style="width: 20px !important">No</th>
-                        <th rowspan="2">Provinsi</th>
+                      <tr style="color: black !important; ">
+                        <th rowspan="2" style="width: 20px !important; background-color: goldenrod">No</th>
+                        <th rowspan="2" style="background-color: goldenrod;width: 150px">Provinsi</th>
                         <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               $colspan = count($row_pillar) * 2;
-                              echo '<th colspan="'.$colspan.'" align="center">'.$key_pillar.'</th>';
+                              echo '<th colspan="'.$colspan.'" style="background-color: #17345d; text-align: center; color: white" align="center">'.$key_pillar.'</th>';
                             }
                         }?>
                       </tr>
@@ -454,20 +454,20 @@
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               foreach ($row_pillar as $key_indicator => $row_indicator) {
                                 # code...
-                                echo '<th colspan="2" class="rotated" style="white-space: pre-wrap">'.$row_indicator->indicator_code.'<br>'.$row_indicator->indicator_name.'</th>';
+                                echo '<th colspan="2" class="rotated" style="background-color: #17345d; text-align: right; color: white">'.$row_indicator->indicator_code.'<br>'.$row_indicator->indicator_name.'</th>';
                               }
                             }
                         }?>
                       </tr>
-                      <tr style="color: black !important">
+                      <tr style="color: black !important; background-color: goldenrod">
                         <th colspan="2"></th>
                         <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               foreach ($row_pillar as $key_indicator => $row_indicator) {
                                 # code...
-                                echo '<th>Nilai</th>';
-                                echo '<th>Skor</th>';
+                                echo '<th style="width: 50px !important; text-align: center">Nilai</th>';
+                                echo '<th style="width: 50px !important; text-align: center">Skor</th>';
                               }
                             }
                         }?>
@@ -476,8 +476,8 @@
                     <tbody>
                       <?php $no=0; foreach ($provinces as $key => $value_prov) : $no++?>
                         <tr>
-                          <th scope="row"><?php echo $no?></th>
-                          <th scope="row"><?php echo $value_prov->name?></th>
+                          <th scope="row"  style="background-color: goldenrod;text-align: center"><?php echo $no?></th>
+                          <th scope="row"  style="background-color: goldenrod;"><?php echo $value_prov->name?></th>
                           <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
@@ -528,13 +528,13 @@
                   <table>
                     <thead>
                       <tr style="color: black !important">
-                        <th rowspan="2" style="width: 20px !important">No</th>
-                        <th rowspan="2">Provinsi</th>
+                        <th rowspan="2" style="width: 20px !important; background-color: goldenrod">No</th>
+                        <th rowspan="2" style="background-color: goldenrod;width: 150px">Provinsi</th>
                         <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               $colspan = count($row_pillar) * 2;
-                              echo '<th colspan="'.$colspan.'" align="center">'.$key_pillar.'</th>';
+                              echo '<th colspan="'.$colspan.'" style="background-color: #17345d; text-align: center; color: white" align="center">'.$key_pillar.'</th>';
                             }
                         }?>
                       </tr>
@@ -544,12 +544,12 @@
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               foreach ($row_pillar as $key_indicator => $row_indicator) {
                                 # code...
-                                echo '<th colspan="2" class="rotated" style="white-space: pre-wrap">'.$row_indicator->indicator_code.'<br>'.$row_indicator->indicator_name.'</th>';
+                                echo '<th colspan="2" class="rotated" style="background-color: #17345d; text-align: right; color: white">'.$row_indicator->indicator_code.'<br>'.$row_indicator->indicator_name.'</th>';
                               }
                             }
                         }?>
                       </tr>
-                      <tr style="color: black !important">
+                      <tr style="color: black !important; background-color: goldenrod">
                         <th colspan="2"></th>
                         <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
@@ -566,8 +566,8 @@
                     <tbody>
                       <?php $no=0; foreach ($provinces as $key => $value_prov) : $no++?>
                         <tr>
-                          <th scope="row"><?php echo $no?></th>
-                          <th scope="row"><?php echo $value_prov->name?></th>
+                          <th scope="row"  style="background-color: goldenrod;text-align: center"><?php echo $no?></th>
+                          <th scope="row"  style="background-color: goldenrod;"><?php echo $value_prov->name?></th>
                           <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
@@ -614,7 +614,7 @@
 
 
               <div class="tab-pane fade" id="tab_skor_akhir" role="tabpanel" aria-labelledby="skor_akhir">
-                <p style="font-weight: bold">SKOR AKHIR</p>
+                <p style="font-weight: bold">SKOR PILAR</p>
                 <div class="wrapper">
                   <table>
                     <thead>
@@ -624,8 +624,8 @@
                         <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             $colspan = count($row_subindex);
-                            echo '<th align="center" colspan="'.$colspan.'"><style="width: 50px !important; height: 50px">'.$key_subindex.'</span></th>';
-                        }?>
+                            echo '<th colspan="'.$colspan.'" style="background-color: #17345d; text-align: right; color: white">'.$key_subindex.'</th>';
+                          }?>
                         <th rowspan="2" style="width: 120px">INDEX</th>
                       </tr>
 
@@ -634,7 +634,7 @@
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
                               $colspan = count($row_pillar) * 1;
-                              echo '<th align="center" class="rotated"><style="width: 50px !important; height: 50px">'.$key_pillar.'</span></th>';
+                              echo '<th align="center" class="rotated" style="background-color: #17345d; text-align: right; color: white">'.$key_pillar.'</th>';
                             }
                         }?>
                       </tr>
@@ -642,8 +642,8 @@
                     <tbody>
                       <?php $no=0; foreach ($provinces as $key => $value_prov) : $no++?>
                         <tr>
-                          <th scope="row"><?php echo $no?></th>
-                          <th scope="row"><?php echo $value_prov->name?></th>
+                          <th scope="row"  style="background-color: goldenrod;text-align: center"><?php echo $no?></th>
+                          <th scope="row"  style="background-color: goldenrod;"><?php echo $value_prov->name?></th>
                           <?php 
                           foreach ($header as $key_subindex => $row_subindex) {
                             foreach($row_subindex as $key_pillar => $row_pillar){
@@ -656,12 +656,12 @@
                                 
                                 $count6[$row_indicator->indicator_id][round($score_dt6)][] = 1;
                                 $arr_avg[$value_prov->id][] = $score_dt6;
-                                $count_pillar[$key_pillar][] = $score_dt6;
-                                
+                                $count_pillar[$value_prov->id][$key_pillar][] = $score_dt6;
+
                               }
-                              $avg_pillar = array_sum($count_pillar[$key_pillar])/count($count_pillar[$key_pillar]);
+                              $avg_pillar = array_sum($count_pillar[$value_prov->id][$key_pillar])/count($count_pillar[$value_prov->id][$key_pillar]);
                               $color_code6 = $this->template->color_parameter(round($avg_pillar));
-                              echo '<td style="text-align: center; background: '.$color_code6.'; font-weight: bold">'.number_format($avg_pillar, 2).'</td>';
+                              echo '<td style="text-align: center; background: '.$color_code6.'; font-weight: bold">'.number_format($avg_pillar, 2).' </td>';
                             }
                           }
                           $avg = array_sum($arr_avg[$value_prov->id])/count($arr_avg[$value_prov->id]);
@@ -676,7 +676,59 @@
               </div>
 
               <div class="tab-pane fade" id="tab_ranking" role="tabpanel" aria-labelledby="ranking">
-              Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis.
+                <p style="font-weight: bold">SKOR INDEX</p>
+                <div class="wrapper">
+                  <table>
+                    <thead>
+                      <tr style="color: black !important">
+                        <th style="width: 20px !important">NO</th>
+                        <th>PROVINSI</th>
+                        <?php 
+                          foreach ($header as $key_subindex => $row_subindex) {
+                            $colspan = count($row_subindex);
+                            echo '<th style="max-width: 170px !important; text-align: center">'.strtoupper($key_subindex).'</th>';
+                        }?>
+                        <th style="width: 120px; text-align: center">INDEX</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php $no=0; foreach ($provinces as $key => $value_prov) : $no++?>
+                        <tr>
+                          <th scope="row"  style="background-color: goldenrod;text-align: center"><?php echo $no?></th>
+                          <th scope="row"  style="background-color: goldenrod;"><?php echo $value_prov->name?></th>
+                          <?php 
+                          foreach ($header as $key_subindex => $row_subindex) {
+                            foreach($row_subindex as $key_pillar => $row_pillar){
+                              foreach ($row_pillar as $key_indicator => $row_indicator) {
+
+                                # code...
+                                $getrow = isset($summary[$value_prov->id][$row_indicator->indicator_id])?$summary[$value_prov->id][$row_indicator->indicator_id]:'';
+                                $value_dt7 = isset($getrow->value)?$getrow->value:0;
+                                $score_dt7 = isset($getrow->score)?$getrow->score:0;
+                                
+                                $count7[$row_indicator->indicator_id][round($score_dt7)][] = 1;
+                                $arr_avg[$value_prov->id][] = $score_dt7;
+                                $count_pillar[$key_pillar][] = $score_dt7;
+                                $count_subindex[$value_prov->id][$key_subindex][$key_pillar][] = $score_dt7;
+                                
+                              }
+                              $avg_subindex[$key_subindex][] = array_sum($count_subindex[$value_prov->id][$key_subindex][$key_pillar])/count($count_subindex[$value_prov->id][$key_subindex][$key_pillar]);
+                            }
+                            $avg_sub = array_sum($avg_subindex[$key_subindex])/count($avg_subindex[$key_subindex]);
+                            $arr_avg_sub[$value_prov->id][] = $avg_sub;
+                            $color_code7 = $this->template->color_parameter(round($avg_sub));
+                            echo '<td style="text-align: center; background: '.$color_code7.'; font-weight: bold">'.number_format($avg_sub, 2).'</td>';
+
+                          }
+                          $avg = array_sum($arr_avg_sub[$value_prov->id])/count($arr_avg_sub[$value_prov->id]);
+                          echo '<td style="text-align: center; font-weight: bold">'.number_format($avg, 2).'</td>';
+                        
+                        ?>
+                        </tr>
+                      <?php endforeach;?>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

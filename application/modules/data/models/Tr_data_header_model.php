@@ -21,7 +21,7 @@ class Tr_data_header_model extends CI_Model {
 		$this->db->join('mst_kl','mst_kl.kl_id=tr_data_header.kl_id','left');
 		$this->db->where($this->table.".is_deleted != 'Y'");
 		// session KSP
-		if(!in_array($this->session->userdata('user')->role, array(1,12))){
+		if(!in_array($this->session->userdata('user')->role, array(1,12,14))){
 			$this->db->where($this->table.".kl_id", $this->session->userdata('user')->kl_id);
 		}
 		/*check level user*/

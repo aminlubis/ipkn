@@ -149,7 +149,7 @@ function getScore(key){
                       <input type="text" class="form-control" name="value_<?php echo $row->indicator_id?>" id="value_<?php echo $row->indicator_id?>" style="text-align: right; width: 100px" value="<?php echo $row->value; ?>" onchange="getScore(<?php echo $row->indicator_id?>)">
                     </td>
                     <td style="text-align: center">
-                      <input type="text" class="form-control" name="score_<?php echo $row->indicator_id?>" id="score_<?php echo $row->indicator_id?>" style="text-align: right; width: 100px" value="<?php echo $row->score; ?>" readonly>
+                      <input type="text" class="form-control" name="score_<?php echo $row->indicator_id?>" id="score_<?php echo $row->indicator_id?>" style="text-align: right; width: 100px" value="<?php echo $row->score1; ?>" readonly>
                     </td>
                   </tr>
                   <?php endforeach; ?>

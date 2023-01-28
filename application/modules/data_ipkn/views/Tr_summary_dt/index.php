@@ -169,7 +169,7 @@ tr>*:last-child {
                         # code...
                         $getrow = isset($summary[$value_prov->id][$row_indicator->indicator_id])?$summary[$value_prov->id][$row_indicator->indicator_id]:'';
                         $value_dt = isset($getrow->value)?$getrow->value:0;
-                        $score_dt = isset($getrow->score)?$getrow->score:0;
+                        $score_dt = isset($getrow->score1)?$getrow->score1:0;
                         echo '<td>'.number_format($value_dt, 2).'</td>';
                         echo '<td>'.number_format($score_dt, 2).'</td>';
                       }

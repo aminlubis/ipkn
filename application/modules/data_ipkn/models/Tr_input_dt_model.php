@@ -131,7 +131,7 @@ class Tr_input_dt_model extends CI_Model {
 
 	public function get_formulasi($year, $indicator_id, $entry){
 
-		$query = $this->db->select('MIN(value) as min_val, MAX(value) as max_val, AVG(value) as med_val, indicator_type_value ')
+		$query = $this->db->select('MIN(data1) as min_val, MAX(data1) as max_val, AVG(data1) as med_val, indicator_type_value ')
 					->join('ipkn_mst_indicator','ipkn_mst_indicator.indicator_id=ipkn_tr_data.indicator_id','left')
 					->where('dh_id IN (select dh_id from ipkn_tr_data_header where dh_year = '.$year.') AND value > 0 AND ipkn_tr_data.indicator_id = '.$indicator_id.'')
 					->get('ipkn_tr_data')->row();
@@ -159,15 +159,14 @@ class Tr_input_dt_model extends CI_Model {
 			$data_update[] = array(
 				'data_id' => $row->data_id,
 				'value' => $row->value,
-				'score' => round($score_dt, 2),
+				'data1' => $row->value,
+				'score1' => round($score_dt, 2),
 				'min' => $min,
 				'med' => $med,
 				'max' => $max,
 			);
 		} 
 		$this->db->update_batch('ipkn_tr_data', $data_update, 'data_id'); 
-
-		// echo '<pre>'; print_r($data_update);die;
 		
 		// uupdate master indikator
 		$this->db->where('indicator_id', $indicator_id)->update('ipkn_mst_indicator', array('indicator_min_value' => $min, 'indicator_max_value' => $max, 'indicator_med_value' => $med) );

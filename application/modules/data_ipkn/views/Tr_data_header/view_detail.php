@@ -21,8 +21,8 @@
           <td style="text-align: center"><?php echo $no; ?></td>
           <td><?php echo $value->indicator_code; ?></td>
           <td><?php echo $value->indicator_name; ?></td>
-          <td style="text-align: right"><?php echo number_format($value->value, 2); ?></td>
-          <td style="text-align: right"><?php echo number_format($value->score, 2); ?></td>
+          <td style="text-align: right"><?php echo number_format($value->data1, 2); ?></td>
+          <td style="text-align: right"><?php echo number_format($value->score1, 2); ?></td>
         </tr>
         <?php endforeach; ?>
     </table>

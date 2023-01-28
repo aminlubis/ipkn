@@ -32,7 +32,7 @@ class Tr_input_dt extends MX_Controller {
 
     public function save_row_dt(){
         // save row data
-        $this->db->where(array('data_id' => $_POST['data_id']))->update('ipkn_tr_data', array('value' => $_POST['value'], 'updated_date' => date('Y-m-d H:i:s'), 'updated_by' => $this->session->userdata('user')->fullname));
+        $this->db->where(array('data_id' => $_POST['data_id']))->update('ipkn_tr_data', array('value' => $_POST['value'], 'data1' => $_POST['value'], 'updated_date' => date('Y-m-d H:i:s'), 'updated_by' => $this->session->userdata('user')->fullname));
 
         $this->db->where(array('dh_id' => $_POST['dh_id']))->update('ipkn_tr_data_header', array('updated_date' => date('Y-m-d H:i:s'), 'updated_by' => $this->session->userdata('user')->fullname));
 

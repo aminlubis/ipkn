@@ -129,25 +129,25 @@
           <div class="card-header p-0 pt-1">
             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
               <li class="nav-item">
-              <a class="nav-link active" id="pengisian_data" data-toggle="pill" href="#pengisian_data_tab" role="tab" aria-controls="pengisian_data_tab" aria-selected="true">Pengisian Data</a>
+              <a class="nav-link active" id="pengisian_data" data-toggle="pill" href="#pengisian_data_tab" role="tab" aria-controls="pengisian_data_tab" aria-selected="true">Step 1 (Pengisian Data)</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="formulasi_1" data-toggle="pill" href="#tab_formulasi_1" role="tab" aria-controls="tab_formulasi_1" aria-selected="false">Formulasi 1</a>
+                <a class="nav-link" id="formulasi_1" data-toggle="pill" href="#tab_formulasi_1" role="tab" aria-controls="tab_formulasi_1" aria-selected="false">Step 2</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="formulasi_2" data-toggle="pill" href="#tab_formulasi_2" role="tab" aria-controls="tab_formulasi_2" aria-selected="false">Formulasi 2</a>
+                <a class="nav-link" id="formulasi_2" data-toggle="pill" href="#tab_formulasi_2" role="tab" aria-controls="tab_formulasi_2" aria-selected="false">Step 3</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="formulasi_3" data-toggle="pill" href="#tab_formulasi_3" role="tab" aria-controls="tab_formulasi_3" aria-selected="false">Formulasi 3</a>
+                <a class="nav-link" id="formulasi_3" data-toggle="pill" href="#tab_formulasi_3" role="tab" aria-controls="tab_formulasi_3" aria-selected="false">Step 4</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="formulasi_4" data-toggle="pill" href="#tab_formulasi_4" role="tab" aria-controls="tab_formulasi_4" aria-selected="false">Formulasi 4</a>
+                <a class="nav-link" id="formulasi_4" data-toggle="pill" href="#tab_formulasi_4" role="tab" aria-controls="tab_formulasi_4" aria-selected="false">Skor Akhir</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="skor_akhir" data-toggle="pill" href="#tab_skor_akhir" role="tab" aria-controls="tab_skor_akhir" aria-selected="false">Skor Pilar</a>
+                <a class="nav-link" id="skor_akhir" data-toggle="pill" href="#tab_skor_akhir" role="tab" aria-controls="tab_skor_akhir" aria-selected="false">Skor per Pilar</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="ranking" data-toggle="pill" href="#tab_ranking" role="tab" aria-controls="tab_ranking" aria-selected="false">Skor Index</a>
+                <a class="nav-link" id="ranking" data-toggle="pill" href="#tab_ranking" role="tab" aria-controls="tab_ranking" aria-selected="false">Skor per Index</a>
               </li>
             </ul>
           </div>
@@ -205,7 +205,7 @@
                               foreach ($row_pillar as $key_indicator => $row_indicator) {
                                 # code...
                                 $getrow = isset($summary[$value_prov->id][$row_indicator->indicator_id])?$summary[$value_prov->id][$row_indicator->indicator_id]:'';
-                                $value_dt = isset($getrow->data1)?$getrow->data1:0;
+                                $value_dt = isset($getrow->value)?$getrow->value:0;
                                 $score_dt = isset($getrow->score1)?$getrow->score1:0;
                                 $count[$row_indicator->indicator_id][round($score_dt)][] = 1;
                                 $color_code = $this->template->color_parameter(round($score_dt));
@@ -243,7 +243,7 @@
                 
               </div>
               <div class="tab-pane fade" id="tab_formulasi_1" role="tabpanel" aria-labelledby="formulasi_1">
-                <p style="font-weight: bold">FORMULASI 1</p>
+                <p style="font-weight: bold">STEP 1</p>
                 <div class="wrapper">
                   <table>
                     <thead>
@@ -338,7 +338,7 @@
                 </div>
               </div>
               <div class="tab-pane fade" id="tab_formulasi_2" role="tabpanel" aria-labelledby="formulasi_2">
-                <p style="font-weight: bold">FORMULASI 2</p>
+                <p style="font-weight: bold">STEP 2</p>
                 <div class="wrapper">
                   <table>
                     <thead>
@@ -433,7 +433,7 @@
                 </div>
               </div>
               <div class="tab-pane fade" id="tab_formulasi_3" role="tabpanel" aria-labelledby="formulasi_3">
-                <p style="font-weight: bold">FORMULASI 3</p>
+                <p style="font-weight: bold">STEP 3</p>
                 <div class="wrapper">
                   <table>
                     <thead>
@@ -523,7 +523,7 @@
               </div>
 
               <div class="tab-pane fade" id="tab_formulasi_4" role="tabpanel" aria-labelledby="formulasi_4">
-                <p style="font-weight: bold">FORMULASI 4</p>
+                <p style="font-weight: bold">STEP 4</p>
                 <div class="wrapper">
                   <table>
                     <thead>
@@ -614,7 +614,7 @@
 
 
               <div class="tab-pane fade" id="tab_skor_akhir" role="tabpanel" aria-labelledby="skor_akhir">
-                <p style="font-weight: bold">SKOR PILAR</p>
+                <p style="font-weight: bold">SKOR PER PILAR</p>
                 <div class="wrapper">
                   <table>
                     <thead>
@@ -676,7 +676,7 @@
               </div>
 
               <div class="tab-pane fade" id="tab_ranking" role="tabpanel" aria-labelledby="ranking">
-                <p style="font-weight: bold">SKOR INDEX</p>
+                <p style="font-weight: bold">SKOR PER INDEX</p>
                 <div class="wrapper">
                   <table>
                     <thead>

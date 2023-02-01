@@ -50,6 +50,10 @@ function getScore(key){
       // achtungHideLoader();
       console.log(response);
       $('#score_'+key+'').val(response.score);
+      $('#score1_'+key+'').val(response.score1);
+      $('#score2_'+key+'').val(response.score2);
+      $('#score3_'+key+'').val(response.score3);
+      $('#score4_'+key+'').val(response.score4);
     }
   });
 
@@ -129,8 +133,12 @@ function getScore(key){
                     <th>No</th>
                     <th>Kode</th>
                     <th>Indikator</th>
-                    <th style="text-align: center">Value</th>
-                    <th style="text-align: center">Skor</th>
+                    <th style="text-align: center">Entry</th>
+                    <th style="text-align: center">Step 1</th>
+                    <th style="text-align: center">Step 2</th>
+                    <th style="text-align: center">Step 3</th>
+                    <th style="text-align: center">Step 4</th>
+                    <th style="text-align: center">Skor Akhir</th>
                   </tr>
                   <?php 
                     $no = 0; 
@@ -148,9 +156,24 @@ function getScore(key){
 
                       <input type="text" class="form-control" name="value_<?php echo $row->indicator_id?>" id="value_<?php echo $row->indicator_id?>" style="text-align: right; width: 100px" value="<?php echo $row->value; ?>" onchange="getScore(<?php echo $row->indicator_id?>)">
                     </td>
+                    
                     <td style="text-align: center">
-                      <input type="text" class="form-control" name="score_<?php echo $row->indicator_id?>" id="score_<?php echo $row->indicator_id?>" style="text-align: right; width: 100px" value="<?php echo $row->score1; ?>" readonly>
+                      <input type="text" class="form-control" name="score1_<?php echo $row->indicator_id?>" id="score1_<?php echo $row->indicator_id?>" style="text-align: right; width: 80px" value="<?php echo $row->score1; ?>" readonly>
                     </td>
+                    <td style="text-align: center">
+                      <input type="text" class="form-control" name="score2_<?php echo $row->indicator_id?>" id="score2_<?php echo $row->indicator_id?>" style="text-align: right; width: 80px" value="<?php echo $row->score2; ?>" readonly>
+                    </td>
+                    <td style="text-align: center">
+                      <input type="text" class="form-control" name="score3_<?php echo $row->indicator_id?>" id="score3_<?php echo $row->indicator_id?>" style="text-align: right; width: 80px" value="<?php echo $row->score3; ?>" readonly>
+                    </td>
+                    <td style="text-align: center">
+                      <input type="text" class="form-control" name="score4_<?php echo $row->indicator_id?>" id="score4_<?php echo $row->indicator_id?>" style="text-align: right; width: 80px" value="<?php echo $row->score4; ?>" readonly>
+                    </td>
+
+                    <td style="text-align: center">
+                      <input type="text" class="form-control" name="score_<?php echo $row->indicator_id?>" id="score_<?php echo $row->indicator_id?>" style="text-align: right; width: 100px" value="<?php echo $row->score; ?>" readonly>
+                    </td>
+
                   </tr>
                   <?php endforeach; ?>
               </table>

@@ -9,8 +9,12 @@
           <th>No</th>
           <th>Kode</th>
           <th>Indikator</th>
-          <th>Value</th>
-          <th>Skor</th>
+          <th>Entry</th>
+          <th>Step 1</th>
+          <th>Step 2</th>
+          <th>Step 3</th>
+          <th>Step 4</th>
+          <th>Skor Akhir</th>
         </tr>
         <?php 
           $no = 0; 
@@ -21,8 +25,12 @@
           <td style="text-align: center"><?php echo $no; ?></td>
           <td><?php echo $value->indicator_code; ?></td>
           <td><?php echo $value->indicator_name; ?></td>
-          <td style="text-align: right"><?php echo number_format($value->data1, 2); ?></td>
-          <td style="text-align: right"><?php echo number_format($value->score1, 2); ?></td>
+          <td style="text-align: right; width: 80px"><?php echo number_format($value->value, 2); ?></td>
+          <td style="text-align: right; width: 80px"><?php echo number_format($value->score1, 2); ?></td>
+          <td style="text-align: right; width: 80px"><?php echo number_format($value->score2, 2); ?></td>
+          <td style="text-align: right; width: 80px"><?php echo number_format($value->score3, 2); ?></td>
+          <td style="text-align: right; width: 80px"><?php echo number_format($value->score4, 2); ?></td>
+          <td style="text-align: right; width: 80px"><?php echo number_format($value->score, 2); ?></td>
         </tr>
         <?php endforeach; ?>
     </table>

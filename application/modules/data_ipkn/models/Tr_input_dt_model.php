@@ -129,22 +129,24 @@ class Tr_input_dt_model extends CI_Model {
 		return $exc_qry;
 	}
 
-	public function get_formulasi($year, $indicator_id, $entry){
+	public function get_formulasi($year, $indicator_id, $entry, $data_id){
 
+		// get min max from first data
 		$query = $this->db->select('MIN(data1) as min_val, MAX(data1) as max_val, AVG(data1) as med_val, indicator_type_value ')
 					->join('ipkn_mst_indicator','ipkn_mst_indicator.indicator_id=ipkn_tr_data.indicator_id','left')
 					->where('dh_id IN (select dh_id from ipkn_tr_data_header where dh_year = '.$year.') AND value > 0 AND ipkn_tr_data.indicator_id = '.$indicator_id.'')
 					->get('ipkn_tr_data')->row();
 
-		// get formulasi
+		// define min max and med
         $min = $query->min_val;
         $max = $query->max_val;
         $med = $query->max_val - $query->min_val;
         $value = $entry;
+
 		$exc_score = ($query->indicator_type_value == 'negatif') ? (7-6*(($value-$min)/$med)) : (6*(($value-$min)/$med)+1);
 		$score = ($exc_score > 0)?$exc_score: 0;
 
-		// update score and meta data
+		// update all score and meta data
 		$meta_dt = $this->db
 						->join('ipkn_mst_indicator','ipkn_mst_indicator.indicator_id=ipkn_tr_data.indicator_id','left')
 						->where('dh_id IN (select dh_id from ipkn_tr_data_header where dh_year = '.$year.') AND ipkn_tr_data.indicator_id = '.$indicator_id.'')
@@ -154,9 +156,8 @@ class Tr_input_dt_model extends CI_Model {
 			# code...
 			$curr_value = $row->value;
 			$exc_score = ($row->indicator_type_value == 'negatif') ? (7-6*(($curr_value-$min)/$med)) : (6*(($curr_value-$min)/$med)+1);
-
 			$score_dt = ($exc_score > 0)?$exc_score: 0;
-			$data_update[] = array(
+			$data_score1[] = array(
 				'data_id' => $row->data_id,
 				'value' => $row->value,
 				'data1' => $row->value,
@@ -166,7 +167,12 @@ class Tr_input_dt_model extends CI_Model {
 				'max' => $max,
 			);
 		} 
-		$this->db->update_batch('ipkn_tr_data', $data_update, 'data_id'); 
+		$this->db->update_batch('ipkn_tr_data', $data_score1, 'data_id'); 
+
+		// get skor 2
+		$next_skor = $this->countFunction2($data_score1, $data_id, $query->indicator_type_value);
+		// echo '<pre>'; print_r($data2[$data_id]);die;
+		
 		
 		// uupdate master indikator
 		$this->db->where('indicator_id', $indicator_id)->update('ipkn_mst_indicator', array('indicator_min_value' => $min, 'indicator_max_value' => $max, 'indicator_med_value' => $med) );
@@ -174,9 +180,182 @@ class Tr_input_dt_model extends CI_Model {
 			'min' => $min,
 			'med' => $med,
 			'max' => $max,
-			'score' => round($score, 2),
+			'score1' => round($score, 2),
+			'score2' => round($next_skor['data2']['score2'], 2),
+			'score3' => round($next_skor['data3']['score3'], 2),
+			'score4' => round($next_skor['data4']['score4'], 2),
+			'score5' => round($next_skor['data5']['score5'], 2),
+			'score' => round($next_skor['data5']['score5'], 2),
 		);
 		return $return;
+	}
+
+	public function countFunction2($data, $data_id, $type){
+
+		// data 2
+		foreach ($data as $key => $row) {
+			if($row['med'] > 1000){
+				if($row['value'] > 0){
+					// log
+					$data2 = log($row['value']);
+				}else{
+					$data2 = 0;
+				}
+			}else{
+				$data2 = $row['value'];
+			}
+			$getData[] = $data2;
+			$getDataRow[$row['data_id']] = $data2;
+		}
+
+		sort($getData);
+		$min = min($getData);
+		$max = max($getData);
+		$rentang = $max - $min;
+		// skor 2
+		$skor = [];
+		foreach ($data as $key => $row) {
+			# code...
+			$skor = 6 * (($getDataRow[$row['data_id']] - $min)/$rentang) + 1;
+			$skor = ($skor) ? $skor : 0;
+
+			$data_score2[] = array(
+				'data_id' => $row['data_id'],
+				'data2' => $getDataRow[$row['data_id']],
+				'score2' => round($skor, 2),
+			);
+			$data2_row[$row['data_id']] = array(
+				'data2' => $getDataRow[$row['data_id']],
+				'score2' => round($skor, 2),
+			);
+		}
+		
+		$this->db->update_batch('ipkn_tr_data', $data_score2, 'data_id'); 
+
+		// skor 3
+		// relation to third formulation
+		foreach ($data_score2 as $key => $value) {
+			$round = round($value['score2']);
+			$count_value[$round][] = 1;
+		}
+		for ($i=1; $i < 8; $i++) { 
+			$count_num[$i] = isset($count_value[$i]) ? count($count_value[$i]) : 0;
+			if($i > 2){
+				$for_sum[] = isset($count_value[$i]) ? count($count_value[$i]) : 0;
+			}
+		}
+		// get small n
+		$small = $getData[$count_num[1]];
+		
+		foreach ($data_score2 as $key => $value) {
+			# code...
+			if( ($count_num[2] == 0) && ($count_num[1] <= array_sum($for_sum)) ){
+				$skor3 = 5 * ( ($value['data2']-$small) / ($max-$small) ) + 2;
+			}else{
+				$skor3 = $value['score2'];
+			}
+
+			$getScore3[$value['data_id']] = $skor3;
+
+			$data_score3[] = array(
+				'data_id' => $value['data_id'],
+				'data3' => $getDataRow[$value['data_id']],
+				'score3' => round($skor3, 2),
+			);
+
+			$data3_row[$value['data_id']] = array(
+				'data3' => $getDataRow[$value['data_id']],
+				'score3' => round($skor3, 2),
+			);
+
+		}
+
+		$this->db->update_batch('ipkn_tr_data', $data_score3, 'data_id'); 
+
+
+		// skor 4
+		// relation to fourth formulation
+		foreach ($data_score3 as $key => $value) {
+			$round = round($value['score3']);
+			$count_value[$round][] = 1;
+		}
+		for ($i=1; $i < 8; $i++) { 
+			$count_num[$i] = isset($count_value[$i]) ? count($count_value[$i]) : 0;
+			if($i > 2){
+				$for_sum[] = isset($count_value[$i]) ? count($count_value[$i]) : 0;
+			}
+		}
+		// get large
+		rsort($getData);
+		$large = $getData[$count_num[7]];
+
+		foreach ($data_score3 as $key => $value) {
+			# code...
+			if( ($value['data3'] > $large)){
+				$skor4 = 7;
+			}else{
+				if( $count_num[6] == 0){
+					$skor4 = 5 * ( ($value['data3']-$min) / ($large-$min) ) + 1;
+				}else{
+					$skor4 = $value['score3'];
+				}
+				
+			}
+
+			$getScore4[$value['data_id']] = $skor4;
+
+			$data_score4[] = array(
+				'data_id' => $value['data_id'],
+				'data4' => $getDataRow[$value['data_id']],
+				'score4' => round($skor4, 2),
+			);
+
+			$data4_row[$value['data_id']] = array(
+				'data4' => $getDataRow[$value['data_id']],
+				'score4' => round($skor4, 2),
+			);
+
+		}
+
+		$this->db->update_batch('ipkn_tr_data', $data_score4, 'data_id'); 
+
+		// skor 5
+		foreach ($data_score4 as $key => $value) {
+			# code...
+			if( ($type == 'negatif') ){
+				$skor5 = 8-$value['score4'];
+			}else{
+				$skor5 = $value['score4'];
+			}
+
+			$getScore5[$value['data_id']] = $skor5;
+
+			$data_score5[] = array(
+				'data_id' => $value['data_id'],
+				'data5' => $getDataRow[$value['data_id']],
+				'score5' => round($skor5, 2),
+				'score' => round($skor5, 2),
+			);
+
+			$data5_row[$value['data_id']] = array(
+				'data5' => $getDataRow[$value['data_id']],
+				'score5' => round($skor5, 2),
+			);
+
+		}
+
+		$this->db->update_batch('ipkn_tr_data', $data_score5, 'data_id'); 
+
+		$return = array(
+			'data2' => $data2_row[$data_id],
+			'data3' => $data3_row[$data_id],
+			'data4' => $data4_row[$data_id],
+			'data5' => $data5_row[$data_id],
+		);
+		// echo '<pre>'; print_r($return);die;
+		
+		return $return;
+
 	}
 
 

@@ -37,7 +37,7 @@ class Tr_input_dt extends MX_Controller {
         $this->db->where(array('dh_id' => $_POST['dh_id']))->update('ipkn_tr_data_header', array('updated_date' => date('Y-m-d H:i:s'), 'updated_by' => $this->session->userdata('user')->fullname));
 
         // get formulasi
-        $result = $this->Tr_input_dt->get_formulasi($_POST['year'], $_POST['indicator_id'], $_POST['value']);
+        $result = $this->Tr_input_dt->get_formulasi($_POST['year'], $_POST['indicator_id'], $_POST['value'], $_POST['data_id']);
         echo json_encode($result);
 
     }

@@ -217,7 +217,7 @@ function tambah_file()
         <div class="form-group row">
           <label class="col-form-label col-md-3">&nbsp;</label>
           <div class="col-md-3">
-          <img src="data:image/jpeg;base64,<?php echo isset($value)?base64_encode($value->report_cover):''?>"/>
+          <img style="max-width: 100px" src="data:image/jpeg;base64,<?php echo isset($value)?base64_encode($value->report_cover):''?>"/>
           </div>
         </div>
 

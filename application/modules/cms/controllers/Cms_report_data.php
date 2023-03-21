@@ -123,12 +123,12 @@ class Cms_report_data extends MX_Controller {
     //    print_r($_FILES);die;
         $this->load->library('form_validation');
         $val = $this->form_validation;
-        $val->set_rules('title', 'Judul', 'trim|required');
-        $val->set_rules('owner', 'Author', 'trim|required');
-        $val->set_rules('description', 'Deskripsi', 'trim|required');
+        $val->set_rules('title', 'Judul', 'trim');
+        $val->set_rules('owner', 'Author', 'trim');
+        $val->set_rules('description', 'Deskripsi', 'trim');
         $val->set_rules('report_type', 'Kategori Data', 'trim|required');
         // $val->set_rules('count_view', 'Jumlah Viewer', 'trim|required');
-        $val->set_rules('publish_date', 'Tgl Publish', 'trim|required');
+        $val->set_rules('publish_date', 'Tgl Publish', 'trim');
 
         $val->set_message('required', "Silahkan isi field \"%s\"");
 
